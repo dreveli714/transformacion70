@@ -471,7 +471,14 @@ function toggleHelp(){document.getElementById('helpOv').classList.toggle('show')
 /* --- API --- */
 async function load(){try{
 const r=await fetch(API);const j=await r.json();if(!j.ok)throw new Error();
-S=j;calc();document.getElementById('nav').style.display='';render();checkTrofeos();
+S=j;
+// Safety: ensure new v2 fields exist even if backend hasn't been updated
+S.retosDiarios=S.retosDiarios||[];
+S.validaciones=S.validaciones||[];
+S.predicciones=S.predicciones||[];
+try{calc()}catch(err){document.getElementById('main').innerHTML=
+'<div class="c"><h2>⚠️ Error en cálculos</h2><p style="font-size:.8rem;color:var(--rojo);word-break:break-all">'+err.message+'<br>'+err.stack+'</p><button class="btn" onclick="location.reload()">Reintentar</button></div>';return}
+document.getElementById('nav').style.display='';render();checkTrofeos();
 }catch(e){document.getElementById('main').innerHTML=
 '<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}}
 async function send(a,d){const r=await fetch(API,{method:'POST',body:JSON.stringify({accion:a,datos:d})});return r.json()}
