@@ -1,310 +1,394 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0A0A0F">
 <title>Transformación 70</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
-  --bg:#FBF6EF; --card:#FFFFFF; --texto:#2A2138; --texto2:#7A6F8A;
-  --linea:#EFE6DA; --acento:#E85D4A; --acento2:#F2A93B; --exito:#2FA37C;
-  --sombra:0 6px 24px rgba(42,33,56,.08); --radio:22px;
-  --oro:#F2A93B; --plata:#B8B3C7; --bronce:#C98A5B;
+--bg:#0A0A0F;--card:#161620;--card2:#1E1E2E;--borde:#2A2A3A;
+--lime:#C8FF00;--rojo:#FF4757;--naranja:#FF9F43;--verde:#2ED573;--azul:#6CB4EE;
+--txt:#FFFFFF;--txt2:#8E8E93;--txt3:#555;
+--r:16px;--sombra:0 4px 20px rgba(0,0,0,.4);
 }
-[data-theme="dark"]{
-  --bg:#1C1526; --card:#2A2138; --texto:#F5EFE6; --texto2:#A99DBD;
-  --linea:#3C3150; --sombra:0 6px 24px rgba(0,0,0,.35);
+[data-theme=light]{
+--bg:#F5F5F7;--card:#FFFFFF;--card2:#F0F0F5;--borde:#E0E0E5;
+--txt:#1A1A2E;--txt2:#8E8E93;--txt3:#BBB;
+--sombra:0 4px 20px rgba(0,0,0,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{font-size:17px}
-body{
-  font-family:'Nunito',sans-serif;background:var(--bg);color:var(--texto);
-  min-height:100vh;padding-bottom:96px;transition:background .3s,color .3s;
-}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
-  background:radial-gradient(600px 300px at 90% -50px, rgba(232,93,74,.12), transparent),
-             radial-gradient(500px 260px at -10% 30%, rgba(242,169,59,.10), transparent);
-}
-.app{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:18px 16px}
+html{font-size:16px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);
+min-height:100vh;padding-bottom:88px;transition:background .3s,color .3s}
+.app{max-width:480px;margin:0 auto;padding:14px 14px}
 
-/* ---------- Cabecera ---------- */
-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.logo{font-family:'Fraunces',serif;font-weight:900;font-size:1.45rem;letter-spacing:-.5px}
-.logo span{color:var(--acento)}
-.tema-btn{
-  border:none;background:var(--card);box-shadow:var(--sombra);width:44px;height:44px;
-  border-radius:50%;font-size:1.2rem;cursor:pointer;
-}
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 2px}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:-.5px}
+.logo span{color:var(--lime)}
+.hdr-btns{display:flex;gap:8px}
+.hdr-btn{border:none;background:var(--card);border:1px solid var(--borde);width:40px;height:40px;
+border-radius:12px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
 
-/* ---------- Tarjetas ---------- */
-.card{
-  background:var(--card);border-radius:var(--radio);box-shadow:var(--sombra);
-  padding:20px;margin-bottom:16px;border:1px solid var(--linea);
-  animation:aparecer .5s ease both;
-}
-@keyframes aparecer{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.card:nth-child(2){animation-delay:.06s}.card:nth-child(3){animation-delay:.12s}
-.card:nth-child(4){animation-delay:.18s}.card:nth-child(5){animation-delay:.24s}
-h2{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;margin-bottom:12px}
-.sub{color:var(--texto2);font-size:.85rem;font-weight:700}
+/* Cards */
+.c{background:var(--card);border-radius:var(--r);border:1px solid var(--borde);
+padding:16px;margin-bottom:12px;animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.c:nth-child(2){animation-delay:.05s}.c:nth-child(3){animation-delay:.1s}
+.c:nth-child(4){animation-delay:.15s}.c:nth-child(5){animation-delay:.2s}
+h2{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;
+display:flex;align-items:center;gap:8px}
+.tag{font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:99px;background:var(--lime);
+color:#0A0A0F;text-transform:uppercase;letter-spacing:.5px}
+.tag.rojo{background:var(--rojo);color:#fff}
+.tag.naranja{background:var(--naranja);color:#0A0A0F}
 
-/* ---------- Inicio: día ---------- */
-.dia-grande{text-align:center;padding:26px 20px}
-.dia-num{font-family:'Fraunces',serif;font-size:3.6rem;font-weight:900;line-height:1;color:var(--acento)}
-.dia-de{font-size:1rem;color:var(--texto2);font-weight:800;margin-top:4px}
-.barra-fondo{height:14px;background:var(--linea);border-radius:99px;margin:18px 0 8px;overflow:hidden}
-.barra-relleno{
-  height:100%;border-radius:99px;transition:width 1.2s cubic-bezier(.2,.8,.2,1);
-  background:linear-gradient(90deg,var(--acento2),var(--acento));
-}
-.mini-datos{display:flex;justify-content:space-around;margin-top:14px}
-.mini-dato{text-align:center}
-.mini-dato b{display:block;font-size:1.25rem;font-family:'Fraunces',serif}
-.mini-dato span{font-size:.72rem;color:var(--texto2);font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+/* Day Hero */
+.hero{text-align:center;padding:22px 16px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;
+border-radius:50%;background:var(--lime);opacity:.06}
+.dia-n{font-family:'Space Grotesk',sans-serif;font-size:3.4rem;font-weight:700;line-height:1;
+background:linear-gradient(135deg,var(--lime),var(--verde));-webkit-background-clip:text;
+-webkit-text-fill-color:transparent}
+.dia-sub{font-size:.85rem;color:var(--txt2);font-weight:700;margin-top:2px}
+.barra-bg{height:8px;background:var(--card2);border-radius:99px;margin:14px 0 6px;overflow:hidden}
+.barra-fg{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--lime),var(--verde));
+transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.mini-row{display:flex;justify-content:space-around;margin-top:10px}
+.mini-item{text-align:center}
+.mini-item b{display:block;font-size:1.15rem;font-family:'Space Grotesk',sans-serif}
+.mini-item span{font-size:.6rem;color:var(--txt2);font-weight:800;text-transform:uppercase;letter-spacing:.5px}
 
-.banner{
-  border-radius:var(--radio);padding:14px 18px;margin-bottom:16px;font-weight:800;
-  display:flex;align-items:center;gap:10px;font-size:.95rem;
-  background:linear-gradient(120deg,var(--acento),var(--acento2));color:#fff;
-  box-shadow:0 8px 24px rgba(232,93,74,.35);animation:latido 2.4s ease-in-out infinite;
-}
-@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}
-.banner.final{background:linear-gradient(120deg,#6C3FB5,#E85D4A)}
+/* Banner/Wall */
+.wall{border-radius:var(--r);padding:12px 16px;margin-bottom:12px;font-weight:800;font-size:.9rem;
+display:flex;align-items:center;gap:10px;border:1px solid;animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.85}}
+.wall.fire{background:rgba(200,255,0,.08);border-color:rgba(200,255,0,.3);color:var(--lime)}
+.wall.warn{background:rgba(255,71,87,.08);border-color:rgba(255,71,87,.3);color:var(--rojo)}
+.wall.crown{background:rgba(255,159,67,.08);border-color:rgba(255,159,67,.3);color:var(--naranja)}
+.wall.info{background:rgba(108,180,238,.08);border-color:rgba(108,180,238,.3);color:var(--azul)}
 
-.frase{
-  font-family:'Fraunces',serif;font-size:1.12rem;font-weight:700;font-style:italic;
-  text-align:center;padding:6px 8px;line-height:1.45;
-}
-.frase::before{content:'“';color:var(--acento);font-size:1.5rem}
-.frase::after{content:'”';color:var(--acento);font-size:1.5rem}
+.frase{font-size:.95rem;font-weight:700;font-style:italic;text-align:center;padding:8px;
+line-height:1.45;color:var(--txt2)}
+.frase b{color:var(--lime)}
 
-/* ---------- Ranking ---------- */
-.fila-rank{
-  display:flex;align-items:center;gap:12px;padding:12px 8px;border-radius:16px;
-  transition:transform .3s;
-}
-.fila-rank:not(:last-child){border-bottom:1px dashed var(--linea)}
-.medalla{font-size:1.5rem;width:38px;text-align:center;flex-shrink:0}
-.avatar{
-  width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;
-  border:3px solid var(--pc,var(--acento));background:var(--pc,var(--acento));
-  color:#fff;display:flex;align-items:center;justify-content:center;
-  font-weight:900;font-size:1.2rem;overflow:hidden;
-}
-.avatar img{width:100%;height:100%;object-fit:cover}
+/* Ranking */
+.rank-row{display:flex;align-items:center;gap:10px;padding:10px 6px;border-radius:12px;transition:transform .3s}
+.rank-row:not(:last-child){border-bottom:1px solid var(--borde)}
+.medal{font-size:1.4rem;width:32px;text-align:center;flex-shrink:0}
+.av{width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;
+justify-content:center;font-weight:900;font-size:1.1rem;overflow:hidden;
+border:2.5px solid var(--pc,var(--lime));color:#0A0A0F;background:var(--pc,var(--lime))}
+.av img{width:100%;height:100%;object-fit:cover}
+.av.sm{width:34px;height:34px;font-size:.9rem;border-width:2px}
 .rank-info{flex:1;min-width:0}
-.rank-nombre{font-weight:900;font-size:1.02rem}
-.rank-detalle{font-size:.78rem;color:var(--texto2);font-weight:700}
-.rank-puntos{font-family:'Fraunces',serif;font-weight:900;font-size:1.15rem;text-align:right}
-.rank-puntos small{display:block;font-family:'Nunito';font-size:.65rem;color:var(--texto2);font-weight:800}
+.rank-name{font-weight:900;font-size:.95rem}
+.rank-det{font-size:.72rem;color:var(--txt2);font-weight:700}
+.rank-pts{font-family:'Space Grotesk';font-weight:700;font-size:1.1rem;text-align:right;color:var(--lime)}
+.rank-pts small{display:block;font-family:'Inter';font-size:.6rem;color:var(--txt2);font-weight:800}
 
-/* ---------- Botones ---------- */
-.btn{
-  display:block;width:100%;border:none;border-radius:18px;padding:17px;
-  font-family:'Nunito';font-size:1.05rem;font-weight:900;cursor:pointer;
-  background:var(--acento);color:#fff;box-shadow:0 6px 18px rgba(232,93,74,.3);
-  transition:transform .15s;margin-top:10px;
-}
+/* Duel */
+.duel{display:flex;align-items:center;justify-content:space-around;padding:16px 8px;text-align:center}
+.duel-player{flex:1}
+.duel-player .av{margin:0 auto 6px;width:56px;height:56px;font-size:1.4rem}
+.duel-player b{font-size:.9rem;display:block}
+.duel-player .pts{font-family:'Space Grotesk';font-size:1.4rem;color:var(--lime);margin-top:2px}
+.duel-vs{font-family:'Space Grotesk';font-size:1.6rem;font-weight:700;color:var(--rojo);
+flex-shrink:0;width:50px}
+
+/* Premios */
+.premio{display:flex;align-items:center;gap:10px;padding:10px 4px}
+.premio:not(:last-child){border-bottom:1px solid var(--borde)}
+.premio-ico{font-size:1.4rem;width:30px;text-align:center;flex-shrink:0}
+.premio-txt{flex:1;min-width:0}
+.premio-txt b{display:block;font-size:.88rem}
+.premio-txt span{font-size:.68rem;color:var(--txt2);font-weight:700}
+.premio-gana{font-weight:900;font-size:.85rem;color:var(--lime)}
+
+/* Buttons */
+.btn{display:block;width:100%;border:none;border-radius:14px;padding:15px;
+font-family:'Inter';font-size:1rem;font-weight:900;cursor:pointer;
+background:var(--lime);color:#0A0A0F;transition:transform .12s;margin-top:8px}
 .btn:active{transform:scale(.97)}
-.btn.sec{background:var(--card);color:var(--texto);border:2px solid var(--linea);box-shadow:none}
-.btn.exito{background:var(--exito);box-shadow:0 6px 18px rgba(47,163,124,.3)}
-.btn:disabled{opacity:.5}
+.btn:disabled{opacity:.4}
+.btn.sec{background:var(--card2);color:var(--txt);border:1px solid var(--borde)}
+.btn.danger{background:var(--rojo);color:#fff}
+.btn.sm{padding:10px 16px;font-size:.85rem;width:auto;display:inline-block;margin:4px}
 
-/* ---------- Registrar ---------- */
-.quien{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.persona-card{
-  background:var(--card);border-radius:var(--radio);border:2px solid var(--linea);
-  padding:20px 12px;text-align:center;cursor:pointer;box-shadow:var(--sombra);
-  transition:transform .15s,border-color .15s;
-}
-.persona-card:active{transform:scale(.95)}
-.persona-card .avatar{width:72px;height:72px;margin:0 auto 10px;font-size:1.8rem}
-.persona-card b{font-size:1.05rem}
-.accion-card{
-  display:flex;align-items:center;gap:14px;background:var(--card);border-radius:var(--radio);
-  border:1px solid var(--linea);padding:18px;margin-bottom:12px;cursor:pointer;
-  box-shadow:var(--sombra);transition:transform .15s;
-}
-.accion-card:active{transform:scale(.97)}
-.accion-icono{font-size:1.9rem;width:52px;height:52px;border-radius:16px;display:flex;
-  align-items:center;justify-content:center;background:var(--bg);flex-shrink:0}
-.accion-txt{flex:1}
-.accion-txt b{display:block;font-size:1.02rem}
-.accion-txt span{font-size:.8rem;color:var(--texto2);font-weight:700}
-.accion-check{font-size:1.3rem}
-.destacada{border:2px solid var(--acento);animation:latido 2.4s ease-in-out infinite}
+/* User selector */
+.users-bar{display:flex;gap:10px;justify-content:center;padding:12px 0;margin-bottom:8px}
+.user-pick{text-align:center;cursor:pointer;transition:transform .15s}
+.user-pick:active{transform:scale(.92)}
+.user-pick .av{margin:0 auto 4px;transition:box-shadow .2s}
+.user-pick b{font-size:.72rem;display:block}
+.user-pick.on .av{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--lime)}
+.user-pick.on b{color:var(--lime)}
 
-.toggle-fila{display:flex;align-items:center;justify-content:space-between;padding:14px 4px}
-.toggle-fila:not(:last-child){border-bottom:1px dashed var(--linea)}
-.toggle-fila label{font-weight:800;font-size:1rem}
-.si-no{display:flex;gap:8px}
-.si-no button{
-  border:2px solid var(--linea);background:var(--card);border-radius:14px;
-  padding:10px 20px;font-family:'Nunito';font-weight:900;font-size:.95rem;cursor:pointer;color:var(--texto);
-}
-.si-no button.on{background:var(--exito);border-color:var(--exito);color:#fff}
-.si-no button.on.no{background:var(--texto2);border-color:var(--texto2)}
-.animos{display:flex;gap:10px;justify-content:center}
-.animos button{
-  font-size:1.9rem;background:var(--card);border:2px solid var(--linea);
-  border-radius:16px;width:62px;height:62px;cursor:pointer;transition:transform .15s;
-}
-.animos button.on{border-color:var(--acento);background:var(--bg);transform:scale(1.12)}
-input[type=number],input[type=text]{
-  width:100%;padding:15px;border-radius:16px;border:2px solid var(--linea);
-  background:var(--bg);color:var(--texto);font-family:'Nunito';font-weight:800;
-  font-size:1.2rem;text-align:center;margin-top:6px;
-}
-input:focus{outline:none;border-color:var(--acento)}
-.campo{margin-bottom:14px}
-.campo>label{font-weight:800;font-size:.85rem;color:var(--texto2)}
-.volver{background:none;border:none;color:var(--texto2);font-family:'Nunito';
-  font-weight:800;font-size:.9rem;cursor:pointer;padding:6px 0;margin-bottom:8px}
+/* Reto diario */
+.reto-card{text-align:center;padding:20px;position:relative;overflow:hidden}
+.reto-card::after{content:'';position:absolute;top:-30px;left:-30px;width:100px;height:100px;
+border-radius:50%;background:var(--lime);opacity:.04}
+.reto-ico{font-size:2.4rem;display:block;margin-bottom:8px}
+.reto-tipo{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+color:var(--lime);margin-bottom:6px}
+.reto-desc{font-size:1.1rem;font-weight:900;line-height:1.35}
+.reto-done{background:rgba(46,213,115,.1);border:1px solid rgba(46,213,115,.3)}
+.reto-done .reto-desc{color:var(--verde)}
 
-/* ---------- Trofeos ---------- */
-.trofeos-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.trofeo{
-  background:var(--card);border-radius:18px;border:1px solid var(--linea);
-  padding:14px 8px;text-align:center;box-shadow:var(--sombra);
-}
-.trofeo .ico{font-size:2rem;display:block;margin-bottom:6px}
-.trofeo b{font-size:.72rem;display:block;line-height:1.25}
-.trofeo span{font-size:.62rem;color:var(--texto2);font-weight:700;display:block;margin-top:3px}
-.trofeo.bloqueado{opacity:.35;filter:grayscale(1)}
-.trofeo.nuevo{animation:brillo 1.2s ease 3}
-@keyframes brillo{0%,100%{box-shadow:var(--sombra)}50%{box-shadow:0 0 24px var(--acento2)}}
-.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none}
+.lockout{text-align:center;padding:20px}
+.lockout-time{font-family:'Space Grotesk';font-size:2rem;color:var(--lime);margin:8px 0}
+.lockout .sub{color:var(--txt2);font-size:.85rem;font-weight:700}
+
+/* Pesaje warning */
+.pesaje-warn{border:2px solid var(--rojo);animation:pulse 1.5s ease-in-out infinite}
+
+/* Toggle */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 4px}
+.toggle-row:not(:last-child){border-bottom:1px solid var(--borde)}
+.toggle-row label{font-weight:800;font-size:.95rem}
+.yn{display:flex;gap:6px}
+.yn button{border:1.5px solid var(--borde);background:var(--card2);border-radius:12px;
+padding:9px 18px;font-family:'Inter';font-weight:900;font-size:.9rem;cursor:pointer;color:var(--txt)}
+.yn button.on{background:var(--lime);border-color:var(--lime);color:#0A0A0F}
+.yn button.on.no{background:var(--rojo);border-color:var(--rojo);color:#fff}
+
+.moods{display:flex;gap:8px;justify-content:center}
+.moods button{font-size:1.7rem;background:var(--card2);border:1.5px solid var(--borde);
+border-radius:14px;width:56px;height:56px;cursor:pointer;transition:transform .15s}
+.moods button.on{border-color:var(--lime);background:var(--card);transform:scale(1.1)}
+
+input[type=number],input[type=text]{width:100%;padding:13px;border-radius:14px;border:1.5px solid var(--borde);
+background:var(--card2);color:var(--txt);font-family:'Inter';font-weight:800;font-size:1.15rem;text-align:center}
+input:focus{outline:none;border-color:var(--lime)}
+.campo{margin-bottom:12px}
+.campo>label{font-weight:800;font-size:.8rem;color:var(--txt2)}
+
+/* Trofeos */
+.trofeos-g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.trofeo{background:var(--card2);border-radius:14px;border:1px solid var(--borde);
+padding:12px 6px;text-align:center}
+.trofeo .ico{font-size:1.8rem;display:block;margin-bottom:4px}
+.trofeo b{font-size:.68rem;display:block;line-height:1.2}
+.trofeo span{font-size:.58rem;color:var(--txt2);font-weight:700;display:block;margin-top:2px}
+.trofeo.lock{opacity:.25;filter:grayscale(1)}
+.trofeo.nuevo{animation:glow 1s ease 3}
+@keyframes glow{0%,100%{box-shadow:none}50%{box-shadow:0 0 20px var(--lime)}}
+
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:10px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{
-  flex-shrink:0;border:2px solid var(--linea);background:var(--card);border-radius:99px;
-  padding:9px 18px;font-family:'Nunito';font-weight:900;font-size:.9rem;cursor:pointer;color:var(--texto);
-}
-.chip.on{background:var(--texto);color:var(--bg);border-color:var(--texto)}
+.chip{flex-shrink:0;border:1.5px solid var(--borde);background:var(--card2);border-radius:99px;
+padding:8px 16px;font-weight:900;font-size:.82rem;cursor:pointer;color:var(--txt)}
+.chip.on{background:var(--lime);color:#0A0A0F;border-color:var(--lime)}
 
-/* ---------- Estadísticas ---------- */
-.numeros{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.numero{
-  background:var(--bg);border-radius:16px;padding:14px;text-align:center;
-}
-.numero b{font-family:'Fraunces',serif;font-size:1.5rem;display:block}
-.numero span{font-size:.68rem;color:var(--texto2);font-weight:800;text-transform:uppercase;letter-spacing:.4px}
-.pista{position:relative;padding:8px 0 8px}
-.carril{position:relative;height:56px;margin-bottom:8px;background:var(--bg);border-radius:14px;overflow:hidden}
-.carril .meta-linea{position:absolute;right:12px;top:0;bottom:0;display:flex;align-items:center;font-size:1.2rem}
-.corredor{
-  position:absolute;top:5px;left:0;transition:left 1.4s cubic-bezier(.2,.8,.2,1);
-  display:flex;align-items:center;gap:6px;
-}
-.corredor .avatar{width:46px;height:46px}
-.corredor small{font-weight:900;font-size:.75rem;background:var(--card);padding:3px 8px;border-radius:8px;box-shadow:var(--sombra)}
-.anillos{display:flex;justify-content:space-around;text-align:center}
-.anillo-item span{font-size:.75rem;font-weight:800;display:block;margin-top:4px}
-.calendario{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-.cal-dia{
-  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
-  background:var(--bg);border-radius:10px;font-size:1.05rem;
-}
-.cal-dia.vacio{opacity:.25;font-size:.7rem;font-weight:800;color:var(--texto2)}
+/* Stats */
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.num{background:var(--card2);border-radius:14px;padding:12px;text-align:center}
+.num b{font-family:'Space Grotesk';font-size:1.4rem;display:block;color:var(--lime)}
+.num span{font-size:.62rem;color:var(--txt2);font-weight:800;text-transform:uppercase;letter-spacing:.4px}
 canvas{max-width:100%}
 
-/* ---------- Navegación ---------- */
-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:50;
-  background:var(--card);border-top:1px solid var(--linea);
-  display:flex;justify-content:space-around;padding:8px 6px calc(10px + env(safe-area-inset-bottom));
-  box-shadow:0 -6px 24px rgba(42,33,56,.08);
-}
-nav button{
-  background:none;border:none;font-family:'Nunito';cursor:pointer;color:var(--texto2);
-  display:flex;flex-direction:column;align-items:center;gap:2px;
-  font-size:.68rem;font-weight:900;padding:6px 14px;border-radius:14px;
-}
-nav button .nav-ico{font-size:1.5rem;transition:transform .2s}
-nav button.on{color:var(--acento)}
-nav button.on .nav-ico{transform:translateY(-3px) scale(1.15)}
+/* Race */
+.lane{position:relative;height:50px;margin-bottom:6px;background:var(--card2);border-radius:12px;overflow:hidden}
+.lane .finish{position:absolute;right:10px;top:0;bottom:0;display:flex;align-items:center;font-size:1.1rem}
+.runner{position:absolute;top:4px;left:0;transition:left 1.4s cubic-bezier(.2,.8,.2,1);
+display:flex;align-items:center;gap:5px}
+.runner .av{width:42px;height:42px}
+.runner small{font-weight:900;font-size:.7rem;background:var(--card);padding:2px 7px;border-radius:8px}
 
-/* ---------- Cargando / aviso ---------- */
+/* Rings */
+.rings{display:flex;justify-content:space-around;text-align:center}
+.ring-item span{font-size:.7rem;font-weight:800;display:block;margin-top:3px}
+
+/* Calendar */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-d{aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+background:var(--card2);border-radius:8px;font-size:.95rem}
+.cal-d.empty{opacity:.2;font-size:.65rem;font-weight:800;color:var(--txt2)}
+
+/* Help overlay */
+.help-overlay{position:fixed;inset:0;z-index:100;background:var(--bg);overflow-y:auto;
+padding:20px 16px 100px;display:none}
+.help-overlay.show{display:block}
+.help-close{border:none;background:var(--card);border:1px solid var(--borde);border-radius:12px;
+width:40px;height:40px;font-size:1.2rem;cursor:pointer;color:var(--txt);float:right}
+.faq{border:1px solid var(--borde);border-radius:14px;margin-bottom:8px;overflow:hidden}
+.faq-q{padding:14px;font-weight:900;font-size:.9rem;cursor:pointer;display:flex;
+justify-content:space-between;align-items:center;background:var(--card)}
+.faq-a{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;
+font-size:.85rem;color:var(--txt2);font-weight:600;line-height:1.5;background:var(--card2)}
+.faq.open .faq-a{max-height:500px;padding:12px 14px}
+.faq.open .faq-q .arrow{transform:rotate(180deg)}
+.arrow{transition:transform .3s;font-size:.8rem}
+
+/* Validation popup */
+.val-card{border:2px solid var(--naranja);background:rgba(255,159,67,.05)}
+.val-card .av{margin:0 auto 8px}
+
+/* Nav */
+nav{position:fixed;bottom:0;left:0;right:0;z-index:50;background:var(--card);
+border-top:1px solid var(--borde);display:flex;justify-content:space-around;
+padding:6px 4px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+nav button{background:none;border:none;cursor:pointer;color:var(--txt2);
+display:flex;flex-direction:column;align-items:center;gap:1px;
+font-size:.6rem;font-weight:900;padding:5px 12px;border-radius:12px;font-family:'Inter'}
+nav button .ni{font-size:1.4rem;transition:transform .2s}
+nav button.on{color:var(--lime)}
+nav button.on .ni{transform:translateY(-2px) scale(1.1)}
+
+/* Toast */
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:200;
+background:var(--lime);color:#0A0A0F;padding:11px 20px;border-radius:99px;
+font-weight:900;font-size:.85rem;box-shadow:var(--sombra);white-space:nowrap;animation:drop .3s ease}
+@keyframes drop{from{opacity:0;transform:translate(-50%,-14px)}to{opacity:1;transform:translate(-50%,0)}}
+.confetti{position:fixed;top:-10px;z-index:199;font-size:1.1rem;animation:fall 2.5s linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.5}}
+
 .cargando{text-align:center;padding:80px 20px}
-.cargando .giro{
-  width:52px;height:52px;border-radius:50%;margin:0 auto 18px;
-  border:5px solid var(--linea);border-top-color:var(--acento);animation:girar 1s linear infinite;
-}
+.spin{width:44px;height:44px;border-radius:50%;margin:0 auto 16px;
+border:4px solid var(--borde);border-top-color:var(--lime);animation:girar 1s linear infinite}
 @keyframes girar{to{transform:rotate(360deg)}}
-.aviso{
-  position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;
-  background:var(--texto);color:var(--bg);padding:13px 22px;border-radius:99px;
-  font-weight:900;font-size:.9rem;box-shadow:var(--sombra);white-space:nowrap;
-  animation:bajar .35s ease;
-}
-@keyframes bajar{from{opacity:0;transform:translate(-50%,-16px)}to{opacity:1;transform:translate(-50%,0)}}
-.confeti{position:fixed;top:-12px;z-index:99;font-size:1.2rem;animation:caer 2.8s linear forwards;pointer-events:none}
-@keyframes caer{to{transform:translateY(110vh) rotate(720deg);opacity:.6}}
-.corona-semana{text-align:center;padding:10px 0 4px}
-.corona-semana .ico{font-size:2.6rem}
-.corona-semana b{display:block;font-family:'Fraunces',serif;font-size:1.3rem;margin-top:4px}
 
-/* ---------- Premios semanales ---------- */
-.avatar.mini{width:34px;height:34px;font-size:.95rem;border-width:2px}
-.premio-fila{display:flex;align-items:center;gap:11px;padding:11px 2px}
-.premio-fila:not(:last-of-type){border-bottom:1px dashed var(--linea)}
-.premio-ico{font-size:1.6rem;width:34px;text-align:center;flex-shrink:0}
-.premio-txt{flex:1;min-width:0}
-.premio-txt b{display:block;font-size:.95rem;font-weight:900}
-.premio-txt span{font-size:.72rem;color:var(--texto2);font-weight:700}
-.premio-gana{display:flex;gap:8px;flex-shrink:0}
-.gana-uno{text-align:center}
-.gana-uno small{display:block;font-size:.62rem;font-weight:900;margin-top:2px}
-.sem-ranking{margin-top:14px;padding-top:14px;border-top:1px solid var(--linea)}
-.sem-fila{display:flex;align-items:center;gap:9px;padding:5px 0}
-.sem-pos{font-family:'Fraunces',serif;font-weight:900;width:16px;color:var(--texto2)}
-.sem-nom{font-weight:800;font-size:.85rem;width:66px;flex-shrink:0}
-.sem-barra{flex:1;height:9px;background:var(--linea);border-radius:99px;overflow:hidden}
-.sem-barra i{display:block;height:100%;border-radius:99px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
-.sem-pts{font-weight:900;font-size:.85rem;width:26px;text-align:right}
-.historial{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none}
-.historial::-webkit-scrollbar{display:none}
-.hist-item{text-align:center;flex-shrink:0}
-.hist-item b{display:block;font-size:.72rem;margin-top:3px}
-.hist-item span{font-size:.66rem;color:var(--texto2);font-weight:800}
+/* Photo input */
+.foto-area{display:flex;gap:8px;margin-top:8px}
+.foto-btn{flex:1;border:2px dashed var(--borde);border-radius:14px;padding:14px;text-align:center;
+cursor:pointer;background:var(--card2);transition:border-color .2s}
+.foto-btn:active{border-color:var(--lime)}
+.foto-btn .ico{font-size:1.6rem;display:block;margin-bottom:4px}
+.foto-btn span{font-size:.75rem;font-weight:800;color:var(--txt2)}
+.foto-preview{width:100%;border-radius:12px;margin-top:8px;display:none}
 </style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <div class="logo">Transformación <span>70</span></div>
-    <button class="tema-btn" id="temaBtn" onclick="cambiarTema()">🌙</button>
-  </header>
-  <main id="contenido">
-    <div class="cargando"><div class="giro"></div><b>Cargando el reto…</b></div>
-  </main>
+<header>
+<div class="logo">T<span>70</span></div>
+<div class="hdr-btns">
+<button class="hdr-btn" onclick="toggleHelp()">❓</button>
+<button class="hdr-btn" id="tBtn" onclick="toggleTheme()">☀️</button>
 </div>
-<nav id="navBar" style="display:none">
-  <button data-v="inicio" class="on" onclick="ir('inicio')"><span class="nav-ico">🏠</span>Inicio</button>
-  <button data-v="registrar" onclick="ir('registrar')"><span class="nav-ico">✍️</span>Registrar</button>
-  <button data-v="trofeos" onclick="ir('trofeos')"><span class="nav-ico">🏆</span>Trofeos</button>
-  <button data-v="stats" onclick="ir('stats')"><span class="nav-ico">📊</span>Estadísticas</button>
+</header>
+<main id="main"><div class="cargando"><div class="spin"></div><b>Cargando…</b></div></main>
+</div>
+
+<nav id="nav" style="display:none">
+<button data-v="inicio" class="on" onclick="go('inicio')"><span class="ni">🏠</span>Inicio</button>
+<button data-v="midia" onclick="go('midia')"><span class="ni">⚔️</span>Mi Día</button>
+<button data-v="trofeos" onclick="go('trofeos')"><span class="ni">🏆</span>Trofeos</button>
+<button data-v="stats" onclick="go('stats')"><span class="ni">📊</span>Stats</button>
 </nav>
 
-<script>
-/* ============================================================
-   TRANSFORMACIÓN 70 — App
-   Backend: Google Apps Script + Google Sheets
-   ============================================================ */
-const API = 'https://script.google.com/macros/s/AKfycby2PXJeYmO5PMbffI35_-hqi6-pYfqtV8-rO1hA06vJxTLwvAyCPFwmt7p2TSx24WZQ5w/exec';
+<div class="help-overlay" id="helpOv">
+<button class="help-close" onclick="toggleHelp()">✕</button>
+<h2 style="margin-bottom:14px;font-size:1.2rem">📖 Cómo funciona</h2>
+<div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🎯 ¿Qué hago cada día? <span class="arrow">▼</span></div>
+<div class="faq-a">Abres la app, ves tu reto del día (uno diferente cada día durante 70 días). Lo cumples y lo validas de dos formas: subes una foto de prueba o pides que las otras 3 voten si te creen. Ganas entre 2 y 6 puntos aleatorios. Tu racha crece cada día que lo hagas.</div></div>
+<div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">⚖️ ¿Qué hago cada lunes? <span class="arrow">▼</span></div>
+<div class="faq-a">Te pesas y mides tu cintura. Antes de hacerlo puedes apostar si bajaste, subiste o te mantuviste — si aciertas ganas 3 puntos extra. Si no pesas en toda la semana pierdes 5 puntos.</div></div>
+<div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">⚔️ ¿Qué son los duelos? <span class="arrow">▼</span></div>
+<div class="faq-a">Cada semana te toca competir 1 vs 1 contra otra participante. Las parejas rotan. Ganar el duelo suma 3 puntos al ranking general. Perder no suma nada. Empate: 1 punto cada una.</div></div>
+<div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🔥 ¿Qué es la racha? <span class="arrow">▼</span></div>
+<div class="faq-a">Cada día consecutivo que completas tu reto diario, tu racha crece. Si la rompes después de 7 días consecutivos, pierdes 3 puntos. Bonos: 7 días = +5 pts, 21 días = +15 pts, 50 días = +30 pts.</div></div>
+<div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">👑 ¿Cómo se gana la corona? <span class="arrow">▼</span></div>
+<div class="faq-a">La que más puntos suma en la semana es la Reina. Pero cuidado: si la Reina pierde su duelo la semana siguiente, le roban la corona.</div></div>
 
-const FRASES = [
+<div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">📸 ¿Cómo valido mi reto? <span class="arrow">▼</span></div>
+<div class="faq-a">Dos opciones: (1) Sube una foto de prueba que se guarda automáticamente. (2) Pide validación y las otras 3 votan si te creen. Si 2 de 3 dicen que sí, se aprueba.</div></div>
+<div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">➖ ¿Puedo perder puntos? <span class="arrow">▼</span></div>
+<div class="faq-a">Sí. No pesar el lunes: −5. Romper racha de 7+ días: −3. No cumplir reto semanal: −2. Subir de peso 2 semanas seguidas: −3.</div></div>
+<div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🏆 ¿Quién gana al final? <span class="arrow">▼</span></div>
+<div class="faq-a">50% la clasificación de la app + 50% un voto anónimo donde cada una vota a la que más cambió físicamente (sin votarse a sí misma).</div></div>
+</div>
+
+<script>
+const API='https://script.google.com/macros/s/AKfycby2PXJeYmO5PMbffI35_-hqi6-pYfqtV8-rO1hA06vJxTLwvAyCPFwmt7p2TSx24WZQ5w/exec';
+
+const RETOS_DIA=[
+{d:1,t:'💧',c:'Agua',r:'Beber 8 vasos de agua hoy'},
+{d:2,t:'👟',c:'Ejercicio',r:'Caminar 15 minutos sin parar'},
+{d:3,t:'🥗',c:'Dieta',r:'No comer pan en todo el día'},
+{d:4,t:'💪',c:'Ejercicio',r:'Hacer 10 sentadillas (con silla si necesitas)'},
+{d:5,t:'🥗',c:'Dieta',r:'Cenar antes de las 8 PM'},
+{d:6,t:'👟',c:'Ejercicio',r:'Subir y bajar escaleras 3 veces'},
+{d:7,t:'🥗',c:'Dieta',r:'Desayunar fruta en vez de pan'},
+{d:8,t:'🎉',c:'Divertido',r:'Bailar una canción entera sin parar 💃'},
+{d:9,t:'🥗',c:'Dieta',r:'No tomar ninguna bebida azucarada'},
+{d:10,t:'👟',c:'Ejercicio',r:'Caminar 20 minutos'},
+{d:11,t:'💧',c:'Agua',r:'Beber un vaso de agua antes de cada comida'},
+{d:12,t:'🥗',c:'Dieta',r:'Comer ensalada en la comida o la cena'},
+{d:13,t:'💪',c:'Ejercicio',r:'Hacer 15 abdominales (en la cama vale)'},
+{d:14,t:'🥗',c:'Dieta',r:'No picar nada entre comidas'},
+{d:15,t:'👟',c:'Ejercicio',r:'Caminar al mandado en vez de ir en coche'},
+{d:16,t:'🥗',c:'Dieta',r:'Comer una fruta como postre en vez de dulce'},
+{d:17,t:'💪',c:'Ejercicio',r:'Hacer 10 minutos de estiramientos al despertar'},
+{d:18,t:'🥗',c:'Dieta',r:'No comer nada frito hoy'},
+{d:19,t:'💧',c:'Agua',r:'Beber 2.5 litros de agua'},
+{d:20,t:'👟',c:'Ejercicio',r:'Subir escaleras en vez de elevador todo el día'},
+{d:21,t:'🥗',c:'Dieta',r:'Comer solo la mitad de lo que te sirvas en la cena'},
+{d:22,t:'🎉',c:'Divertido',r:'Bailar dos canciones seguidas 💃💃'},
+{d:23,t:'🥗',c:'Dieta',r:'No repetir plato en ninguna comida'},
+{d:24,t:'💪',c:'Ejercicio',r:'Hacer 20 sentadillas'},
+{d:25,t:'🥗',c:'Dieta',r:'Cenar solo una sopa o ensalada'},
+{d:26,t:'👟',c:'Ejercicio',r:'Caminar 25 minutos sin parar'},
+{d:27,t:'🥗',c:'Dieta',r:'No comer harinas en todo el día'},
+{d:28,t:'💧',c:'Agua',r:'Tomar un té o infusión en vez de refresco'},
+{d:29,t:'💪',c:'Ejercicio',r:'Hacer 3 series de 10 sentadillas con descanso'},
+{d:30,t:'🥗',c:'Dieta',r:'No comer después de las 7 PM'},
+{d:31,t:'💧',c:'Agua',r:'Beber 3 litros de agua hoy'},
+{d:32,t:'👟',c:'Ejercicio',r:'Caminar 30 minutos'},
+{d:33,t:'🥗',c:'Dieta',r:'Desayunar avena o cereal sin azúcar'},
+{d:34,t:'💪',c:'Ejercicio',r:'Hacer 20 abdominales'},
+{d:35,t:'🥗',c:'Dieta',r:'Cocinar algo al vapor o a la plancha (nada frito)'},
+{d:36,t:'🎉',c:'Divertido',r:'Bailar tres canciones seguidas 💃🔥'},
+{d:37,t:'🥗',c:'Dieta',r:'No comer azúcar en ninguna forma'},
+{d:38,t:'👟',c:'Ejercicio',r:'Caminar 20 min + subir escaleras 5 veces'},
+{d:39,t:'🥗',c:'Dieta',r:'Comer verduras en las tres comidas'},
+{d:40,t:'💪',c:'Ejercicio',r:'Hacer 15 flexiones (de rodillas vale)'},
+{d:41,t:'🥗',c:'Dieta',r:'No comer nada de bolsa o empaquetado'},
+{d:42,t:'💧',c:'Agua',r:'Beber un vaso de agua tibia con limón al despertar'},
+{d:43,t:'💪',c:'Ejercicio',r:'Hacer 30 sentadillas'},
+{d:44,t:'🥗',c:'Dieta',r:'Comer pescado o pollo a la plancha (sin empanizar)'},
+{d:45,t:'👟',c:'Ejercicio',r:'Caminar 35 minutos sin parar'},
+{d:46,t:'🥗',c:'Dieta',r:'No comer pan ni tortilla en todo el día'},
+{d:47,t:'💪',c:'Ejercicio',r:'10 minutos de yoga o estiramientos antes de dormir'},
+{d:48,t:'🥗',c:'Dieta',r:'Cenar solo fruta hoy'},
+{d:49,t:'🎉',c:'Divertido',r:'Bailar 4 canciones seguidas sin parar 💃💃'},
+{d:50,t:'💧',c:'Agua',r:'Solo agua hoy, nada de jugos ni refrescos'},
+{d:51,t:'👟',c:'Ejercicio',r:'Caminar 40 minutos'},
+{d:52,t:'🥗',c:'Dieta',r:'No comer nada con azúcar añadida'},
+{d:53,t:'💪',c:'Ejercicio',r:'Hacer 25 abdominales + 25 sentadillas'},
+{d:54,t:'🥗',c:'Dieta',r:'Comer ensalada como plato principal'},
+{d:55,t:'👟',c:'Ejercicio',r:'Subir y bajar escaleras 10 veces'},
+{d:56,t:'🥗',c:'Dieta',r:'Preparar tu comida en casa (no comprar fuera)'},
+{d:57,t:'💧',c:'Agua',r:'Beber 3 litros de agua + té de noche'},
+{d:58,t:'💪',c:'Ejercicio',r:'Caminar 30 min + hacer 20 sentadillas'},
+{d:59,t:'🥗',c:'Dieta',r:'No comer nada después de las 6 PM'},
+{d:60,t:'💪',c:'Ejercicio',r:'Hacer 20 flexiones + 30 abdominales'},
+{d:61,t:'🥗',c:'Dieta',r:'Día 100% limpio: verdura, proteína y agua'},
+{d:62,t:'🎉',c:'Divertido',r:'Bailar 5 canciones. Sí, cinco 💃💃💃'},
+{d:63,t:'👟',c:'Ejercicio',r:'Caminar 45 minutos'},
+{d:64,t:'🥗',c:'Dieta',r:'Solo proteína y verduras hoy (cero carbos)'},
+{d:65,t:'💪',c:'Ejercicio',r:'Hacer 40 sentadillas'},
+{d:66,t:'🥗',c:'Dieta',r:'Nada frito ni empanizado en todo el día'},
+{d:67,t:'💧',c:'Agua',r:'Beber agua en cada comida y entre comidas (mínimo 10 vasos)'},
+{d:68,t:'👟',c:'Ejercicio',r:'Caminar 45 min + escaleras 10 veces'},
+{d:69,t:'⭐',c:'Total',r:'Día perfecto: agua + ejercicio + cena ligera + sin azúcar'},
+{d:70,t:'🏁',c:'Final',r:'¡Último reto! Caminar 1 hora completa como guerrera 🏆'}
+];
+
+const FRASES=[
 "El primer paso ya lo diste. Ahora solo sigue caminando.",
 "Tu cuerpo puede. Es tu mente la que necesita convencerse.",
 "No estás a dieta. Estás en una misión.",
 "Hoy alguien en este reto va a dar un paso más que ayer. ¿Serás tú?",
 "70 días para demostrar de qué estás hecha.",
 "El espejo aún no lo sabe, pero tú ya estás cambiando.",
-"Cada vaso de agua cuenta. Cada paso cuenta. Todo suma.",
-"Las que abandonan nunca ganan. Las que ganan nunca abandonan.",
+"Cada vaso de agua cuenta. Cada paso cuenta.",
+"Las que abandonan nunca ganan.",
 "Mañana te lo agradecerás.",
 "Hoy no se trata de ser perfecta. Se trata de no rendirse.",
 "¿Ya viste el ranking? Aún puedes subir.",
@@ -314,767 +398,651 @@ const FRASES = [
 "Tu próximo trofeo está a punto de desbloquearse.",
 "No compitas con las demás. Compite con la que eras hace una semana.",
 "El agua es tu mejor aliada. ¿Ya bebiste hoy?",
-"Cada lunes es una nueva oportunidad de sorprenderte.",
+"Cada lunes es una nueva oportunidad.",
 "El cambio no se ve en un día. Pero un día lo verás.",
-"¿Sabías que cada día que registras, sumas puntos?",
 "Las guerreras no se rinden en la mitad.",
-"Tu cintura se está encogiendo. Tu fuerza está creciendo.",
+"Tu cintura se encoge. Tu fuerza crece.",
 "Hoy es un buen día para ganar puntos.",
 "Si llegaste hasta aquí, puedes llegar hasta el final.",
 "Cada kilo perdido es una victoria ganada.",
-"No te pesas por obligación. Te pesas por curiosidad de ver cuánto has logrado.",
-"La mejor versión de ti está a unos días de distancia.",
+"La mejor versión de ti está a unos días.",
 "Esto no es una dieta. Es tu transformación.",
-"Las que registran sus datos, ganan. Así de simple.",
-"¿Hoy hiciste ejercicio? Tu cuerpo lo recordará mañana.",
-"Faltan pocos días. No es momento de aflojar.",
+"Las que registran, ganan. Así de simple.",
 "Eres más fuerte de lo que piensas.",
 "El reto no es fácil. Por eso vale la pena.",
-"¿Ya desbloqueaste tu próximo trofeo? Ve a comprobarlo.",
 "Hoy puedes ser la Reina de la Semana.",
 "Los resultados no mienten. Y los tuyos van bien.",
-"Una semana más completada. Una semana más cerca.",
 "El mejor ejercicio es el que haces. El peor es el que dejas para mañana.",
-"Tu familia te está viendo transformarte. Eso inspira.",
+"Tu familia te está viendo transformarte.",
 "No importa si hoy fue difícil. Importa que no te rendiste.",
-"Beber agua es el truco más simple y el más poderoso.",
 "La meta no es llegar flaca. Es llegar fuerte.",
 "¿Quién será la Reina esta semana? Depende de ti.",
-"Cada check-in diario es un ladrillo más en tu transformación.",
 "No viniste a participar. Viniste a ganar.",
-"Recta final. Ahora es cuando se decide todo.",
+"Recta final. Todo se decide ahora.",
 "Has demostrado que puedes. Ahora demuestra que no paras.",
-"El último kilómetro es siempre el más difícil. Y el más glorioso.",
 "Mira dónde empezaste. Mira dónde estás.",
 "Lo lograste. Los 70 días son tuyos."
 ];
 
-const TROFEOS = [
- {id:'primera_batalla', ico:'⚔️', nombre:'Primera Batalla', desc:'Primer pesaje registrado'},
- {id:'primer_kilo',     ico:'🥇', nombre:'Primer Kilo', desc:'Perder 1 kg'},
- {id:'tres_kilos',      ico:'🔥', nombre:'Tres Kilos', desc:'Perder 3 kg'},
- {id:'cinco_kilos',     ico:'💎', nombre:'Cinco Kilos', desc:'Perder 5 kg'},
- {id:'cintura_acero',   ico:'📏', nombre:'Cintura de Acero', desc:'−3 cm de cintura'},
- {id:'racha_7',         ico:'🔥', nombre:'Racha de 7', desc:'7 días seguidos'},
- {id:'racha_21',        ico:'⭐', nombre:'Racha de 21', desc:'21 días seguidos'},
- {id:'racha_50',        ico:'🌟', nombre:'Racha de 50', desc:'50 días seguidos'},
- {id:'guerrera_agua',   ico:'💧', nombre:'Guerrera del Agua', desc:'14 días seguidos con agua'},
- {id:'reina',           ico:'👑', nombre:'Reina de la Semana', desc:'Ganar una semana'},
- {id:'doble_corona',    ico:'👑', nombre:'Doble Corona', desc:'Ganar 2 semanas'},
- {id:'imbatible',       ico:'🏆', nombre:'Imbatible', desc:'3 semanas seguidas'},
- {id:'constancia',      ico:'❤️', nombre:'Constancia Perfecta', desc:'Ningún lunes sin pesaje'},
- {id:'retadora',        ico:'💪', nombre:'Retadora', desc:'Cumplir 5 retos'},
- {id:'completa',        ico:'🎯', nombre:'La Completa', desc:'Cumplir los 10 retos'},
- {id:'transformacion',  ico:'🦋', nombre:'Transformación Total', desc:'Mayor cambio al final'}
+const TROFEOS=[
+{id:'primera_batalla',i:'⚔️',n:'Primera Batalla',d:'Primer pesaje'},
+{id:'primer_kilo',i:'🥇',n:'Primer Kilo',d:'Perder 1 kg'},
+{id:'tres_kilos',i:'🔥',n:'Tres Kilos',d:'Perder 3 kg'},
+{id:'cinco_kilos',i:'💎',n:'Cinco Kilos',d:'Perder 5 kg'},
+{id:'cintura_acero',i:'📏',n:'Cintura de Acero',d:'−3 cm cintura'},
+{id:'racha_7',i:'🔥',n:'Racha de 7',d:'7 días seguidos'},
+{id:'racha_21',i:'⭐',n:'Racha de 21',d:'21 días seguidos'},
+{id:'racha_50',i:'🌟',n:'Racha de 50',d:'50 días seguidos'},
+{id:'guerrera_agua',i:'💧',n:'Guerrera del Agua',d:'14 días con agua'},
+{id:'reina',i:'👑',n:'Reina',d:'Ganar una semana'},
+{id:'doble_corona',i:'👑',n:'Doble Corona',d:'2 semanas'},
+{id:'imbatible',i:'🏆',n:'Imbatible',d:'3 semanas seguidas'},
+{id:'constancia',i:'❤️',n:'Constancia',d:'Sin faltar pesaje'},
+{id:'retadora',i:'💪',n:'Retadora',d:'5 retos semanales'},
+{id:'completa',i:'🎯',n:'La Completa',d:'10 retos'},
+{id:'transformacion',i:'🦋',n:'Transformación',d:'Mayor cambio'}
 ];
 
-let S = null;      // datos crudos del Sheet
-let C = null;      // datos calculados
-let vista = 'inicio';
-let yoId = null;   // participante seleccionada en "Registrar"
-let statSel = 0;   // 0 = grupo, o id de participante
-let trofeoSel = 1; // participante mostrada en trofeos
-let charts = [];
+const DUELOS=[[1,2,3,4],[1,3,2,4],[1,4,2,3]]; // pares: [a,b,c,d] → a vs b, c vs d
+const nombreCol={1:'carmen',2:'rosa',3:'laly',4:'dany'};
 
-/* -------------------- utilidades -------------------- */
-function guardaLocal(k,v){ try{localStorage.setItem(k,v)}catch(e){} }
-function leeLocal(k){ try{return localStorage.getItem(k)}catch(e){return null} }
-function hoyISO(){
-  const d = new Date();
-  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-}
-function fechaISO(d){
-  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-}
-function num(v){ const n = parseFloat(v); return isNaN(n) ? null : n; }
-function esVerdad(v){ return v === true || v === 'TRUE' || v === 'true' || v === 1; }
-function fotoURL(link){
-  if(!link) return null;
-  const m = String(link).match(/[-\w]{25,}/);
-  return m ? 'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w200' : null;
-}
-function avatarHTML(p, extra){
-  const f = fotoURL(p.foto);
-  const dentro = f ? '<img src="'+f+'" alt="" onerror="this.remove()">' : p.nombre.charAt(0);
-  return '<div class="avatar '+(extra||'')+'" style="--pc:'+p.color+'">'+dentro+'</div>';
-}
-function aviso(txt){
-  const el = document.createElement('div');
-  el.className = 'aviso'; el.textContent = txt;
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(), 2600);
-}
-function confeti(){
-  const emojis = ['🎉','✨','⭐','🏆','💛','🧡'];
-  for(let i=0;i<26;i++){
-    const s = document.createElement('div');
-    s.className = 'confeti';
-    s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    s.style.left = (Math.random()*100)+'vw';
-    s.style.animationDelay = (Math.random()*0.8)+'s';
-    s.style.fontSize = (0.9+Math.random()*1.1)+'rem';
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(), 3800);
-  }
-}
-function cambiarTema(){
-  const html = document.documentElement;
-  const nuevo = html.dataset.theme === 'light' ? 'dark' : 'light';
-  html.dataset.theme = nuevo;
-  document.getElementById('temaBtn').textContent = nuevo === 'light' ? '🌙' : '☀️';
-  guardaLocal('t70_tema', nuevo);
-  render();
-}
+let S=null,G=null,vista='inicio',yoId=null,trofSel=1,statSel=0,charts=[];
 
-/* -------------------- carga de datos -------------------- */
-async function cargar(){
-  try{
-    const r = await fetch(API);
-    const j = await r.json();
-    if(!j.ok) throw new Error(j.error||'Respuesta inválida');
-    S = j.datos;
-    calcular();
-    document.getElementById('navBar').style.display = '';
-    render();
-    celebrarReina();
-    detectarTrofeosNuevos();
-  }catch(e){
-    document.getElementById('contenido').innerHTML =
-      '<div class="card" style="text-align:center"><div style="font-size:2.4rem">😕</div>'+
-      '<h2>No se pudo conectar</h2><p class="sub">Revisa tu conexión a internet e inténtalo de nuevo.</p>'+
-      '<button class="btn" onclick="location.reload()">Reintentar</button></div>';
-  }
-}
-async function enviar(accion, datos){
-  const r = await fetch(API, { method:'POST', body: JSON.stringify({accion, datos}) });
-  const j = await r.json();
-  if(!j.ok) throw new Error(j.error||'Error al guardar');
-  return j;
-}
+/* --- Utils --- */
+const sav=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const hoy=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const n=v=>{const x=parseFloat(v);return isNaN(x)?null:x};
+const bool=v=>v===true||v==='TRUE'||v==='true'||v===1;
+const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w200':null};
+function avHTML(p,cls){const f=fotoUrl(p.foto);
+return `<div class="av ${cls||''}" style="--pc:${p.color}">${f?'<img src="'+f+'" onerror="this.remove()">':p.nombre[0]}</div>`}
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
+function confeti(){const em=['🎉','✨','⭐','🏆','💛','🧡'];for(let i=0;i<24;i++){
+const s=document.createElement('div');s.className='confetti';s.textContent=em[Math.floor(Math.random()*em.length)];
+s.style.left=(Math.random()*100)+'vw';s.style.animationDelay=(Math.random()*.7)+'s';
+s.style.fontSize=(.8+Math.random())+'rem';document.body.appendChild(s);setTimeout(()=>s.remove(),3500)}}
+function proximoLunes(){const d=new Date();const diff=(8-d.getDay())%7||7;d.setDate(d.getDate()+diff);
+return d.getDate()+'/'+(d.getMonth()+1)}
+function toggleTheme(){const h=document.documentElement;const nw=h.dataset.theme==='light'?'':'light';
+h.dataset.theme=nw;document.getElementById('tBtn').textContent=nw?'🌙':'☀️';sav('t70t',nw);render()}
+function toggleHelp(){document.getElementById('helpOv').classList.toggle('show')}
 
-/* -------------------- cálculos -------------------- */
-function calcular(){
-  const cfg = {};
-  (S.config||[]).forEach(f => cfg[f.clave] = f.valor);
-  const inicioStr = String(cfg.fecha_inicio||'2026-07-21').slice(0,10);
-  const inicio = new Date(inicioStr+'T00:00:00');
-  const total = Number(cfg.dias_totales)||70;
-  const hoy = new Date(hoyISO()+'T00:00:00');
-  let dia = Math.floor((hoy - inicio)/86400000) + 1;
-  const empezo = dia >= 1;
-  dia = Math.min(Math.max(dia,1), total);
-  const semana = Math.min(Math.ceil(dia/7), 10);
-  const esLunes = new Date().getDay() === 1;
+/* --- API --- */
+async function load(){try{
+const r=await fetch(API);const j=await r.json();if(!j.ok)throw new Error();
+S=j;calc();document.getElementById('nav').style.display='';render();checkTrofeos();
+}catch(e){document.getElementById('main').innerHTML=
+'<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}}
+async function send(a,d){const r=await fetch(API,{method:'POST',body:JSON.stringify({accion:a,datos:d})});return r.json()}
 
-  // fecha de cada día del reto
-  const fechaDia = d => { const x = new Date(inicio); x.setDate(x.getDate()+d-1); return fechaISO(x); };
+/* --- Calculations --- */
+function calc(){
+const cfg={};(S.config||[]).forEach(f=>cfg[f.clave]=f.valor);
+const inicioStr=String(cfg.fecha_inicio||'2026-07-21').slice(0,10);
+const inicio=new Date(inicioStr+'T00:00:00');
+const total=Number(cfg.dias_totales)||70;
+const hoyD=new Date(hoy()+'T00:00:00');
+let dia=Math.floor((hoyD-inicio)/864e5)+1;
+const empezo=dia>=1;dia=Math.min(Math.max(dia,1),total);
+const semana=Math.min(Math.ceil(dia/7),10);
+const esLunes=new Date().getDay()===1;
+const fechaDia=d=>{const x=new Date(inicio);x.setDate(x.getDate()+d-1);return hoyF(x)};
+function hoyF(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 
-  const nombreCol = {1:'carmen',2:'rosa',3:'laly',4:'dany'};
-  const P = (S.participantes||[]).map(p => {
-    const id = Number(p.id);
-    const pes = (S.pesajes||[]).filter(x=>Number(x.participante_id)===id && num(x.peso)!==null)
-                 .sort((a,b)=>String(a.fecha).localeCompare(String(b.fecha)));
-    const chk = (S.checkins||[]).filter(x=>Number(x.participante_id)===id);
-    const chkMap = {}; chk.forEach(c=>chkMap[String(c.fecha).slice(0,10)] = c);
+const P=(S.participantes||[]).map(p=>{
+const id=Number(p.id);
+const pes=(S.pesajes||[]).filter(x=>Number(x.participante_id)===id&&n(x.peso)!==null).sort((a,b)=>String(a.fecha).localeCompare(String(b.fecha)));
+const rd=(S.retosDiarios||[]).filter(x=>Number(x.participante_id)===id);
+const rdMap={};rd.forEach(r=>rdMap[String(r.fecha).slice(0,10)]=r);
 
-    const pesoIni = num(p.peso_inicial) ?? (pes.length ? num(pes[0].peso) : null);
-    const cintIni = num(p.cintura_inicial) ?? (pes.length ? num(pes[0].cintura) : null);
-    const ult = pes.length ? pes[pes.length-1] : null;
-    const pesoAct = ult ? num(ult.peso) : pesoIni;
-    const cintAct = ult && num(ult.cintura)!==null ? num(ult.cintura) : cintIni;
-    const pesos = pes.map(x=>num(x.peso)).filter(x=>x!==null);
-    const kg = (pesoIni!==null && pesoAct!==null) ? +(pesoIni-pesoAct).toFixed(1) : 0;
-    const pct = (pesoIni && kg) ? +(kg/pesoIni*100).toFixed(2) : 0;
-    const cm = (cintIni!==null && cintAct!==null) ? +(cintIni-cintAct).toFixed(1) : 0;
-    const cmPct = (cintIni && cm) ? +(cm/cintIni*100).toFixed(2) : 0;
+const pesoIni=n(p.peso_inicial)??(pes.length?n(pes[0].peso):null);
+const cintIni=n(p.cintura_inicial)??(pes.length?n(pes[0].cintura):null);
+const ult=pes.length?pes[pes.length-1]:null;
+const pesoAct=ult?n(ult.peso):pesoIni;
+const cintAct=ult&&n(ult.cintura)!==null?n(ult.cintura):cintIni;
+const kg=(pesoIni!==null&&pesoAct!==null)?+(pesoIni-pesoAct).toFixed(1):0;
+const pct=(pesoIni&&kg)?+(kg/pesoIni*100).toFixed(2):0;
+const cm=(cintIni!==null&&cintAct!==null)?+(cintIni-cintAct).toFixed(1):0;
+const cmPct=(cintIni&&cm)?+(cm/cintIni*100).toFixed(2):0;
 
-    // racha: días consecutivos con check-in terminando hoy o ayer
-    let racha = 0;
-    { const d = new Date(hoy);
-      if(!chkMap[fechaISO(d)]) d.setDate(d.getDate()-1);
-      while(chkMap[fechaISO(d)]){ racha++; d.setDate(d.getDate()-1); } }
-    // mejor racha de agua consecutiva
-    let aguaRacha = 0, aguaMax = 0;
-    for(let d=1; d<=dia; d++){
-      const c = chkMap[fechaDia(d)];
-      if(c && esVerdad(c.agua)){ aguaRacha++; aguaMax = Math.max(aguaMax,aguaRacha); }
-      else aguaRacha = 0;
-    }
-    const retosOK = (S.retos||[]).filter(r=>esVerdad(r[nombreCol[id]])).length;
-    const objetivo = num(p.objetivo_kg);
+// Racha de retos diarios completados
+let racha=0;{const d=new Date(hoyD);
+if(!rdMap[hoyF(d)]||!bool(rdMap[hoyF(d)].completado))d.setDate(d.getDate()-1);
+while(rdMap[hoyF(d)]&&bool(rdMap[hoyF(d)].completado)){racha++;d.setDate(d.getDate()-1)}}
+// Mejor racha histórica
+let bestRacha=0,tempR=0;
+for(let d=1;d<=dia;d++){const r=rdMap[fechaDia(d)];
+if(r&&bool(r.completado)){tempR++;bestRacha=Math.max(bestRacha,tempR)}else tempR=0}
 
-    return { ...p, id, pes, chkMap, pesoIni, cintIni, pesoAct, cintAct,
-      kg, pct, cm, cmPct, racha, aguaMax, retosOK, objetivo,
-      pesoMin: pesos.length?Math.min(...pesos):null, pesoMax: pesos.length?Math.max(...pesos):null,
-      diasReg: Object.keys(chkMap).length };
-  });
+// Puntos de retos diarios
+let ptsRetos=rd.filter(r=>bool(r.completado)).reduce((s,r)=>s+(Number(r.puntos)||0),0);
+// Bonos de racha
+if(bestRacha>=7)ptsRetos+=5;if(bestRacha>=21)ptsRetos+=15;if(bestRacha>=50)ptsRetos+=30;
 
-  // ---- puntos por semana + reinas ----
-  const semanas = [];
-  for(let w=1; w<=semana; w++){
-    const d1 = (w-1)*7+1, d2 = Math.min(w*7, total);
-    const fechas = []; for(let d=d1; d<=Math.min(d2, dia); d++) fechas.push(fechaDia(d));
-    const pesoW = {}, filas = [];
-    P.forEach(p=>{
-      const enSem = p.pes.filter(x=>{
-        const f = String(x.fecha).slice(0,10);
-        return f >= fechaDia(d1) && f <= fechaDia(d2);
-      });
-      const antes = p.pes.filter(x=>String(x.fecha).slice(0,10) < fechaDia(d1));
-      const pAntes = antes.length ? num(antes[antes.length-1].peso) : num(p.peso_inicial);
-      const pSem = enSem.length ? num(enSem[enSem.length-1].peso) : null;
-      pesoW[p.id] = (pAntes!==null && pSem!==null && pAntes>0) ? Math.max(0,(pAntes-pSem)/pAntes*100) : 0;
-    });
-    const mejorPeso = Math.max(...Object.values(pesoW), 0.0001);
-    P.forEach(p=>{
-      const dias = fechas.filter(f=>p.chkMap[f]).length;
-      const agua = fechas.filter(f=>p.chkMap[f] && esVerdad(p.chkMap[f].agua)).length;
-      const ejer = fechas.filter(f=>p.chkMap[f] && esVerdad(p.chkMap[f].ejercicio)).length;
-      const reto = (S.retos||[]).find(r=>Number(r.semana)===w);
-      const retoOK = reto ? esVerdad(reto[nombreCol[p.id]]) : false;
-      const pts = Math.round(
-        (pesoW[p.id]/mejorPeso)*25 + (dias/fechas.length||0)*25 +
-        (retoOK?25:0) + (agua/fechas.length||0)*15 + (Math.min(ejer,3)/3)*10 );
-      filas.push({id:p.id, pts, retoOK, dias, agua, ejer, pctPeso:+pesoW[p.id].toFixed(2)});
-    });
-    filas.sort((a,b)=>b.pts-a.pts);
-    const terminada = dia > d2;
-    // gana quien tenga el valor más alto (puede haber empate)
-    const gana = campo => {
-      const max = Math.max(...filas.map(f=>f[campo]));
-      return max > 0 ? filas.filter(f=>f[campo]===max).map(f=>f.id) : [];
-    };
-    semanas.push({ w, filas, terminada, d1, d2,
-      premios: { corona: gana('pts'), peso: gana('pctPeso'),
-                 constancia: gana('dias'), agua: gana('agua') },
-      reina: (terminada && filas[0].pts>0) ? filas[0].id : null });
-  }
-  P.forEach(p=>{
-    p.coronas = semanas.filter(s=>s.reina===p.id).length;
-    let seg=0, maxSeg=0;
-    semanas.forEach(s=>{ if(s.reina===p.id){seg++; maxSeg=Math.max(maxSeg,seg)} else if(s.terminada) seg=0; });
-    p.coronasSeguidas = maxSeg;
-  });
+const retosOK=(S.retos||[]).filter(r=>bool(r[nombreCol[id]])).length;
+// Penalidades
+let penalidad=0;
+// -5 por lunes sin pesaje (semanas completas sin peso)
+for(let w=1;w<semana;w++){
+const d1=(w-1)*7+1,d2=w*7;
+const tienePeso=pes.some(x=>{const f=String(x.fecha).slice(0,10);return f>=fechaDia(d1)&&f<=fechaDia(d2)});
+if(!tienePeso&&empezo)penalidad+=5}
+// -3 por romper racha de 7+ (aproximación: si mejor racha fue >=7 pero actual es 0)
+if(bestRacha>=7&&racha===0&&dia>7)penalidad+=3;
+// -2 por cada reto semanal no cumplido en semanas pasadas
+for(let w=1;w<semana;w++){
+const reto=(S.retos||[]).find(r=>Number(r.semana)===w);
+if(reto&&!bool(reto[nombreCol[id]]))penalidad+=2}
+// -3 si subió de peso 2 semanas seguidas
+let subidasSeguidas=0;
+for(let i=1;i<pes.length;i++){
+if(n(pes[i].peso)>n(pes[i-1].peso)){subidasSeguidas++;if(subidasSeguidas>=2){penalidad+=3;subidasSeguidas=0}}
+else subidasSeguidas=0}
 
-  // ---- puntos generales ----
-  const mejorPct = Math.max(...P.map(p=>p.pct), 0.0001);
-  const mejorCm  = Math.max(...P.map(p=>p.cmPct), 0.0001);
-  const semTerm  = Math.max(semanas.filter(s=>s.terminada).length, 1);
-  P.forEach(p=>{
-    p.puntos = Math.round(
-      (Math.max(p.pct,0)/mejorPct)*35 + (Math.max(p.cmPct,0)/mejorCm)*25 +
-      (p.diasReg/Math.max(dia,1))*20 + (p.retosOK/Math.max(semana,1))*10 +
-      (p.coronas/semTerm)*10 );
-  });
-  const ranking = [...P].sort((a,b)=>b.puntos-a.puntos || b.pct-a.pct);
+// Predicciones acertadas
+const preds=(S.predicciones||[]).filter(x=>Number(x.participante_id)===id);
+let ptsPred=0;
+preds.forEach(pr=>{
+const f=String(pr.fecha).slice(0,10);
+const pesF=pes.filter(x=>String(x.fecha).slice(0,10)===f);
+const pesAnt=pes.filter(x=>String(x.fecha).slice(0,10)<f);
+if(pesF.length&&pesAnt.length){
+const curr=n(pesF[pesF.length-1].peso),prev=n(pesAnt[pesAnt.length-1].peso);
+const real=curr<prev?'bajo':curr>prev?'subio':'igual';
+if(pr.prediccion===real)ptsPred+=3}});
 
-  const retoActual = (S.retos||[]).find(r=>Number(r.semana)===semana);
-  C = { cfg, inicio, inicioStr, total, dia, semana, esLunes, empezo, fechaDia,
-        P, ranking, semanas, retoActual, nombreCol,
-        restantes: total-dia,
-        frase: FRASES[(dia-1) % FRASES.length],
-        kgGrupo: +P.reduce((s,p)=>s+Math.max(p.kg,0),0).toFixed(1),
-        cmGrupo: +P.reduce((s,p)=>s+Math.max(p.cm,0),0).toFixed(1) };
-}
+const comodinSem=p.comodin_semana?Number(p.comodin_semana):null;
+return{...p,id,pes,rdMap,pesoIni,cintIni,pesoAct,cintAct,kg,pct,cm,cmPct,
+racha,bestRacha,ptsRetos,retosOK,penalidad,ptsPred,comodinSem,
+pesoMin:pes.length?Math.min(...pes.map(x=>n(x.peso))):null,
+pesoMax:pes.length?Math.max(...pes.map(x=>n(x.peso))):null,
+diasReg:rd.filter(r=>bool(r.completado)).length,objetivo:n(p.objetivo_kg)}});
 
-/* -------------------- trofeos -------------------- */
+// Duelos semanales
+const semanas=[];
+for(let w=1;w<=semana;w++){
+const par=DUELOS[(w-1)%3];
+const d1=(w-1)*7+1,d2=Math.min(w*7,total);
+const terminada=dia>d2;
+const ptsW={};
+P.forEach(p=>{
+let pts=0;
+// puntos de retos diarios de esa semana
+for(let d=d1;d<=Math.min(d2,dia);d++){
+const rd=p.rdMap[fechaDia(d)];
+if(rd&&bool(rd.completado))pts+=Number(rd.puntos)||0}
+// reto semanal
+const reto=(S.retos||[]).find(r=>Number(r.semana)===w);
+if(reto&&bool(reto[nombreCol[p.id]]))pts+=25;
+// pesaje de esa semana
+const pesW=p.pes.filter(x=>{const f=String(x.fecha).slice(0,10);return f>=fechaDia(d1)&&f<=fechaDia(d2)});
+const pesAnt=p.pes.filter(x=>String(x.fecha).slice(0,10)<fechaDia(d1));
+const pAntes=pesAnt.length?n(pesAnt[pesAnt.length-1].peso):n(p.peso_inicial);
+const pSem=pesW.length?n(pesW[pesW.length-1].peso):null;
+const pctW=(pAntes&&pSem&&pAntes>0)?Math.max(0,(pAntes-pSem)/pAntes*100):0;
+pts+=Math.round(pctW*5); // scale weight loss
+ptsW[p.id]=pts});
+// Duelos
+const duelo1={a:par[0],b:par[1],ptsA:ptsW[par[0]]||0,ptsB:ptsW[par[1]]||0};
+const duelo2={a:par[2],b:par[3],ptsA:ptsW[par[2]]||0,ptsB:ptsW[par[3]]||0};
+const duelRes=(d)=>{if(!terminada)return null;
+if(d.ptsA>d.ptsB)return{w:d.a,l:d.b};if(d.ptsB>d.ptsA)return{w:d.b,l:d.a};return{draw:true,a:d.a,b:d.b}};
+const filas=P.map(p=>({id:p.id,pts:ptsW[p.id]||0})).sort((a,b)=>b.pts-a.pts);
+semanas.push({w,d1,d2,terminada,ptsW,filas,duelo1,duelo2,
+res1:duelRes(duelo1),res2:duelRes(duelo2),
+reina:terminada&&filas[0].pts>0?filas[0].id:null})}
+
+// Puntos de duelos
+const ptsDuelo={};P.forEach(p=>ptsDuelo[p.id]=0);
+semanas.forEach(s=>{[s.res1,s.res2].forEach(r=>{if(!r)return;
+if(r.draw){ptsDuelo[r.a]+=1;ptsDuelo[r.b]+=1}
+else{ptsDuelo[r.w]+=3}})});
+
+// Coronas y robo
+P.forEach(p=>{p.coronas=semanas.filter(s=>s.reina===p.id).length;
+let seg=0,mx=0;semanas.forEach(s=>{if(s.reina===p.id){seg++;mx=Math.max(mx,seg)}else if(s.terminada)seg=0});
+p.coronasSeg=mx});
+
+// Ranking general — puntos acumulados reales
+// BALANCE: la constancia pesa más que la báscula
+P.forEach(p=>{
+// Puntos por peso perdido: 3 pts por cada 1% perdido (moderado)
+const ptsPeso=Math.round(Math.max(p.pct,0)*3);
+// Puntos por cintura: 2 pts por cada cm perdido
+const ptsCint=Math.round(Math.max(p.cm,0)*2);
+// Puntos por constancia: 2 pts por cada día con reto diario completado (IMPORTANTE)
+const ptsConst=p.diasReg*2;
+// Puntos por coronas: 8 pts cada una
+const ptsCoronas=p.coronas*8;
+// Puntos por retos semanales: 5 pts cada uno
+const ptsRetosS=p.retosOK*5;
+// Total = todo sumado - penalidades
+p.puntos=Math.max(0, ptsPeso + ptsCint + ptsConst + p.ptsRetos + (ptsDuelo[p.id]||0) + p.ptsPred + ptsCoronas + ptsRetosS - p.penalidad);
+p.desglose={ptsPeso,ptsCint,ptsConst,ptsCoronas,ptsRetosS,ptsDuelo:ptsDuelo[p.id]||0,ptsRetos:p.ptsRetos,ptsPred:p.ptsPred,penalidad:p.penalidad}});
+
+const ranking=[...P].sort((a,b)=>b.puntos-a.puntos||b.pct-a.pct);
+
+// Tips personalizados
+P.forEach(p=>{
+const tips=[];
+const pos=ranking.findIndex(x=>x.id===p.id);
+if(p.diasReg<dia-1)tips.push({ico:'🔥',t:'Completa tu reto diario cada día. Ganas 2-6 pts + 2 pts por constancia = hasta 8 pts diarios.'});
+if(p.racha===0&&dia>3)tips.push({ico:'⚡',t:'Tu racha está en 0. Hoy puedes empezar una nueva. A los 7 días ganas +5 pts de bono.'});
+if(p.racha>=5&&p.racha<7)tips.push({ico:'🔥',t:'¡Te faltan '+(7-p.racha)+' días para el bono de racha de 7 (+5 pts)! No la pierdas.'});
+if(!p.pes.some(x=>String(x.fecha).slice(0,10)>=G.fechaDia(Math.max(1,(G.semana-1)*7+1))))
+tips.push({ico:'⚖️',t:'No has pesado esta semana. El lunes perderás -5 pts si no lo haces.'});
+if(p.retosOK<G.semana-1)tips.push({ico:'🎯',t:'Llevas '+p.retosOK+' retos semanales cumplidos. Cada uno vale 5 pts.'});
+if(p.penalidad>0)tips.push({ico:'😬',t:'Llevas -'+p.penalidad+' pts en penalidades. La mejor forma de recuperarte: no fallar ni un día.'});
+if(pos>0){const diff=ranking[0].puntos-p.puntos;
+tips.push({ico:'🏆',t:'Estás a '+diff+' pts de '+ranking[0].nombre+'. '+
+(diff<=15?'¡Muy cerca! Un par de días buenos y la alcanzas.':'Enfócate en tu reto diario y el pesaje del lunes.')});}
+if(tips.length===0)tips.push({ico:'👑',t:'¡Vas en primer lugar! Sigue así, no te confíes.'});
+p.tips=tips});
+
+// Wall messages
+const walls=[];
+const topRacha=[...P].sort((a,b)=>b.racha-a.racha)[0];
+if(topRacha.racha>=3)walls.push({t:'fire',m:`🔥 ${topRacha.nombre} lleva ${topRacha.racha} días sin fallar`});
+const sinReg=[...P].filter(p=>dia>3&&p.diasReg<dia-3);
+if(sinReg.length)walls.push({t:'warn',m:`😬 ${sinReg[0].nombre} lleva ${dia-sinReg[0].diasReg} días sin registrar`});
+const ultimaReina=semanas.filter(s=>s.reina).pop();
+if(ultimaReina){const rn=P.find(p=>p.id===ultimaReina.reina);
+walls.push({t:'crown',m:`👑 ${rn.nombre} es la Reina de la semana ${ultimaReina.w}`})}
+if(esLunes)walls.push({t:'info',m:'⚖️ Hoy es lunes — ¡día de pesaje!'});
+
+// Duelo actual
+const duelActual=semanas[semanas.length-1];
+const retoActual=(S.retos||[]).find(r=>Number(r.semana)===semana);
+
+// Validaciones pendientes
+const valPend=[];
+if(yoId){
+const misVotos=new Set((S.validaciones||[]).filter(v=>Number(v.votante_id)===yoId&&String(v.fecha).slice(0,10)===hoy()).map(v=>Number(v.solicitante_id)));
+(S.retosDiarios||[]).filter(r=>String(r.fecha).slice(0,10)===hoy()&&r.metodo==='pendiente'&&!bool(r.completado)&&Number(r.participante_id)!==yoId).forEach(r=>{
+if(!misVotos.has(Number(r.participante_id)))valPend.push(Number(r.participante_id))})}
+
+G={cfg,inicio,inicioStr,total,dia,semana,esLunes,empezo,fechaDia,
+P,ranking,semanas,duelActual,retoActual,walls,valPend,
+restantes:total-dia,frase:FRASES[(dia-1)%FRASES.length],
+kgGrupo:+P.reduce((s,p)=>s+Math.max(p.kg,0),0).toFixed(1),
+cmGrupo:+P.reduce((s,p)=>s+Math.max(p.cm,0),0).toFixed(1),
+retoDia:RETOS_DIA.find(r=>r.d===dia)||RETOS_DIA[0]}}
+
+/* --- Trofeos check --- */
 function trofeosDe(p){
-  const fin = C.dia >= C.total;
-  const lunesPasados = [];
-  for(let d=1; d<=C.dia; d++){
-    const f = new Date(C.fechaDia(d)+'T00:00:00');
-    if(f.getDay()===1 || d===1) lunesPasados.push(C.fechaDia(d));
-  }
-  const pesoTodosLunes = lunesPasados.length>=3 && lunesPasados.every(f=>
-    p.pes.some(x=>{
-      const pf = String(x.fecha).slice(0,10);
-      return Math.abs((new Date(pf)-new Date(f))/86400000) <= 1;
-    }));
-  const mejor = C.ranking[0];
-  const cond = {
-    primera_batalla: p.pes.length>0,
-    primer_kilo: p.kg>=1, tres_kilos: p.kg>=3, cinco_kilos: p.kg>=5,
-    cintura_acero: p.cm>=3,
-    racha_7: p.racha>=7 || p.diasReg>=7 && p.racha>=7,
-    racha_21: p.racha>=21, racha_50: p.racha>=50,
-    guerrera_agua: p.aguaMax>=14,
-    reina: p.coronas>=1, doble_corona: p.coronas>=2, imbatible: p.coronasSeguidas>=3,
-    constancia: pesoTodosLunes,
-    retadora: p.retosOK>=5, completa: p.retosOK>=10,
-    transformacion: fin && mejor.id===p.id && p.pct>0
-  };
-  return TROFEOS.map(t=>({...t, ok: !!cond[t.id]}));
-}
-// Cuando se cierra una semana, celebra a la nueva reina una sola vez
-function celebrarReina(){
-  const ultima = C.semanas.filter(s=>s.reina).pop();
-  if(!ultima) return;
-  if(leeLocal('t70_reina') === String(ultima.w)) return;
-  guardaLocal('t70_reina', String(ultima.w));
-  const rp = C.P.find(p=>p.id===ultima.reina);
-  setTimeout(()=>{ confeti(); aviso('👑 ¡'+rp.nombre+' es la Reina de la semana '+ultima.w+'!'); }, 700);
-}
+const fin=G.dia>=G.total;const mejor=G.ranking[0];
+return TROFEOS.map(t=>{
+let ok=false;
+switch(t.id){
+case'primera_batalla':ok=p.pes.length>0;break;
+case'primer_kilo':ok=p.kg>=1;break;case'tres_kilos':ok=p.kg>=3;break;
+case'cinco_kilos':ok=p.kg>=5;break;case'cintura_acero':ok=p.cm>=3;break;
+case'racha_7':ok=p.bestRacha>=7;break;case'racha_21':ok=p.bestRacha>=21;break;
+case'racha_50':ok=p.bestRacha>=50;break;case'guerrera_agua':ok=p.diasReg>=14;break;
+case'reina':ok=p.coronas>=1;break;case'doble_corona':ok=p.coronas>=2;break;
+case'imbatible':ok=p.coronasSeg>=3;break;
+case'constancia':ok=p.pes.length>=Math.max(G.semana-1,1);break;
+case'retadora':ok=p.retosOK>=5;break;case'completa':ok=p.retosOK>=10;break;
+case'transformacion':ok=fin&&mejor.id===p.id&&p.pct>0;break}
+return{...t,ok}})}
+async function checkTrofeos(){
+const saved=new Set((S.trofeos||[]).map(t=>Number(t.participante_id)+'_'+t.trofeo));
+const nuevos=[];
+G.P.forEach(p=>{trofeosDe(p).forEach(t=>{
+if(t.ok&&!saved.has(p.id+'_'+t.id))nuevos.push({p,t})})});
+for(const nv of nuevos){try{await send('trofeo',{participante_id:nv.p.id,trofeo:nv.t.id,fecha:hoy()});
+S.trofeos.push({participante_id:nv.p.id,trofeo:nv.t.id,fecha:hoy()})}catch(e){}}
+if(nuevos.length){confeti();toast('🏆 ¡'+nuevos[0].p.nombre+' desbloqueó "'+nuevos[0].t.n+'"!')}}
 
-async function detectarTrofeosNuevos(){
-  const guardados = new Set((S.trofeos||[]).map(t=>Number(t.participante_id)+'_'+t.trofeo));
-  const nuevos = [];
-  C.P.forEach(p=>{
-    trofeosDe(p).forEach(t=>{
-      if(t.ok && !guardados.has(p.id+'_'+t.id)) nuevos.push({p, t});
-    });
-  });
-  for(const n of nuevos){
-    try{
-      await enviar('trofeo', {participante_id:n.p.id, trofeo:n.t.id, fecha:hoyISO()});
-      S.trofeos.push({participante_id:n.p.id, trofeo:n.t.id, fecha:hoyISO()});
-    }catch(e){}
-  }
-  if(nuevos.length){
-    confeti();
-    aviso('🏆 ¡'+nuevos[0].p.nombre+' desbloqueó "'+nuevos[0].t.nombre+'"!');
-  }
-}
+/* --- Navigation --- */
+function go(v){vista=v;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+render();window.scrollTo({top:0})}
+function render(){charts.forEach(c=>c.destroy());charts=[];const el=document.getElementById('main');
+if(vista==='inicio')el.innerHTML=vInicio();
+if(vista==='midia')el.innerHTML=vMiDia();
+if(vista==='trofeos')el.innerHTML=vTrofeos();
+if(vista==='stats'){el.innerHTML=vStats();setTimeout(pintarCharts,60)}
+setTimeout(()=>document.querySelectorAll('[data-w]').forEach(b=>{b.style.width=b.dataset.w}),80);
+setTimeout(()=>document.querySelectorAll('[data-l]').forEach(b=>{b.style.left=b.dataset.l}),80)}
 
-/* -------------------- navegación -------------------- */
-function ir(v){
-  vista = v;
-  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on', b.dataset.v===v));
-  render();
-  window.scrollTo({top:0});
-}
-function render(){
-  charts.forEach(c=>c.destroy()); charts = [];
-  const el = document.getElementById('contenido');
-  if(vista==='inicio') el.innerHTML = vInicio();
-  if(vista==='registrar') el.innerHTML = vRegistrar();
-  if(vista==='trofeos') el.innerHTML = vTrofeos();
-  if(vista==='stats'){ el.innerHTML = vStats(); setTimeout(pintarCharts, 60); }
-  setTimeout(()=>{ document.querySelectorAll('.barra-relleno,[data-anim]').forEach(b=>{
-    if(b.dataset.w) b.style.width = b.dataset.w;
-    if(b.dataset.l) b.style.left = b.dataset.l;
-  })}, 80);
-}
-
-/* -------------------- VISTA: Inicio -------------------- */
+/* === VIEW: INICIO === */
 function vInicio(){
-  const medallas = ['🥇','🥈','🥉','4°'];
-  let h = '';
-  if(!C.empezo){
-    h += '<div class="banner">🚀 ¡El reto empieza el '+C.inicioStr+'! Preparad vuestros perfiles.</div>';
-  } else if(C.restantes<=7 && C.restantes>0){
-    h += '<div class="banner final">🔥 ¡RECTA FINAL! Solo quedan '+C.restantes+' días. Todo se decide ahora.</div>';
-  } else if(C.restantes===0){
-    h += '<div class="banner final">🏁 ¡ÚLTIMO DÍA! Hoy se corona a la ganadora.</div>';
-  } else if(C.esLunes){
-    h += '<div class="banner">⚖️ ¡Hoy es lunes, día de pesaje! No lo olvides.</div>';
-  }
-  h += `<div class="card dia-grande">
-    <div class="dia-num">Día ${C.dia}</div>
-    <div class="dia-de">de ${C.total} · Semana ${C.semana}</div>
-    <div class="barra-fondo"><div class="barra-relleno" data-w="${(C.dia/C.total*100).toFixed(1)}%" style="width:0"></div></div>
-    <div class="mini-datos">
-      <div class="mini-dato"><b>${C.restantes}</b><span>días restantes</span></div>
-      <div class="mini-dato"><b>${C.kgGrupo}</b><span>kg perdidos juntas</span></div>
-      <div class="mini-dato"><b>${C.cmGrupo}</b><span>cm de cintura</span></div>
-    </div>
-  </div>`;
-  h += tarjetaPremios();
-  h += '<div class="card"><div class="frase">'+C.frase+'</div></div>';
+const medals=['🥇','🥈','🥉','4°'];
+let h='';
+// Walls
+G.walls.forEach(w=>{h+=`<div class="wall ${w.t}">${w.m}</div>`});
+// Day hero
+h+=`<div class="c hero"><div class="dia-n">DÍA ${G.dia}</div>
+<div class="dia-sub">de ${G.total} · Semana ${G.semana}</div>
+<div class="barra-bg"><div class="barra-fg" data-w="${(G.dia/G.total*100).toFixed(1)}%" style="width:0"></div></div>
+<div class="mini-row">
+<div class="mini-item"><b>${G.restantes}</b><span>días restantes</span></div>
+<div class="mini-item"><b>${G.kgGrupo}</b><span>kg perdidos</span></div>
+<div class="mini-item"><b>${G.cmGrupo}</b><span>cm cintura</span></div>
+</div></div>`;
+// Frase
+h+=`<div class="c"><div class="frase"><b>"</b>${G.frase}<b>"</b></div></div>`;
+// Duelo actual
+if(G.duelActual){const d=G.duelActual;
+const d1=G.P.find(p=>p.id===d.duelo1.a),d2=G.P.find(p=>p.id===d.duelo1.b);
+const d3=G.P.find(p=>p.id===d.duelo2.a),d4=G.P.find(p=>p.id===d.duelo2.b);
+h+=`<div class="c"><h2>⚔️ Duelos de la semana ${G.semana}</h2>`;
+h+=duelHTML(d1,d2,d.duelo1.ptsA,d.duelo1.ptsB);
+h+=duelHTML(d3,d4,d.duelo2.ptsA,d.duelo2.ptsB);
+h+=`<div style="text-align:center;margin-top:6px"><span class="tag">${d.terminada?'SEMANA CERRADA':'EN DIRECTO'}</span></div></div>`}
+// Ranking
+h+=`<div class="c"><h2>🏆 Ranking <span class="tag">${G.ranking[0].puntos} pts</span></h2>`;
+G.ranking.forEach((p,i)=>{
+h+=`<div class="rank-row"><div class="medal">${medals[i]}</div>${avHTML(p)}
+<div class="rank-info"><div class="rank-name">${p.nombre} ${'👑'.repeat(Math.min(p.coronas,3))}</div>
+<div class="rank-det">−${p.kg} kg · 🔥${p.racha} ${p.penalidad>0?'· <span style="color:var(--rojo)">−'+p.penalidad+'</span>':''} · ${p.diasReg}d registrados</div></div>
+<div class="rank-pts">${p.puntos}<small>puntos</small></div></div>`});
+h+='</div>';
+// Reto semanal
+if(G.retoActual)h+=`<div class="c"><h2>🎯 Reto semanal ${G.semana}</h2>
+<p style="font-weight:800;font-size:1rem">${G.retoActual.descripcion}</p></div>`;
+return h}
 
-  h += '<div class="card"><h2>🏆 Ranking general</h2>';
-  C.ranking.forEach((p,i)=>{
-    h += `<div class="fila-rank">
-      <div class="medalla">${medallas[i]}</div>
-      ${avatarHTML(p)}
-      <div class="rank-info">
-        <div class="rank-nombre">${p.nombre} ${p.coronas?'👑'.repeat(Math.min(p.coronas,3)):''}</div>
-        <div class="rank-detalle">−${p.kg} kg (${p.pct}%) · ${p.racha>0 ? '🔥 racha '+p.racha : 'sin racha'}</div>
-      </div>
-      <div class="rank-puntos">${p.puntos}<small>puntos</small></div>
-    </div>`;
-  });
-  h += '</div>';
+function duelHTML(p1,p2,pts1,pts2){
+return`<div class="duel"><div class="duel-player">${avHTML(p1)}<b>${p1.nombre}</b><div class="pts">${pts1}</div></div>
+<div class="duel-vs">VS</div>
+<div class="duel-player">${avHTML(p2)}<b>${p2.nombre}</b><div class="pts">${pts2}</div></div></div>`}
 
-  const cerradas = C.semanas.filter(s=>s.reina);
-  if(cerradas.length){
-    h += '<div class="card"><h2>👑 Historial de reinas</h2><div class="historial">';
-    cerradas.forEach(s=>{
-      const rp = C.P.find(p=>p.id===s.reina);
-      h += `<div class="hist-item">${avatarHTML(rp,'mini')}
-        <b>S${s.w}</b><span>${rp.nombre}</span></div>`;
-    });
-    h += '</div></div>';
-  }
-  if(C.retoActual){
-    h += `<div class="card"><h2>🎯 Reto de la semana ${C.semana}</h2>
-      <p style="font-weight:800;font-size:1.05rem">${C.retoActual.descripcion}</p>
-      <p class="sub" style="margin-top:8px">Cumplirlo vale 25 puntos esta semana. Márcalo en "Registrar".</p></div>`;
-  }
-  return h;
-}
+/* === VIEW: MI DÍA === */
+function vMiDia(){
+// User bar always on top
+let h='<div class="users-bar">';
+G.P.forEach(p=>{h+=`<div class="user-pick ${yoId===p.id?'on':''}" onclick="pickUser(${p.id})">
+${avHTML(p)}<b>${p.nombre}</b></div>`});
+h+='</div>';
+if(!yoId)return h+'<div class="c" style="text-align:center"><h2>👆 Toca tu foto arriba</h2></div>';
 
-function tarjetaPremios(){
-  const s = C.semanas[C.semanas.length-1];
-  if(!s) return '';
-  const buscar = ids => ids.length ? ids.map(i=>C.P.find(p=>p.id===i)) : null;
-  const lista = [
-    {ico:'👑', t:'Reina de la Semana', d:'más puntos en total',     g:s.premios.corona},
-    {ico:'⚖️', t:'Mejor Pesaje',       d:'más peso perdido',        g:s.premios.peso},
-    {ico:'🔥', t:'La Más Constante',   d:'más días registrados',    g:s.premios.constancia},
-    {ico:'💧', t:'Guerrera del Agua',  d:'más días bebiendo agua',  g:s.premios.agua}
-  ];
-  let h = `<div class="card"><h2>🏅 Premios de la semana ${s.w}</h2>
-    <p class="sub" style="margin-bottom:10px">${s.terminada
-      ? 'Semana cerrada · ¡estas fueron las ganadoras!'
-      : 'En directo · la semana se cierra el domingo por la noche'}</p>`;
-  lista.forEach(pr=>{
-    const gs = buscar(pr.g);
-    h += `<div class="premio-fila">
-      <div class="premio-ico">${pr.ico}</div>
-      <div class="premio-txt"><b>${pr.t}</b><span>${pr.d}</span></div>
-      <div class="premio-gana">${ gs
-        ? gs.map(p=>'<div class="gana-uno">'+avatarHTML(p,'mini')+'<small>'+p.nombre+'</small></div>').join('')
-        : '<small class="sub">aún nadie</small>' }</div></div>`;
-  });
-  h += '<div class="sem-ranking"><div class="sub" style="margin-bottom:8px">Puntos de esta semana</div>';
-  const max = Math.max(s.filas[0].pts, 1);
-  s.filas.forEach((f,i)=>{
-    const p = C.P.find(x=>x.id===f.id);
-    h += `<div class="sem-fila"><span class="sem-pos">${i+1}</span>
-      <span class="sem-nom">${p.nombre}</span>
-      <span class="sem-barra"><i data-anim data-w="${(f.pts/max*100).toFixed(0)}%" style="width:0;background:${p.color}"></i></span>
-      <span class="sem-pts">${f.pts}</span></div>`;
-  });
-  return h + '</div></div>';
-}
+const p=G.P.find(x=>x.id===yoId);
 
-/* -------------------- VISTA: Registrar -------------------- */
-function vRegistrar(){
-  if(!yoId){
-    let h = '<div class="card" style="text-align:center"><h2>¿Quién eres?</h2><p class="sub">Toca tu tarjeta</p></div><div class="quien">';
-    C.P.forEach(p=>{
-      h += `<div class="persona-card" onclick="elegirYo(${p.id})">${avatarHTML(p)}<b>${p.nombre}</b></div>`;
-    });
-    return h+'</div>';
-  }
-  const p = C.P.find(x=>x.id===yoId);
-  const hoy = hoyISO();
-  const chkHoy = p.chkMap[hoy];
-  const pesajeHoy = p.pes.some(x=>String(x.fecha).slice(0,10)===hoy);
-  const retoOK = C.retoActual ? esVerdad(C.retoActual[C.nombreCol[p.id]]) : false;
-  const perfilOK = p.edad && p.estatura && p.objetivo;
+// Tips personalizados
+if(p.tips&&p.tips.length){
+const tip=p.tips[Math.floor((Date.now()/3600000))%p.tips.length]; // rota cada hora
+h+=`<div class="c" style="border-left:3px solid var(--lime)">
+<div style="display:flex;gap:10px;align-items:flex-start">
+<span style="font-size:1.3rem">${tip.ico}</span>
+<div><div style="font-size:.65rem;font-weight:900;color:var(--lime);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">💡 Tip para ti</div>
+<p style="font-weight:700;font-size:.88rem;line-height:1.4">${tip.t}</p></div></div></div>`}
+const hoyS=hoy();
+const rdHoy=p.rdMap[hoyS];
+const retoDone=rdHoy&&bool(rdHoy.completado);
+const pesajeHoy=p.pes.some(x=>String(x.fecha).slice(0,10)===hoyS);
+const perfilOK=p.edad&&p.estatura&&p.objetivo;
 
-  let h = `<button class="volver" onclick="yoId=null;render()">← No soy ${p.nombre}, cambiar</button>
-  <div class="card" style="display:flex;align-items:center;gap:14px">
-    ${avatarHTML(p)}
-    <div><b style="font-size:1.2rem">Hola, ${p.nombre} 👋</b>
-    <div class="sub">${p.racha>0 ? '🔥 Llevas '+p.racha+' días de racha' : 'Hoy empieza tu racha'}</div></div>
-  </div>`;
+// Validaciones pendientes para mí
+G.valPend.forEach(sid=>{const sp=G.P.find(x=>x.id===sid);
+h+=`<div class="c val-card" style="text-align:center">${avHTML(sp)}
+<p style="font-weight:900;margin:8px 0">${sp.nombre} dice que completó su reto de hoy</p>
+<p style="font-size:.85rem;color:var(--txt2);font-weight:700">"${G.retoDia.r}"</p>
+<p style="font-weight:800;margin:8px 0">¿Le crees?</p>
+<button class="btn sm" onclick="votar(${sid},true)">👍 Sí</button>
+<button class="btn sm sec" onclick="votar(${sid},false)">👎 No</button></div>`});
 
-  h += tarjetaAccion('✅','Check-in de hoy', chkHoy?'Ya lo hiciste · toca para editar':'Agua, ejercicio y ánimo · 10 segundos',
-    "formChk()", chkHoy?'✔️':'', !chkHoy);
-  h += tarjetaAccion('⚖️','Pesaje semanal', pesajeHoy?'Registrado hoy ✔️':(C.esLunes?'¡Hoy toca pesarse!':'Cada lunes'),
-    "formPesaje()", pesajeHoy?'✔️':'', C.esLunes && !pesajeHoy);
-  if(C.retoActual)
-    h += tarjetaAccion('🎯','Reto de la semana', retoOK?'¡Cumplido! ✔️':C.retoActual.descripcion, "formReto()", retoOK?'✔️':'');
-  h += tarjetaAccion('👤','Mi perfil', perfilOK?'Completo':'⚠️ Complétalo (edad, estatura, objetivo)', "formPerfil()", perfilOK?'✔️':'');
-  return h + '<div id="formZona"></div>';
-}
-function tarjetaAccion(ico,titulo,sub,fn,check,destacar){
-  return `<div class="accion-card ${destacar?'destacada':''}" onclick="${fn}">
-    <div class="accion-icono">${ico}</div>
-    <div class="accion-txt"><b>${titulo}</b><span>${sub}</span></div>
-    <div class="accion-check">${check||'›'}</div></div>`;
-}
-function elegirYo(id){ yoId = id; guardaLocal('t70_yo', id); render(); }
+// Daily challenge
+h+=`<div class="c ${retoDone?'reto-done':'reto-card'}">
+<span class="reto-ico">${G.retoDia.t}</span>
+<div class="reto-tipo">${G.retoDia.c} · DÍA ${G.dia}</div>
+<div class="reto-desc">${G.retoDia.r}</div>`;
+if(retoDone){
+h+=`<div style="margin-top:12px"><span class="tag" style="font-size:.8rem">✅ COMPLETADO · +${rdHoy.puntos||'?'} puntos</span></div>
+<div class="lockout"><div class="sub">Vuelve mañana para tu siguiente reto</div></div>`
+}else{
+h+=`<div class="foto-area">
+<div class="foto-btn" onclick="document.getElementById('fotoIn').click()">
+<span class="ico">📸</span><span>Subir foto</span></div>
+<div class="foto-btn" onclick="pedirValidacion()">
+<span class="ico">🤝</span><span>Pedir validación</span></div></div>
+<input type="file" id="fotoIn" accept="image/*" capture="environment" style="display:none" onchange="subirFoto(this)">
+<img class="foto-preview" id="fotoPreview">
+<div id="fotoStatus"></div>`}
+h+='</div>';
 
-let F = {}; // estado del formulario abierto
-function formChk(){
-  const p = C.P.find(x=>x.id===yoId);
-  const c = p.chkMap[hoyISO()] || {};
-  F = { agua: c.fecha?esVerdad(c.agua):null, ejercicio: c.fecha?esVerdad(c.ejercicio):null, animo: c.animo||null };
-  pintarChk();
-}
-function pintarChk(){
-  document.getElementById('formZona').innerHTML = `<div class="card"><h2>✅ Check-in de hoy</h2>
-    <div class="toggle-fila"><label>💧 ¿Bebiste agua suficiente?</label>
-      <div class="si-no">
-        <button class="${F.agua===true?'on':''}" onclick="F.agua=true;pintarChk()">Sí</button>
-        <button class="${F.agua===false?'on no':''}" onclick="F.agua=false;pintarChk()">No</button>
-      </div></div>
-    <div class="toggle-fila"><label>👟 ¿Hiciste ejercicio?</label>
-      <div class="si-no">
-        <button class="${F.ejercicio===true?'on':''}" onclick="F.ejercicio=true;pintarChk()">Sí</button>
-        <button class="${F.ejercicio===false?'on no':''}" onclick="F.ejercicio=false;pintarChk()">No</button>
-      </div></div>
-    <div class="toggle-fila" style="display:block"><label>¿Cómo te sientes hoy?</label>
-      <div class="animos" style="margin-top:10px">
-        ${['😊','😐','😔'].map(e=>`<button class="${F.animo===e?'on':''}" onclick="F.animo='${e}';pintarChk()">${e}</button>`).join('')}
-      </div></div>
-    <button class="btn" id="btnG" onclick="guardarChk()" ${(F.agua===null||F.ejercicio===null||!F.animo)?'disabled':''}>Guardar mi día</button>
-  </div>`;
-  document.getElementById('formZona').scrollIntoView({behavior:'smooth'});
-}
-async function guardarChk(){
-  const b = document.getElementById('btnG'); b.disabled = true; b.textContent = 'Guardando…';
-  try{
-    await enviar('checkin', {fecha:hoyISO(), participante_id:yoId, agua:F.agua, ejercicio:F.ejercicio, animo:F.animo});
-    aviso('✅ ¡Día registrado! Sumaste puntos.');
-    await cargar(); ir('registrar');
-  }catch(e){ aviso('😕 Error al guardar, inténtalo de nuevo'); b.disabled=false; b.textContent='Guardar mi día'; }
-}
+// Pesaje SOLO los lunes
+if(G.esLunes){
+const pesajeClass=!pesajeHoy?'c pesaje-warn':'c';
+h+=`<div class="${pesajeClass}"><h2>⚖️ Pesaje del lunes ${!pesajeHoy?'<span class="tag rojo">−5 PTS SI NO PESAS</span>':'<span class="tag">✅</span>'}</h2>
+<div id="pesajeZona">${pesajeHoy?'<p style="font-weight:800;color:var(--verde)">Ya pesaste hoy ✅</p>'
+:`<div class="campo"><label>Peso (kg)</label><input type="number" step="0.1" inputmode="decimal" id="inPeso"></div>
+<div class="campo"><label>Cintura (cm)</label><input type="number" step="0.5" inputmode="decimal" id="inCint"></div>
+${predForm()}
+<button class="btn" id="btnPes" onclick="guardarPesaje()">Guardar pesaje</button>`}</div></div>`}
+else{h+=`<div class="c"><h2>⚖️ Pesaje</h2>
+<p style="font-weight:800;color:var(--txt2)">El pesaje se abre cada lunes. Próximo: ${proximoLunes()}</p></div>`}
 
-function formPesaje(){
-  const p = C.P.find(x=>x.id===yoId);
-  const hoyP = p.pes.find(x=>String(x.fecha).slice(0,10)===hoyISO());
-  document.getElementById('formZona').innerHTML = `<div class="card"><h2>⚖️ Pesaje de hoy</h2>
-    <div class="campo"><label>Peso (kg) — ej: 72.5</label>
-      <input type="number" step="0.1" inputmode="decimal" id="inPeso" value="${hoyP?num(hoyP.peso)??'':''}"></div>
-    <div class="campo"><label>Cintura (cm) — ej: 94</label>
-      <input type="number" step="0.5" inputmode="decimal" id="inCint" value="${hoyP?num(hoyP.cintura)??'':''}"></div>
-    <button class="btn" id="btnG" onclick="guardarPesaje()">Guardar pesaje</button>
-    ${p.pesoAct!==null && !hoyP ? '<p class="sub" style="text-align:center;margin-top:10px">Tu último peso: '+p.pesoAct+' kg</p>':''}
-  </div>`;
-  document.getElementById('formZona').scrollIntoView({behavior:'smooth'});
-}
+// Reto semanal
+if(G.retoActual){
+const retoOK=bool(G.retoActual[nombreCol[yoId]]);
+const esDomingo=new Date().getDay()===0;
+h+=`<div class="c"><h2>🎯 Reto de la semana</h2>
+<p style="font-weight:800">${G.retoActual.descripcion}</p>
+${retoOK?'<span class="tag" style="margin-top:8px;display:inline-block">✅ CUMPLIDO</span>'
+:esDomingo?'<button class="btn" onclick="cumplirReto()">✔️ ¡Lo cumplí!</button>'
+:'<p style="font-size:.85rem;color:var(--txt2);font-weight:700;margin-top:8px">Podrás marcarlo como cumplido el domingo</p>'}</div>`}
+
+// Comodín eliminado
+
+// Perfil
+h+=`<div class="c"><h2>👤 Mi perfil ${perfilOK?'<span class="tag">✅</span>':''}</h2>
+<button class="btn sec" onclick="formPerfil()">Editar perfil</button>
+<div id="perfilZona"></div></div>`;
+return h}
+
+function predForm(){
+const pred=(S.predicciones||[]).find(p=>Number(p.participante_id)===yoId&&String(p.fecha).slice(0,10)===hoy());
+if(pred)return`<p style="font-size:.85rem;font-weight:800;color:var(--lime);margin-bottom:8px">🎰 Apostaste: ${pred.prediccion==='bajo'?'Bajé':pred.prediccion==='subio'?'Subí':'Me mantuve'}</p>`;
+return`<div style="margin-bottom:10px"><label style="font-weight:800;font-size:.8rem;color:var(--txt2)">🎰 Apuesta: ¿qué crees que pasó?</label>
+<div style="display:flex;gap:6px;margin-top:6px">
+<button class="btn sm sec" onclick="apostar('bajo')">⬇️ Bajé</button>
+<button class="btn sm sec" onclick="apostar('igual')">➡️ Igual</button>
+<button class="btn sm sec" onclick="apostar('subio')">⬆️ Subí</button></div></div>`}
+
+function pickUser(id){yoId=id;sav('t70y',id);calc();render()}
+
+async function subirFoto(input){
+if(!input.files[0])return;
+const file=input.files[0];
+const preview=document.getElementById('fotoPreview');
+const status=document.getElementById('fotoStatus');
+// Compress
+const canvas=document.createElement('canvas');
+const img=new Image();
+img.onload=async()=>{
+const max=800;let w=img.width,h=img.height;
+if(w>max){h=h*(max/w);w=max}if(h>max){w=w*(max/h);h=max}
+canvas.width=w;canvas.height=h;
+canvas.getContext('2d').drawImage(img,0,0,w,h);
+const base64=canvas.toDataURL('image/jpeg',.7).split(',')[1];
+preview.src=canvas.toDataURL('image/jpeg',.7);preview.style.display='block';
+status.innerHTML='<p style="text-align:center;font-weight:800;color:var(--lime);margin-top:8px">📤 Subiendo foto…</p>';
+try{
+const r=await send('foto_reto',{participante_id:yoId,fecha:hoy(),imagen:base64,nombre:`reto_${yoId}_dia${G.dia}.jpg`});
+if(r.error)throw new Error(r.error);
+confeti();toast(`📸 ¡Foto subida! +${r.puntos} puntos`);
+await load();go('midia');
+}catch(e){status.innerHTML='<p style="color:var(--rojo);font-weight:800">Error: '+e.message+'</p>'}};
+img.src=URL.createObjectURL(file)}
+
+async function pedirValidacion(){
+try{await send('reto_diario',{fecha:hoy(),participante_id:yoId,completado:false,metodo:'pendiente',puntos:0});
+toast('🤝 Solicitud enviada. Las demás votarán.');await load();go('midia');
+}catch(e){toast('😕 Error')}}
+
+async function votar(solId,voto){
+try{await send('validar',{fecha:hoy(),solicitante_id:solId,votante_id:yoId,voto});
+toast(voto?'👍 Votaste que sí':'👎 Votaste que no');await load();go('midia');
+}catch(e){toast('😕 Error')}}
+
 async function guardarPesaje(){
-  const peso = num(document.getElementById('inPeso').value);
-  const cint = num(document.getElementById('inCint').value);
-  if(peso===null || peso<30 || peso>250) return aviso('Escribe un peso válido');
-  if(cint===null || cint<40 || cint>200) return aviso('Escribe una cintura válida');
-  const b = document.getElementById('btnG'); b.disabled = true; b.textContent = 'Guardando…';
-  try{
-    await enviar('pesaje', {fecha:hoyISO(), participante_id:yoId, peso, cintura:cint});
-    const p = C.P.find(x=>x.id===yoId);
-    if(p.pesoIni===null || !num(p.peso_inicial))
-      await enviar('perfil', {id:yoId, peso_inicial:peso, cintura_inicial:cint});
-    confeti(); aviso('⚖️ ¡Pesaje guardado!');
-    await cargar(); ir('registrar');
-  }catch(e){ aviso('😕 Error al guardar'); b.disabled=false; b.textContent='Guardar pesaje'; }
-}
+const peso=n(document.getElementById('inPeso').value);
+const cint=n(document.getElementById('inCint').value);
+if(!peso||peso<30||peso>250)return toast('Escribe un peso válido');
+if(!cint||cint<40||cint>200)return toast('Escribe una cintura válida');
+const b=document.getElementById('btnPes');b.disabled=true;b.textContent='Guardando…';
+try{await send('pesaje',{fecha:hoy(),participante_id:yoId,peso,cintura:cint});
+const p=G.P.find(x=>x.id===yoId);
+if(!p.pesoIni||!n(p.peso_inicial))await send('perfil',{id:yoId,peso_inicial:peso,cintura_inicial:cint});
+confeti();toast('⚖️ ¡Pesaje guardado!');await load();go('midia');
+}catch(e){toast('😕 Error');b.disabled=false;b.textContent='Guardar pesaje'}}
 
-function formReto(){
-  const p = C.P.find(x=>x.id===yoId);
-  const ok = esVerdad(C.retoActual[C.nombreCol[p.id]]);
-  document.getElementById('formZona').innerHTML = `<div class="card"><h2>🎯 Reto de la semana ${C.semana}</h2>
-    <p style="font-weight:800;font-size:1.05rem;margin-bottom:6px">${C.retoActual.descripcion}</p>
-    ${ok ? '<p class="sub">¡Ya lo marcaste como cumplido! 💪</p>'
-         : '<p class="sub">Cuando lo hayas cumplido, márcalo aquí. Vale 25 puntos.</p><button class="btn exito" id="btnG" onclick="guardarReto()">✔️ ¡Lo cumplí!</button>'}
-  </div>`;
-  document.getElementById('formZona').scrollIntoView({behavior:'smooth'});
-}
-async function guardarReto(){
-  const b = document.getElementById('btnG'); b.disabled = true; b.textContent = 'Guardando…';
-  try{
-    await enviar('reto', {semana:C.semana, participante_id:yoId});
-    confeti(); aviso('🎯 ¡Reto cumplido! +25 puntos');
-    await cargar(); ir('registrar');
-  }catch(e){ aviso('😕 Error al guardar'); b.disabled=false; }
-}
+async function apostar(pred){
+try{await send('prediccion',{fecha:hoy(),participante_id:yoId,prediccion:pred});
+toast('🎰 Apuesta registrada: '+pred);await load();go('midia');
+}catch(e){toast('😕 Error')}}
+
+async function cumplirReto(){
+try{await send('reto',{semana:G.semana,participante_id:yoId});
+confeti();toast('🎯 ¡Reto cumplido!');await load();go('midia');
+}catch(e){toast('😕 Error')}}
+
+
 
 function formPerfil(){
-  const p = C.P.find(x=>x.id===yoId);
-  document.getElementById('formZona').innerHTML = `<div class="card"><h2>👤 Mi perfil</h2>
-    <div class="campo"><label>Edad</label><input type="number" id="inEdad" inputmode="numeric" value="${p.edad||''}"></div>
-    <div class="campo"><label>Estatura (cm) — ej: 158</label><input type="number" id="inEst" inputmode="numeric" value="${p.estatura||''}"></div>
-    <div class="campo"><label>¿Cuántos kg quieres perder en el reto?</label><input type="number" step="0.5" id="inObj" inputmode="decimal" value="${p.objetivo||''}"></div>
-    <button class="btn" id="btnG" onclick="guardarPerfil()">Guardar perfil</button>
-  </div>`;
-  document.getElementById('formZona').scrollIntoView({behavior:'smooth'});
-}
-async function guardarPerfil(){
-  const edad = num(document.getElementById('inEdad').value);
-  const est = num(document.getElementById('inEst').value);
-  const obj = num(document.getElementById('inObj').value);
-  const b = document.getElementById('btnG'); b.disabled = true; b.textContent = 'Guardando…';
-  try{
-    await enviar('perfil', {id:yoId, edad:edad||'', estatura:est||'', objetivo_kg:obj||''});
-    aviso('👤 Perfil guardado');
-    await cargar(); ir('registrar');
-  }catch(e){ aviso('😕 Error al guardar'); b.disabled=false; b.textContent='Guardar perfil'; }
-}
+const p=G.P.find(x=>x.id===yoId);
+document.getElementById('perfilZona').innerHTML=`
+<div class="campo"><label>Edad</label><input type="number" id="inEdad" inputmode="numeric" value="${p.edad||''}"></div>
+<div class="campo"><label>Estatura (cm)</label><input type="number" id="inEst" inputmode="numeric" value="${p.estatura||''}"></div>
+<div class="campo"><label>Objetivo: ¿cuántos kg quieres perder?</label><input type="number" step="0.5" id="inObj" inputmode="decimal" value="${p.objetivo||''}"></div>
+<button class="btn" onclick="savePerfil()">Guardar</button>`}
+async function savePerfil(){
+try{await send('perfil',{id:yoId,edad:n(document.getElementById('inEdad').value)||'',
+estatura:n(document.getElementById('inEst').value)||'',objetivo_kg:n(document.getElementById('inObj').value)||''});
+toast('👤 Perfil guardado');await load();go('midia')}catch(e){toast('😕 Error')}}
 
-/* -------------------- VISTA: Trofeos -------------------- */
+/* === VIEW: TROFEOS === */
 function vTrofeos(){
-  let h = '<div class="chips">';
-  C.P.forEach(p=>{ h += `<button class="chip ${trofeoSel===p.id?'on':''}" onclick="trofeoSel=${p.id};render()">${p.nombre}</button>`; });
-  h += '</div>';
-  const p = C.P.find(x=>x.id===trofeoSel);
-  const ts = trofeosDe(p);
-  const n = ts.filter(t=>t.ok).length;
-  h += `<div class="card" style="display:flex;align-items:center;gap:14px">
-    ${avatarHTML(p)}
-    <div><b style="font-size:1.15rem">${p.nombre}</b>
-    <div class="sub">${n} de ${ts.length} trofeos · ${'👑'.repeat(p.coronas)||'aún sin coronas'}</div></div></div>`;
-  h += '<div class="trofeos-grid">';
-  ts.forEach(t=>{
-    h += `<div class="trofeo ${t.ok?'':'bloqueado'}">
-      <span class="ico">${t.ok?t.ico:'🔒'}</span><b>${t.nombre}</b><span>${t.desc}</span></div>`;
-  });
-  return h+'</div>';
-}
+let h='<div class="chips">';
+G.P.forEach(p=>{h+=`<button class="chip ${trofSel===p.id?'on':''}" onclick="trofSel=${p.id};render()">${p.nombre}</button>`});
+h+='</div>';
+const p=G.P.find(x=>x.id===trofSel);
+const ts=trofeosDe(p);const nOK=ts.filter(t=>t.ok).length;
+h+=`<div class="c" style="display:flex;align-items:center;gap:12px">${avHTML(p)}
+<div><b style="font-size:1.1rem">${p.nombre}</b>
+<div style="font-size:.8rem;color:var(--txt2);font-weight:800">${nOK}/${ts.length} trofeos · ${'👑'.repeat(p.coronas)||'sin coronas'}</div></div></div>`;
+h+='<div class="trofeos-g">';
+ts.forEach(t=>{h+=`<div class="trofeo ${t.ok?'':'lock'}">
+<span class="ico">${t.ok?t.i:'🔒'}</span><b>${t.n}</b><span>${t.d}</span></div>`});
+return h+'</div>'}
 
-/* -------------------- VISTA: Estadísticas -------------------- */
+/* === VIEW: STATS === */
 function vStats(){
-  let h = '<div class="chips">';
-  h += `<button class="chip ${statSel===0?'on':''}" onclick="statSel=0;render()">👯 El grupo</button>`;
-  C.P.forEach(p=>{ h += `<button class="chip ${statSel===p.id?'on':''}" onclick="statSel=${p.id};render()">${p.nombre}</button>`; });
-  h += '</div>';
-  return h + (statSel===0 ? vStatsGrupo() : vStatsInd());
-}
+let h='<div class="chips">';
+h+=`<button class="chip ${statSel===0?'on':''}" onclick="statSel=0;render()">👯 Grupo</button>`;
+G.P.forEach(p=>{h+=`<button class="chip ${statSel===p.id?'on':''}" onclick="statSel=${p.id};render()">${p.nombre}</button>`});
+h+='</div>';return h+(statSel===0?vStatsGrupo():vStatsInd())}
+
 function vStatsGrupo(){
-  const lider = C.ranking[0];
-  const masConstante = [...C.P].sort((a,b)=>b.diasReg-a.diasReg)[0];
-  const mejorCint = [...C.P].sort((a,b)=>b.cm-a.cm)[0];
-  let h = `<div class="card"><h2>👯 El grupo</h2><div class="numeros">
-    <div class="numero"><b>${C.kgGrupo}</b><span>kg perdidos juntas</span></div>
-    <div class="numero"><b>${C.cmGrupo}</b><span>cm de cintura</span></div>
-    <div class="numero"><b>${lider.nombre}</b><span>🏆 líder actual</span></div>
-    <div class="numero"><b>${masConstante.nombre}</b><span>❤️ más constante</span></div>
-    <div class="numero"><b>${mejorCint.nombre}</b><span>📏 más cintura perdida</span></div>
-    <div class="numero"><b>${C.P.reduce((s,p)=>s+p.diasReg,0)}</b><span>registros totales</span></div>
-  </div></div>`;
+const lider=G.ranking[0];const mc=[...G.P].sort((a,b)=>b.diasReg-a.diasReg)[0];
+let h=`<div class="c"><h2>👯 El grupo</h2><div class="nums">
+<div class="num"><b>${G.kgGrupo}</b><span>kg perdidos</span></div>
+<div class="num"><b>${G.cmGrupo}</b><span>cm cintura</span></div>
+<div class="num"><b>${lider.nombre}</b><span>🏆 líder</span></div>
+<div class="num"><b>${mc.nombre}</b><span>❤️ más constante</span></div>
+</div></div>`;
+// Race
+h+='<div class="c"><h2>🏁 La carrera</h2>';
+G.P.forEach(p=>{const meta=p.objetivo||5;const av=Math.min(Math.max(p.kg,0)/meta*100,100);
+h+=`<div class="lane"><div class="finish">🏁</div>
+<div class="runner" data-l="${(av*.78).toFixed(1)}%" style="left:0">
+${avHTML(p)}<small>${p.kg>0?'−'+p.kg+'kg':'—'}</small></div></div>`});
+h+='</div>';
+// Chart
+h+='<div class="c"><h2>📉 Evolución comparada</h2><canvas id="chGrupo" height="220"></canvas></div>';
+// WhatsApp
+h+=`<div class="c"><h2>📲 Resumen WhatsApp</h2>
+<button class="btn sec" onclick="copiarWA()">📋 Copiar resumen</button></div>`;
+return h}
 
-  // Carrera hacia la meta
-  h += '<div class="card"><h2>🏁 La carrera</h2><p class="sub" style="margin-bottom:10px">Avance hacia el objetivo de cada una</p><div class="pista">';
-  C.P.forEach(p=>{
-    const meta = p.objetivo || 5;
-    const avance = Math.min(Math.max(p.kg,0)/meta*100, 100);
-    h += `<div class="carril"><div class="meta-linea">🏁</div>
-      <div class="corredor" data-anim data-l="${(avance*0.78).toFixed(1)}%" style="left:0">
-        ${avatarHTML(p)}<small>${p.kg>0?'−'+p.kg+' kg':'—'}</small></div></div>`;
-  });
-  h += '</div></div>';
-
-  // Anillos de constancia (semana actual)
-  h += '<div class="card"><h2>💍 Constancia esta semana</h2><div class="anillos">';
-  const d1 = (C.semana-1)*7+1;
-  C.P.forEach(p=>{
-    let hechos = 0, posibles = 0;
-    for(let d=d1; d<=Math.min(C.semana*7, C.dia); d++){ posibles++; if(p.chkMap[C.fechaDia(d)]) hechos++; }
-    const pctA = posibles ? hechos/7 : 0;
-    const r = 26, circ = 2*Math.PI*r;
-    h += `<div class="anillo-item">
-      <svg width="70" height="70" viewBox="0 0 70 70">
-        <circle cx="35" cy="35" r="${r}" fill="none" stroke="var(--linea)" stroke-width="8"/>
-        <circle cx="35" cy="35" r="${r}" fill="none" stroke="${p.color}" stroke-width="8"
-          stroke-linecap="round" stroke-dasharray="${(pctA*circ).toFixed(1)} ${circ}"
-          transform="rotate(-90 35 35)" style="transition:stroke-dasharray 1.2s"/>
-        <text x="35" y="40" text-anchor="middle" font-size="15" font-weight="900" fill="var(--texto)">${hechos}/7</text>
-      </svg><span>${p.nombre}</span></div>`;
-  });
-  h += '</div></div>';
-
-  h += '<div class="card"><h2>📉 Evolución comparada</h2><p class="sub" style="margin-bottom:8px">% de peso perdido</p><canvas id="chGrupo" height="220"></canvas></div>';
-  h += `<div class="card"><h2>📲 Resumen para WhatsApp</h2>
-    <p class="sub" style="margin-bottom:6px">Copia el resumen y pégalo en el grupo</p>
-    <button class="btn sec" onclick="copiarResumen()">📋 Copiar resumen</button></div>`;
-  return h;
-}
 function vStatsInd(){
-  const p = C.P.find(x=>x.id===statSel);
-  const meta = p.objetivo || null;
-  const avanceMeta = meta && p.kg>0 ? Math.min(p.kg/meta*100,100).toFixed(0) : null;
-  let h = `<div class="card" style="display:flex;align-items:center;gap:14px">
-    ${avatarHTML(p)}
-    <div><b style="font-size:1.2rem">${p.nombre}</b>
-    <div class="sub">${p.edad?p.edad+' años · ':''}${p.estatura?p.estatura+' cm · ':''}${p.puntos} puntos</div></div></div>`;
-  h += `<div class="card"><div class="numeros">
-    <div class="numero"><b>${p.pesoIni??'—'}</b><span>peso inicial</span></div>
-    <div class="numero"><b>${p.pesoAct??'—'}</b><span>peso actual</span></div>
-    <div class="numero"><b style="color:var(--exito)">−${p.kg}</b><span>kg perdidos</span></div>
-    <div class="numero"><b style="color:var(--exito)">${p.pct}%</b><span>de su peso</span></div>
-    <div class="numero"><b>${p.cintIni??'—'} → ${p.cintAct??'—'}</b><span>cintura (cm)</span></div>
-    <div class="numero"><b style="color:var(--exito)">−${p.cm} cm</b><span>de cintura</span></div>
-    <div class="numero"><b>🔥 ${p.racha}</b><span>racha actual</span></div>
-    <div class="numero"><b>${p.diasReg}</b><span>días registrados</span></div>
-    <div class="numero"><b>${p.retosOK}/10</b><span>retos cumplidos</span></div>
-    <div class="numero"><b>${'👑'.repeat(p.coronas)||'—'}</b><span>coronas</span></div>
-  </div>`;
-  if(avanceMeta){
-    h += `<div style="margin-top:14px"><div class="sub">Meta: perder ${meta} kg · vas al ${avanceMeta}%</div>
-    <div class="barra-fondo"><div class="barra-relleno" data-w="${avanceMeta}%" style="width:0"></div></div></div>`;
-  }
-  h += '</div>';
-  h += '<div class="card"><h2>📉 Su peso</h2><canvas id="chPeso" height="210"></canvas></div>';
-  h += '<div class="card"><h2>📏 Su cintura</h2><canvas id="chCint" height="200"></canvas></div>';
+const p=G.P.find(x=>x.id===statSel);
+const meta=p.objetivo;const av=meta&&p.kg>0?Math.min(p.kg/meta*100,100).toFixed(0):null;
+let h=`<div class="c" style="display:flex;align-items:center;gap:12px">${avHTML(p)}
+<div><b style="font-size:1.1rem">${p.nombre}</b>
+<div style="font-size:.8rem;color:var(--txt2);font-weight:800">${p.edad?p.edad+' años · ':''}${p.puntos} pts</div></div></div>`;
+h+=`<div class="c"><div class="nums">
+<div class="num"><b>${p.pesoIni??'—'}</b><span>peso inicial</span></div>
+<div class="num"><b>${p.pesoAct??'—'}</b><span>peso actual</span></div>
+<div class="num"><b style="color:var(--verde)">−${p.kg}</b><span>kg perdidos</span></div>
+<div class="num"><b style="color:var(--verde)">${p.pct}%</b><span>del peso</span></div>
+<div class="num"><b>${p.cintIni??'—'}→${p.cintAct??'—'}</b><span>cintura</span></div>
+<div class="num"><b style="color:var(--verde)">−${p.cm}cm</b><span>cintura perdida</span></div>
+<div class="num"><b>🔥${p.racha}</b><span>racha actual</span></div>
+<div class="num"><b>${p.diasReg}</b><span>días registrados</span></div>
+<div class="num"><b style="color:var(--rojo)">−${p.penalidad}</b><span>penalidades</span></div>
+<div class="num"><b>${'👑'.repeat(p.coronas)||'—'}</b><span>coronas</span></div>
+</div>`;
+if(p.desglose){h+=`<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--borde)">
+<div style="font-size:.7rem;font-weight:900;color:var(--txt2);text-transform:uppercase;margin-bottom:8px">Desglose de puntos</div>
+<div class="nums">
+<div class="num"><b>${p.desglose.ptsPeso}</b><span>por peso</span></div>
+<div class="num"><b>${p.desglose.ptsCint}</b><span>por cintura</span></div>
+<div class="num"><b>${p.desglose.ptsConst}</b><span>por constancia</span></div>
+<div class="num"><b>${p.desglose.ptsRetos}</b><span>por retos diarios</span></div>
+<div class="num"><b>${p.desglose.ptsDuelo}</b><span>por duelos</span></div>
+<div class="num"><b>${p.desglose.ptsRetosS}</b><span>por retos semanales</span></div>
+</div></div>`}
+if(av)h+=`<div style="margin-top:10px"><div style="font-size:.75rem;font-weight:800;color:var(--txt2)">Meta: −${meta} kg · ${av}%</div>
+<div class="barra-bg"><div class="barra-fg" data-w="${av}%" style="width:0"></div></div></div>`;
+h+='</div>';
+h+='<div class="c"><h2>📉 Peso</h2><canvas id="chPeso" height="200"></canvas></div>';
+h+='<div class="c"><h2>📏 Cintura</h2><canvas id="chCint" height="190"></canvas></div>';
+// Mood calendar
+h+='<div class="c"><h2>🗓️ Retos completados</h2><div class="cal">';
+for(let d=1;d<=G.total;d++){const r=p.rdMap[G.fechaDia(d)];
+if(d>G.dia)h+=`<div class="cal-d empty">${d}</div>`;
+else h+=`<div class="cal-d">${r&&bool(r.completado)?'✅':'<span style="opacity:.3">'+d+'</span>'}</div>`}
+h+='</div></div>';return h}
 
-  // calendario de ánimo
-  h += '<div class="card"><h2>🗓️ Su ánimo día a día</h2><div class="calendario">';
-  for(let d=1; d<=C.total; d++){
-    const c = p.chkMap[C.fechaDia(d)];
-    if(d>C.dia) h += '<div class="cal-dia vacio">'+d+'</div>';
-    else h += '<div class="cal-dia'+(c?'':' vacio')+'">'+(c ? (c.animo||'✅') : d)+'</div>';
-  }
-  h += '</div></div>';
-  return h;
-}
 function pintarCharts(){
-  const estilo = getComputedStyle(document.documentElement);
-  const txt = estilo.getPropertyValue('--texto2').trim();
-  const linea = estilo.getPropertyValue('--linea').trim();
-  Chart.defaults.font.family = 'Nunito';
-  Chart.defaults.color = txt;
-  const ops = {responsive:true, plugins:{legend:{labels:{font:{weight:800}}}},
-    scales:{x:{grid:{color:linea}}, y:{grid:{color:linea}}}};
+const s=getComputedStyle(document.documentElement);
+const txt=s.getPropertyValue('--txt2').trim();const ln=s.getPropertyValue('--borde').trim();
+Chart.defaults.font.family='Inter';Chart.defaults.color=txt;
+const opts={responsive:true,plugins:{legend:{labels:{font:{weight:800}}}},
+scales:{x:{grid:{color:ln}},y:{grid:{color:ln}}}};
 
-  const g = document.getElementById('chGrupo');
-  if(g){
-    const labels = []; for(let w=1; w<=C.semana; w++) labels.push('S'+w);
-    const datasets = C.P.map(p=>{
-      const data = [];
-      for(let w=1; w<=C.semana; w++){
-        const hasta = C.fechaDia(Math.min(w*7, C.dia));
-        const pes = p.pes.filter(x=>String(x.fecha).slice(0,10)<=hasta);
-        const ultimo = pes.length ? num(pes[pes.length-1].peso) : null;
-        data.push(p.pesoIni && ultimo!==null ? +((p.pesoIni-ultimo)/p.pesoIni*100).toFixed(2) : null);
-      }
-      return {label:p.nombre, data, borderColor:p.color, backgroundColor:p.color,
-        tension:.35, borderWidth:3, pointRadius:4};
-    });
-    charts.push(new Chart(g, {type:'line', data:{labels, datasets}, options:ops}));
-  }
-  const p = C.P.find(x=>x.id===statSel);
-  const cp = document.getElementById('chPeso');
-  if(cp && p){
-    const labels = p.pes.map(x=>String(x.fecha).slice(5,10).replace('-','/'));
-    charts.push(new Chart(cp, {type:'line',
-      data:{labels, datasets:[{label:'Peso (kg)', data:p.pes.map(x=>num(x.peso)),
-        borderColor:p.color, backgroundColor:p.color+'33', fill:true, tension:.35, borderWidth:3, pointRadius:4}]},
-      options:{...ops, plugins:{legend:{display:false}}}}));
-  }
-  const cc = document.getElementById('chCint');
-  if(cc && p){
-    const conCint = p.pes.filter(x=>num(x.cintura)!==null);
-    charts.push(new Chart(cc, {type:'line',
-      data:{labels:conCint.map(x=>String(x.fecha).slice(5,10).replace('-','/')),
-        datasets:[{label:'Cintura (cm)', data:conCint.map(x=>num(x.cintura)),
-        borderColor:'#6C3FB5', backgroundColor:'#6C3FB533', fill:true, tension:.35, borderWidth:3, pointRadius:4}]},
-      options:{...ops, plugins:{legend:{display:false}}}}));
-  }
-}
-function copiarResumen(){
-  const m = ['🥇','🥈','🥉','4️⃣'];
-  let t = '📊 *Transformación 70 — Semana '+C.semana+' (Día '+C.dia+')*\n';
-  const reinaSem = C.semanas.filter(s=>s.reina).pop();
-  if(reinaSem) t += '👑 Reina de la semana: '+C.P.find(p=>p.id===reinaSem.reina).nombre+'\n';
-  C.ranking.forEach((p,i)=>{ t += m[i]+' '+p.nombre+' — '+p.puntos+' pts (−'+p.kg+' kg)\n'; });
-  t += '💪 Juntas: −'+C.kgGrupo+' kg y −'+C.cmGrupo+' cm de cintura\n';
-  if(C.retoActual) t += '🎯 Reto: '+C.retoActual.descripcion+'\n';
-  t += '🔗 '+location.href;
-  navigator.clipboard.writeText(t).then(()=>aviso('📋 ¡Copiado! Pégalo en WhatsApp'))
-    .catch(()=>{ prompt('Copia este texto:', t); });
-}
+const g=document.getElementById('chGrupo');
+if(g){const labels=[];for(let w=1;w<=G.semana;w++)labels.push('S'+w);
+const ds=G.P.map(p=>{const data=[];
+for(let w=1;w<=G.semana;w++){const hasta=G.fechaDia(Math.min(w*7,G.dia));
+const pes=p.pes.filter(x=>String(x.fecha).slice(0,10)<=hasta);
+const ult=pes.length?n(pes[pes.length-1].peso):null;
+data.push(p.pesoIni&&ult!==null?+((p.pesoIni-ult)/p.pesoIni*100).toFixed(2):null)}
+return{label:p.nombre,data,borderColor:p.color,backgroundColor:p.color,tension:.35,borderWidth:3,pointRadius:4}});
+charts.push(new Chart(g,{type:'line',data:{labels,datasets:ds},options:opts}))}
 
-/* -------------------- arranque -------------------- */
-(function(){
-  const t = leeLocal('t70_tema');
-  if(t){ document.documentElement.dataset.theme = t;
-    document.getElementById('temaBtn').textContent = t==='light'?'🌙':'☀️'; }
-  const yo = leeLocal('t70_yo');
-  if(yo) yoId = Number(yo);
-  cargar();
-})();
+const p=G.P.find(x=>x.id===statSel);
+const cp=document.getElementById('chPeso');
+if(cp&&p&&p.pes.length){charts.push(new Chart(cp,{type:'line',
+data:{labels:p.pes.map(x=>String(x.fecha).slice(5,10).replace('-','/')),
+datasets:[{label:'Peso',data:p.pes.map(x=>n(x.peso)),borderColor:p.color,
+backgroundColor:p.color+'33',fill:true,tension:.35,borderWidth:3,pointRadius:4}]},
+options:{...opts,plugins:{legend:{display:false}}}}))}
+const cc=document.getElementById('chCint');
+if(cc&&p){const conC=p.pes.filter(x=>n(x.cintura)!==null);
+if(conC.length)charts.push(new Chart(cc,{type:'line',
+data:{labels:conC.map(x=>String(x.fecha).slice(5,10).replace('-','/')),
+datasets:[{label:'Cintura',data:conC.map(x=>n(x.cintura)),borderColor:'#6C3FB5',
+backgroundColor:'#6C3FB533',fill:true,tension:.35,borderWidth:3,pointRadius:4}]},
+options:{...opts,plugins:{legend:{display:false}}}}))}}
+
+function copiarWA(){const m=['🥇','🥈','🥉','4️⃣'];
+let t=`📊 *Transformación 70 — Semana ${G.semana} (Día ${G.dia})*\n`;
+const r=G.semanas.filter(s=>s.reina).pop();
+if(r)t+=`👑 Reina: ${G.P.find(p=>p.id===r.reina).nombre}\n`;
+G.ranking.forEach((p,i)=>{t+=`${m[i]} ${p.nombre} — ${p.puntos} pts (−${p.kg} kg)\n`});
+t+=`💪 Juntas: −${G.kgGrupo} kg\n`;
+if(G.retoActual)t+=`🎯 Reto: ${G.retoActual.descripcion}\n`;
+t+=`🔗 ${location.href}`;
+navigator.clipboard.writeText(t).then(()=>toast('📋 ¡Copiado!')).catch(()=>prompt('Copia:',t))}
+
+/* --- Init --- */
+(function(){const t=ld('t70t');if(t){document.documentElement.dataset.theme=t;
+document.getElementById('tBtn').textContent=t?'🌙':'☀️'}
+const y=ld('t70y');if(y)yoId=Number(y);load()})();
 </script>
 </body>
 </html>
