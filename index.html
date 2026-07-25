@@ -530,15 +530,17 @@ if(bestRacha>=7)ptsRetos+=5;if(bestRacha>=21)ptsRetos+=15;if(bestRacha>=50)ptsRe
 const retosOK=(S.retos||[]).filter(r=>bool(r[nombreCol[id]])).length;
 // Penalidades
 let penalidad=0;
-// -5 por lunes sin pesaje (semanas completas sin peso)
+// -5 por lunes sin pesaje (solo semanas YA COMPLETADAS)
 for(let w=1;w<semana;w++){
 const d1=(w-1)*7+1,d2=w*7;
+if(d2>dia)continue; // semana no terminada, no penalizar
 const tienePeso=pes.some(x=>{const f=String(x.fecha).slice(0,10);return f>=fechaDia(d1)&&f<=fechaDia(d2)});
 if(!tienePeso&&empezo)penalidad+=5}
-// -3 por romper racha de 7+ (aproximación: si mejor racha fue >=7 pero actual es 0)
-if(bestRacha>=7&&racha===0&&dia>7)penalidad+=3;
-// -2 por cada reto semanal no cumplido en semanas pasadas
+// -3 por romper racha de 7+ (solo si ya tuvo una racha larga y la perdió)
+if(bestRacha>=7&&racha===0&&dia>14)penalidad+=3;
+// -2 por cada reto semanal no cumplido en semanas COMPLETADAS
 for(let w=1;w<semana;w++){
+if(w*7>dia)continue; // semana no terminada
 const reto=(S.retos||[]).find(r=>Number(r.semana)===w);
 if(reto&&!bool(reto[nombreCol[id]]))penalidad+=2}
 // -3 si subió de peso 2 semanas seguidas
@@ -559,12 +561,21 @@ const curr=n(pesF[pesF.length-1].peso),prev=n(pesAnt[pesAnt.length-1].peso);
 const real=curr<prev?'bajo':curr>prev?'subio':'igual';
 if(pr.prediccion===real)ptsPred+=3}});
 
+// Contar actividad: retos diarios + check-ins antiguos + pesajes
+const chk=(S.checkins||[]).filter(x=>Number(x.participante_id)===id);
+const chkMap={};chk.forEach(c=>chkMap[String(c.fecha).slice(0,10)]=c);
+// Días activos = cualquier día que hizo reto diario, check-in o pesaje
+const diasActivos=new Set();
+rd.filter(r=>bool(r.completado)).forEach(r=>diasActivos.add(String(r.fecha).slice(0,10)));
+chk.forEach(c=>diasActivos.add(String(c.fecha).slice(0,10)));
+pes.forEach(x=>diasActivos.add(String(x.fecha).slice(0,10)));
+
 const comodinSem=p.comodin_semana?Number(p.comodin_semana):null;
-return{...p,id,pes,rdMap,pesoIni,cintIni,pesoAct,cintAct,kg,pct,cm,cmPct,
+return{...p,id,pes,rdMap,chkMap,pesoIni,cintIni,pesoAct,cintAct,kg,pct,cm,cmPct,
 racha,bestRacha,ptsRetos,retosOK,penalidad,ptsPred,comodinSem,
 pesoMin:pes.length?Math.min(...pes.map(x=>n(x.peso))):null,
 pesoMax:pes.length?Math.max(...pes.map(x=>n(x.peso))):null,
-diasReg:rd.filter(r=>bool(r.completado)).length,objetivo:n(p.objetivo_kg)}});
+diasReg:diasActivos.size,objetivo:n(p.objetivo_kg)}});
 
 // Duelos semanales
 const semanas=[];
@@ -637,9 +648,9 @@ const pos=ranking.findIndex(x=>x.id===p.id);
 if(p.diasReg<dia-1)tips.push({ico:'🔥',t:'Completa tu reto diario cada día. Ganas 2-6 pts + 2 pts por constancia = hasta 8 pts diarios.'});
 if(p.racha===0&&dia>3)tips.push({ico:'⚡',t:'Tu racha está en 0. Hoy puedes empezar una nueva. A los 7 días ganas +5 pts de bono.'});
 if(p.racha>=5&&p.racha<7)tips.push({ico:'🔥',t:'¡Te faltan '+(7-p.racha)+' días para el bono de racha de 7 (+5 pts)! No la pierdas.'});
-if(!p.pes.some(x=>String(x.fecha).slice(0,10)>=G.fechaDia(Math.max(1,(G.semana-1)*7+1))))
+if(!p.pes.some(x=>String(x.fecha).slice(0,10)>=fechaDia(Math.max(1,(semana-1)*7+1))))
 tips.push({ico:'⚖️',t:'No has pesado esta semana. El lunes perderás -5 pts si no lo haces.'});
-if(p.retosOK<G.semana-1)tips.push({ico:'🎯',t:'Llevas '+p.retosOK+' retos semanales cumplidos. Cada uno vale 5 pts.'});
+if(p.retosOK<semana-1)tips.push({ico:'🎯',t:'Llevas '+p.retosOK+' retos semanales cumplidos. Cada uno vale 5 pts.'});
 if(p.penalidad>0)tips.push({ico:'😬',t:'Llevas -'+p.penalidad+' pts en penalidades. La mejor forma de recuperarte: no fallar ni un día.'});
 if(pos>0){const diff=ranking[0].puntos-p.puntos;
 tips.push({ico:'🏆',t:'Estás a '+diff+' pts de '+ranking[0].nombre+'. '+
@@ -651,8 +662,13 @@ p.tips=tips});
 const walls=[];
 const topRacha=[...P].sort((a,b)=>b.racha-a.racha)[0];
 if(topRacha.racha>=3)walls.push({t:'fire',m:`🔥 ${topRacha.nombre} lleva ${topRacha.racha} días sin fallar`});
-const sinReg=[...P].filter(p=>dia>3&&p.diasReg<dia-3);
-if(sinReg.length)walls.push({t:'warn',m:`😬 ${sinReg[0].nombre} lleva ${dia-sinReg[0].diasReg} días sin registrar`});
+// Vergüenza: solo si alguien no ha hecho NADA en 3+ días (ni reto diario, ni check-in, ni pesaje)
+P.forEach(p=>{
+let ultimaAct=null;
+for(let d=dia;d>=1;d--){const f=fechaDia(d);
+if(p.rdMap[f]||p.chkMap[f]||p.pes.some(x=>String(x.fecha).slice(0,10)===f)){ultimaAct=d;break}}
+const sinAct=ultimaAct?dia-ultimaAct:dia;
+if(sinAct>=3&&dia>3)walls.push({t:'warn',m:`😬 ${p.nombre} lleva ${sinAct} días sin registrar nada`})});
 const ultimaReina=semanas.filter(s=>s.reina).pop();
 if(ultimaReina){const rn=P.find(p=>p.id===ultimaReina.reina);
 walls.push({t:'crown',m:`👑 ${rn.nombre} es la Reina de la semana ${ultimaReina.w}`})}
