@@ -502,7 +502,10 @@ const sav=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const hoy=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const n=v=>{const x=parseFloat(v);return isNaN(x)?null:x};
-const bool=v=>v===true||v==='TRUE'||v==='true'||v===1;
+const bool=v=>{
+if(v===true||v===1||v==='1')return true;
+if(typeof v==='string'){const s=v.trim().toUpperCase();return s==='TRUE'||s==='VERDADERO'||s==='SÍ'||s==='SI'||s==='YES'||s==='X'||s==='✓'||s==='✔'||s==='✔️'}
+return false};
 const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w200':null};
 function avHTML(p,cls){const f=fotoUrl(p.foto);
 return `<div class="av ${cls||''}" style="--pc:${p.color}">${f?'<img src="'+f+'" onerror="this.remove()">':p.nombre[0]}</div>`}
@@ -1205,6 +1208,26 @@ G.P.forEach(p=>{h+=`<div class="registro-row">
 <div class="registro-info">
 <b>${p.nombre}</b>
 <span>Fotos: <b>${p.nombre}_diaX_...jpg</b></span>
+</div></div>`});
+h+='</div>';
+// PANEL DIAGNÓSTICO — para saber exactamente qué lee la app del sheet
+h+=`<div class="c" style="border:2px dashed var(--naranja)"><h2>🔍 Diagnóstico (retos diarios)</h2>
+<p style="font-size:.8rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Esto muestra qué está leyendo la app del sheet. Si algo dice "❌ NO cuenta" pero debería contar, hay que revisar esa fila.</p>`;
+const filasRD=[...(S.retosDiarios||[])].sort((a,b)=>{
+const f=String(a.fecha).localeCompare(String(b.fecha));
+return f||Number(a.participante_id)-Number(b.participante_id)});
+if(!filasRD.length)h+='<p style="color:var(--txt2);font-weight:700">Ninguna fila en RetosDiarios todavía.</p>';
+else filasRD.slice(-20).forEach(r=>{
+const p=G.P.find(x=>Number(x.id)===Number(r.participante_id));
+const cuenta=bool(r.completado);
+h+=`<div class="registro-row" style="${cuenta?'border:1px solid var(--verde)':''}">
+<div style="font-size:1.2rem">${cuenta?'✅':'⏳'}</div>
+<div class="registro-info">
+<b>${p?p.nombre:'?'} · ${formatearFecha(String(r.fecha).slice(0,10))}</b>
+<span style="font-size:.72rem;line-height:1.4;display:block">
+completado=<b>${JSON.stringify(r.completado)}</b> · método=<b>${r.metodo||'—'}</b> · puntos=<b>${r.puntos||0}</b>
+${cuenta?'<span style="color:var(--verde);font-weight:900">✓ SÍ cuenta</span>':'<span style="color:var(--rojo);font-weight:900">✗ NO cuenta</span>'}
+</span>
 </div></div>`});
 h+='</div>';
 return h}
