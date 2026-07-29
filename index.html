@@ -12,41 +12,48 @@
 <style>
 :root{
 --bg:#0A0A0F;--card:#161620;--card2:#1E1E2E;--borde:#2A2A3A;
---lime:#C8FF00;--rojo:#FF4757;--naranja:#FF9F43;--verde:#2ED573;--azul:#6CB4EE;
---txt:#FFFFFF;--txt2:#8E8E93;--txt3:#555;
---r:16px;--sombra:0 4px 20px rgba(0,0,0,.4);
+--lime:#C8FF00;--rojo:#FF4757;--naranja:#FF9F43;--verde:#2ED573;--azul:#6CB4EE;--rosa:#FF6BD6;--morado:#B983FF;
+--txt:#FFFFFF;--txt2:#B0B0BB;--txt3:#666;
+--r:18px;--sombra:0 4px 20px rgba(0,0,0,.4);
 }
 [data-theme=light]{
---bg:#F5F5F7;--card:#FFFFFF;--card2:#F0F0F5;--borde:#E0E0E5;
---txt:#1A1A2E;--txt2:#8E8E93;--txt3:#BBB;
+--bg:#F5F5F7;--card:#FFFFFF;--card2:#F0F0F5;--borde:#DDD;
+--txt:#1A1A2E;--txt2:#555;--txt3:#999;
 --sombra:0 4px 20px rgba(0,0,0,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{font-size:16px}
+html{font-size:18px}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);
-min-height:100vh;padding-bottom:88px;transition:background .3s,color .3s}
-.app{max-width:480px;margin:0 auto;padding:14px 14px}
+min-height:100vh;padding-bottom:100px;transition:background .3s,color .3s;font-size:1rem;line-height:1.5}
+.app{max-width:520px;margin:0 auto;padding:16px 14px}
 
 /* Header */
-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 2px}
-.logo{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:-.5px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:0 2px}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:-.5px}
 .logo span{color:var(--lime)}
-.hdr-btns{display:flex;gap:8px}
-.hdr-btn{border:none;background:var(--card);border:1px solid var(--borde);width:40px;height:40px;
-border-radius:12px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
+.hdr-btns{display:flex;gap:10px}
+.hdr-btn{border:none;background:var(--card);border:2px solid var(--borde);width:48px;height:48px;
+border-radius:14px;font-size:1.3rem;cursor:pointer;color:var(--txt)}
 
 /* Cards */
 .c{background:var(--card);border-radius:var(--r);border:1px solid var(--borde);
-padding:16px;margin-bottom:12px;animation:fadeUp .4s ease both}
+padding:20px;margin-bottom:14px;animation:fadeUp .4s ease both}
+.c.inicio{border-top:5px solid var(--lime)}
+.c.midia{border-top:5px solid var(--azul)}
+.c.pesaje{border-top:5px solid var(--naranja)}
+.c.reto{border-top:5px solid var(--rosa)}
+.c.perfil{border-top:5px solid var(--morado)}
+.c.trofeo-card{border-top:5px solid var(--naranja)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .c:nth-child(2){animation-delay:.05s}.c:nth-child(3){animation-delay:.1s}
 .c:nth-child(4){animation-delay:.15s}.c:nth-child(5){animation-delay:.2s}
-h2{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;
-display:flex;align-items:center;gap:8px}
-.tag{font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:99px;background:var(--lime);
+h2{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:12px;
+display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:99px;background:var(--lime);
 color:#0A0A0F;text-transform:uppercase;letter-spacing:.5px}
 .tag.rojo{background:var(--rojo);color:#fff}
 .tag.naranja{background:var(--naranja);color:#0A0A0F}
+.tag.verde{background:var(--verde);color:#fff}
 
 /* Day Hero */
 .hero{text-align:center;padding:22px 16px;position:relative;overflow:hidden}
@@ -78,19 +85,19 @@ line-height:1.45;color:var(--txt2)}
 .frase b{color:var(--lime)}
 
 /* Ranking */
-.rank-row{display:flex;align-items:center;gap:10px;padding:10px 6px;border-radius:12px;transition:transform .3s}
+.rank-row{display:flex;align-items:center;gap:12px;padding:12px 6px;border-radius:12px;transition:transform .3s}
 .rank-row:not(:last-child){border-bottom:1px solid var(--borde)}
-.medal{font-size:1.4rem;width:32px;text-align:center;flex-shrink:0}
-.av{width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;
-justify-content:center;font-weight:900;font-size:1.1rem;overflow:hidden;
-border:2.5px solid var(--pc,var(--lime));color:#0A0A0F;background:var(--pc,var(--lime))}
+.medal{font-size:1.7rem;width:38px;text-align:center;flex-shrink:0}
+.av{width:50px;height:50px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;
+justify-content:center;font-weight:900;font-size:1.3rem;overflow:hidden;
+border:3px solid var(--pc,var(--lime));color:#0A0A0F;background:var(--pc,var(--lime))}
 .av img{width:100%;height:100%;object-fit:cover}
-.av.sm{width:34px;height:34px;font-size:.9rem;border-width:2px}
+.av.sm{width:38px;height:38px;font-size:1rem;border-width:2px}
 .rank-info{flex:1;min-width:0}
-.rank-name{font-weight:900;font-size:.95rem}
-.rank-det{font-size:.72rem;color:var(--txt2);font-weight:700}
-.rank-pts{font-family:'Space Grotesk';font-weight:700;font-size:1.1rem;text-align:right;color:var(--lime)}
-.rank-pts small{display:block;font-family:'Inter';font-size:.6rem;color:var(--txt2);font-weight:800}
+.rank-name{font-weight:900;font-size:1.05rem}
+.rank-det{font-size:.8rem;color:var(--txt2);font-weight:700;margin-top:2px}
+.rank-pts{font-family:'Space Grotesk';font-weight:700;font-size:1.3rem;text-align:right;color:var(--lime)}
+.rank-pts small{display:block;font-family:'Inter';font-size:.68rem;color:var(--txt2);font-weight:800}
 
 /* Duel */
 .duel{display:flex;align-items:center;justify-content:space-around;padding:16px 8px;text-align:center}
@@ -110,23 +117,30 @@ flex-shrink:0;width:50px}
 .premio-txt span{font-size:.68rem;color:var(--txt2);font-weight:700}
 .premio-gana{font-weight:900;font-size:.85rem;color:var(--lime)}
 
-/* Buttons */
-.btn{display:block;width:100%;border:none;border-radius:14px;padding:15px;
-font-family:'Inter';font-size:1rem;font-weight:900;cursor:pointer;
-background:var(--lime);color:#0A0A0F;transition:transform .12s;margin-top:8px}
+/* Buttons - MÁS GRANDES */
+.btn{display:block;width:100%;border:none;border-radius:16px;padding:18px;
+font-family:'Inter';font-size:1.1rem;font-weight:900;cursor:pointer;
+background:var(--lime);color:#0A0A0F;transition:transform .12s;margin-top:10px;
+box-shadow:0 4px 16px rgba(200,255,0,.25)}
 .btn:active{transform:scale(.97)}
-.btn:disabled{opacity:.4}
-.btn.sec{background:var(--card2);color:var(--txt);border:1px solid var(--borde)}
-.btn.danger{background:var(--rojo);color:#fff}
-.btn.sm{padding:10px 16px;font-size:.85rem;width:auto;display:inline-block;margin:4px}
+.btn:disabled{opacity:.4;box-shadow:none}
+.btn.sec{background:var(--card2);color:var(--txt);border:2px solid var(--borde);box-shadow:none}
+.btn.danger{background:var(--rojo);color:#fff;box-shadow:0 4px 16px rgba(255,71,87,.25)}
+.btn.azul{background:var(--azul);color:#0A0A0F;box-shadow:0 4px 16px rgba(108,180,238,.25)}
+.btn.naranja{background:var(--naranja);color:#0A0A0F;box-shadow:0 4px 16px rgba(255,159,67,.25)}
+.btn.verde{background:var(--verde);color:#fff;box-shadow:0 4px 16px rgba(46,213,115,.25)}
+.btn.rosa{background:var(--rosa);color:#fff;box-shadow:0 4px 16px rgba(255,107,214,.25)}
+.btn.sm{padding:12px 18px;font-size:.95rem;width:auto;display:inline-block;margin:4px;box-shadow:none}
+.btn.iconbtn{display:flex;align-items:center;justify-content:center;gap:10px;font-size:1.15rem}
+.btn.iconbtn .bico{font-size:1.5rem}
 
 /* User selector */
-.users-bar{display:flex;gap:10px;justify-content:center;padding:12px 0;margin-bottom:8px}
+.users-bar{display:flex;gap:14px;justify-content:center;padding:14px 0;margin-bottom:10px}
 .user-pick{text-align:center;cursor:pointer;transition:transform .15s}
 .user-pick:active{transform:scale(.92)}
-.user-pick .av{margin:0 auto 4px;transition:box-shadow .2s}
-.user-pick b{font-size:.72rem;display:block}
-.user-pick.on .av{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--lime)}
+.user-pick .av{margin:0 auto 6px;transition:box-shadow .2s;width:60px;height:60px;font-size:1.4rem}
+.user-pick b{font-size:.85rem;display:block;font-weight:800}
+.user-pick.on .av{box-shadow:0 0 0 4px var(--bg),0 0 0 6px var(--lime)}
 .user-pick.on b{color:var(--lime)}
 
 /* Reto diario */
@@ -162,11 +176,11 @@ padding:9px 18px;font-family:'Inter';font-weight:900;font-size:.9rem;cursor:poin
 border-radius:14px;width:56px;height:56px;cursor:pointer;transition:transform .15s}
 .moods button.on{border-color:var(--lime);background:var(--card);transform:scale(1.1)}
 
-input[type=number],input[type=text]{width:100%;padding:13px;border-radius:14px;border:1.5px solid var(--borde);
-background:var(--card2);color:var(--txt);font-family:'Inter';font-weight:800;font-size:1.15rem;text-align:center}
+input[type=number],input[type=text]{width:100%;padding:16px;border-radius:14px;border:2px solid var(--borde);
+background:var(--card2);color:var(--txt);font-family:'Inter';font-weight:800;font-size:1.35rem;text-align:center}
 input:focus{outline:none;border-color:var(--lime)}
-.campo{margin-bottom:12px}
-.campo>label{font-weight:800;font-size:.8rem;color:var(--txt2)}
+.campo{margin-bottom:14px}
+.campo>label{font-weight:800;font-size:.95rem;color:var(--txt);display:block;margin-bottom:6px}
 
 /* Trofeos */
 .trofeos-g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
@@ -229,16 +243,16 @@ font-size:.85rem;color:var(--txt2);font-weight:600;line-height:1.5;background:va
 .val-card{border:2px solid var(--naranja);background:rgba(255,159,67,.05)}
 .val-card .av{margin:0 auto 8px}
 
-/* Nav */
+/* Nav - MÁS GRANDE */
 nav{position:fixed;bottom:0;left:0;right:0;z-index:50;background:var(--card);
-border-top:1px solid var(--borde);display:flex;justify-content:space-around;
-padding:6px 4px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+border-top:2px solid var(--borde);display:flex;justify-content:space-around;
+padding:8px 4px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.3)}
 nav button{background:none;border:none;cursor:pointer;color:var(--txt2);
-display:flex;flex-direction:column;align-items:center;gap:1px;
-font-size:.6rem;font-weight:900;padding:5px 12px;border-radius:12px;font-family:'Inter'}
-nav button .ni{font-size:1.4rem;transition:transform .2s}
+display:flex;flex-direction:column;align-items:center;gap:3px;
+font-size:.75rem;font-weight:900;padding:8px 14px;border-radius:14px;font-family:'Inter'}
+nav button .ni{font-size:1.7rem;transition:transform .2s}
 nav button.on{color:var(--lime)}
-nav button.on .ni{transform:translateY(-2px) scale(1.1)}
+nav button.on .ni{transform:translateY(-3px) scale(1.15)}
 
 /* Toast */
 .toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:200;
@@ -254,13 +268,37 @@ border:4px solid var(--borde);border-top-color:var(--lime);animation:girar 1s li
 @keyframes girar{to{transform:rotate(360deg)}}
 
 /* Photo input */
-.foto-area{display:flex;gap:8px;margin-top:8px}
-.foto-btn{flex:1;border:2px dashed var(--borde);border-radius:14px;padding:14px;text-align:center;
+.foto-area{display:flex;gap:10px;margin-top:12px}
+.foto-btn{flex:1;border:3px dashed var(--borde);border-radius:16px;padding:20px 12px;text-align:center;
 cursor:pointer;background:var(--card2);transition:border-color .2s}
-.foto-btn:active{border-color:var(--lime)}
-.foto-btn .ico{font-size:1.6rem;display:block;margin-bottom:4px}
-.foto-btn span{font-size:.75rem;font-weight:800;color:var(--txt2)}
-.foto-preview{width:100%;border-radius:12px;margin-top:8px;display:none}
+.foto-btn:active{border-color:var(--lime);transform:scale(.97)}
+.foto-btn .ico{font-size:2rem;display:block;margin-bottom:6px}
+.foto-btn span{font-size:.9rem;font-weight:900;color:var(--txt);display:block}
+.foto-btn small{font-size:.72rem;color:var(--txt2);font-weight:700;display:block;margin-top:3px}
+.foto-preview{width:100%;border-radius:14px;margin-top:10px;display:none}
+
+/* Modal / Confirmation dialogs */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:150;
+display:none;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-c{background:var(--card);border-radius:20px;padding:24px;max-width:400px;width:100%;
+border:2px solid var(--borde);animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+.modal-c h2{margin-bottom:14px;font-size:1.35rem}
+.modal-c p{font-size:1.05rem;font-weight:700;color:var(--txt2);margin-bottom:16px;line-height:1.5}
+.modal-actions{display:flex;gap:10px;margin-top:8px}
+.modal-actions .btn{margin:0}
+
+/* Edit row */
+.registro-row{display:flex;align-items:center;gap:10px;padding:10px;background:var(--card2);
+border-radius:12px;margin-bottom:8px}
+.registro-info{flex:1}
+.registro-info b{display:block;font-size:.95rem;font-weight:900}
+.registro-info span{font-size:.78rem;color:var(--txt2);font-weight:700}
+.reg-btns{display:flex;gap:6px}
+.reg-btn{border:none;background:var(--card);border:1.5px solid var(--borde);border-radius:10px;
+width:40px;height:40px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
+.reg-btn.del{color:var(--rojo);border-color:var(--rojo)}
 </style>
 </head>
 <body>
@@ -302,6 +340,17 @@ cursor:pointer;background:var(--card2);transition:border-color .2s}
 <div class="faq-a">Sí. No pesar el lunes: −5. Romper racha de 7+ días: −3. No cumplir reto semanal: −2. Subir de peso 2 semanas seguidas: −3.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🏆 ¿Quién gana al final? <span class="arrow">▼</span></div>
 <div class="faq-a">50% la clasificación de la app + 50% un voto anónimo donde cada una vota a la que más cambió físicamente (sin votarse a sí misma).</div></div>
+</div>
+
+<div class="modal" id="modal">
+<div class="modal-c">
+<h2 id="modalTitle">Confirmar</h2>
+<p id="modalMsg">¿Estás segura?</p>
+<div class="modal-actions">
+<button class="btn sec" onclick="closeModal()">❌ Cancelar</button>
+<button class="btn danger" id="modalOk">✔️ Sí, hacerlo</button>
+</div>
+</div>
 </div>
 
 <script>
@@ -467,6 +516,18 @@ return d.getDate()+'/'+(d.getMonth()+1)}
 function toggleTheme(){const h=document.documentElement;const nw=h.dataset.theme==='light'?'':'light';
 h.dataset.theme=nw;document.getElementById('tBtn').textContent=nw?'🌙':'☀️';sav('t70t',nw);render()}
 function toggleHelp(){document.getElementById('helpOv').classList.toggle('show')}
+
+// Modal de confirmación reutilizable (doble validación)
+let modalCb=null;
+function confirmar(titulo,mensaje,btnTexto,cb){
+document.getElementById('modalTitle').textContent=titulo;
+document.getElementById('modalMsg').textContent=mensaje;
+const ok=document.getElementById('modalOk');
+ok.textContent=btnTexto||'✔️ Sí';
+modalCb=cb;ok.onclick=()=>{closeModal();if(modalCb)modalCb()};
+document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');modalCb=null}
 
 /* --- API --- */
 async function load(){try{
@@ -779,81 +840,170 @@ let h='<div class="users-bar">';
 G.P.forEach(p=>{h+=`<div class="user-pick ${yoId===p.id?'on':''}" onclick="pickUser(${p.id})">
 ${avHTML(p)}<b>${p.nombre}</b></div>`});
 h+='</div>';
-if(!yoId)return h+'<div class="c" style="text-align:center"><h2>👆 Toca tu foto arriba</h2></div>';
+if(!yoId)return h+'<div class="c" style="text-align:center;padding:40px 20px"><div style="font-size:3rem;margin-bottom:12px">👆</div><h2>Toca tu foto arriba</h2><p style="color:var(--txt2);font-weight:700;margin-top:8px">Para empezar, selecciona quién eres</p></div>';
 
 const p=G.P.find(x=>x.id===yoId);
 
 // Tips personalizados
 if(p.tips&&p.tips.length){
-const tip=p.tips[Math.floor((Date.now()/3600000))%p.tips.length]; // rota cada hora
-h+=`<div class="c" style="border-left:3px solid var(--lime)">
-<div style="display:flex;gap:10px;align-items:flex-start">
-<span style="font-size:1.3rem">${tip.ico}</span>
-<div><div style="font-size:.65rem;font-weight:900;color:var(--lime);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">💡 Tip para ti</div>
-<p style="font-weight:700;font-size:.88rem;line-height:1.4">${tip.t}</p></div></div></div>`}
+const tip=p.tips[Math.floor((Date.now()/3600000))%p.tips.length];
+h+=`<div class="c" style="border-left:5px solid var(--lime)">
+<div style="display:flex;gap:12px;align-items:flex-start">
+<span style="font-size:1.8rem">${tip.ico}</span>
+<div style="flex:1"><div style="font-size:.75rem;font-weight:900;color:var(--lime);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">💡 Consejo para ti</div>
+<p style="font-weight:700;font-size:1rem;line-height:1.45">${tip.t}</p></div></div></div>`}
+
 const hoyS=hoy();
 const rdHoy=p.rdMap[hoyS];
 const retoDone=rdHoy&&bool(rdHoy.completado);
-const pesajeHoy=p.pes.some(x=>String(x.fecha).slice(0,10)===hoyS);
+const retoPend=rdHoy&&!bool(rdHoy.completado)&&rdHoy.metodo==='pendiente';
+const pesajeHoy=p.pes.find(x=>String(x.fecha).slice(0,10)===hoyS);
 const perfilOK=p.edad&&p.estatura&&p.objetivo;
 
-// Validaciones pendientes para mí
+// Validaciones pendientes para mí (otras que me piden ayuda)
+if(G.valPend.length){
 G.valPend.forEach(sid=>{const sp=G.P.find(x=>x.id===sid);
-h+=`<div class="c val-card" style="text-align:center">${avHTML(sp)}
-<p style="font-weight:900;margin:8px 0">${sp.nombre} dice que completó su reto de hoy</p>
-<p style="font-size:.85rem;color:var(--txt2);font-weight:700">"${G.retoDia.r}"</p>
-<p style="font-weight:800;margin:8px 0">¿Le crees?</p>
-<button class="btn sm" onclick="votar(${sid},true)">👍 Sí</button>
-<button class="btn sm sec" onclick="votar(${sid},false)">👎 No</button></div>`});
+h+=`<div class="c" style="border:3px solid var(--naranja);background:rgba(255,159,67,.08);text-align:center">
+<div style="font-size:.75rem;font-weight:900;color:var(--naranja);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">🤝 Te piden ayuda</div>
+${avHTML(sp)}
+<p style="font-weight:900;font-size:1.15rem;margin:12px 0 4px">${sp.nombre} completó su reto</p>
+<p style="font-size:.9rem;color:var(--txt2);font-weight:700;margin-bottom:12px">"${G.retoDia.r}"</p>
+<p style="font-weight:900;font-size:1rem;margin-bottom:12px">¿Le crees?</p>
+<div style="display:flex;gap:10px">
+<button class="btn verde iconbtn" style="flex:1;margin:0" onclick="votar(${sid},true)"><span class="bico">👍</span>Sí</button>
+<button class="btn danger iconbtn" style="flex:1;margin:0" onclick="votar(${sid},false)"><span class="bico">👎</span>No</button>
+</div></div>`})}
 
-// Daily challenge
-h+=`<div class="c ${retoDone?'reto-done':'reto-card'}">
-<span class="reto-ico">${G.retoDia.t}</span>
-<div class="reto-tipo">${G.retoDia.c} · DÍA ${G.dia}</div>
-<div class="reto-desc">${G.retoDia.r}</div>`;
+// SECCIÓN: RETO DEL DÍA
+h+=`<div class="c midia">
+<h2>🎯 Tu reto de hoy</h2>
+<div style="text-align:center;padding:16px 0">
+<div style="font-size:3.5rem;margin-bottom:8px">${G.retoDia.t}</div>
+<div style="font-size:.8rem;font-weight:900;color:var(--azul);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">${G.retoDia.c} · DÍA ${G.dia}</div>
+<div style="font-size:1.25rem;font-weight:900;line-height:1.4">${G.retoDia.r}</div>
+</div>`;
+
 if(retoDone){
-h+=`<div style="margin-top:12px"><span class="tag" style="font-size:.8rem">✅ COMPLETADO · +${rdHoy.puntos||'?'} puntos</span></div>
-<div class="lockout"><div class="sub">Vuelve mañana para tu siguiente reto</div></div>`
+h+=`<div style="text-align:center;padding:16px;background:rgba(46,213,115,.1);border-radius:14px;border:2px solid var(--verde);margin-top:12px">
+<div style="font-size:2rem;margin-bottom:6px">✅</div>
+<div style="font-weight:900;font-size:1.05rem;color:var(--verde)">¡Reto completado!</div>
+<div style="font-weight:800;font-size:.95rem;margin-top:4px">+${rdHoy.puntos||'?'} puntos ganados</div>
+<div style="font-size:.85rem;color:var(--txt2);font-weight:700;margin-top:6px">Vuelve mañana para tu siguiente reto</div>
+</div>`;
+if(rdHoy.foto_url){h+=`<img src="${rdHoy.foto_url.replace(/[-\w]{25,}/, m=>'https://drive.google.com/thumbnail?id='+m+'&sz=w400').replace('drive.google.com/thumbnailhttps','drive.google.com/thumbnail')}" class="foto-preview" style="display:block;margin-top:10px" onerror="this.style.display='none'">`}
+}else if(retoPend){
+h+=`<div style="text-align:center;padding:16px;background:rgba(255,159,67,.1);border-radius:14px;border:2px solid var(--naranja);margin-top:12px">
+<div style="font-size:2rem;margin-bottom:6px">⏳</div>
+<div style="font-weight:900;font-size:1.05rem;color:var(--naranja)">Esperando validación</div>
+<div style="font-size:.9rem;color:var(--txt2);font-weight:700;margin-top:6px">Le pediste a las demás que voten si te creen. Necesitas 2 de 3 votos positivos.</div>
+</div>`;
 }else{
-h+=`<div class="foto-area">
-<div class="foto-btn" onclick="document.getElementById('fotoIn').click()">
-<span class="ico">📸</span><span>Subir foto</span></div>
-<div class="foto-btn" onclick="pedirValidacion()">
-<span class="ico">🤝</span><span>Pedir validación</span></div></div>
-<input type="file" id="fotoIn" accept="image/*" capture="environment" style="display:none" onchange="subirFoto(this)">
+h+=`<p style="text-align:center;font-weight:800;font-size:.95rem;color:var(--txt2);margin:14px 0 8px">¿Ya lo completaste? Elige una opción:</p>
+<div class="foto-area">
+<div class="foto-btn" onclick="document.getElementById('fotoCam').click()">
+<span class="ico">📷</span><span>Tomar foto</span><small>Con la cámara</small></div>
+<div class="foto-btn" onclick="document.getElementById('fotoGal').click()">
+<span class="ico">🖼️</span><span>Elegir foto</span><small>De la galería</small></div>
+</div>
+<input type="file" id="fotoCam" accept="image/*" capture="environment" style="display:none" onchange="subirFoto(this)">
+<input type="file" id="fotoGal" accept="image/*" style="display:none" onchange="subirFoto(this)">
 <img class="foto-preview" id="fotoPreview">
-<div id="fotoStatus"></div>`}
+<div id="fotoStatus"></div>
+<p style="text-align:center;font-size:.8rem;color:var(--txt2);font-weight:700;margin:14px 0 8px">— o si no puedes tomar foto —</p>
+<button class="btn sec iconbtn" onclick="pedirValidacion()"><span class="bico">🤝</span>Pedir a las demás que me validen</button>
+<p style="text-align:center;font-size:.75rem;color:var(--txt2);font-weight:700;margin-top:8px">Las otras 3 votarán si te creen (necesitas 2 sí)</p>`}
 h+='</div>';
 
-// Pesaje SOLO los lunes
+// SECCIÓN: PESAJE (solo lunes)
 if(G.esLunes){
-const pesajeClass=!pesajeHoy?'c pesaje-warn':'c';
-h+=`<div class="${pesajeClass}"><h2>⚖️ Pesaje del lunes ${!pesajeHoy?'<span class="tag rojo">−5 PTS SI NO PESAS</span>':'<span class="tag">✅</span>'}</h2>
-<div id="pesajeZona">${pesajeHoy?'<p style="font-weight:800;color:var(--verde)">Ya pesaste hoy ✅</p>'
-:`<div class="campo"><label>Peso (kg)</label><input type="number" step="0.1" inputmode="decimal" id="inPeso"></div>
-<div class="campo"><label>Cintura (cm)</label><input type="number" step="0.5" inputmode="decimal" id="inCint"></div>
+h+=`<div class="c pesaje${!pesajeHoy?' pesaje-warn':''}">
+<h2>⚖️ Pesaje del lunes ${!pesajeHoy?'<span class="tag rojo">−5 PTS SI NO PESAS</span>':'<span class="tag verde">✅ HECHO</span>'}</h2>`;
+if(pesajeHoy){
+h+=`<div class="registro-row">
+<div style="font-size:1.4rem">⚖️</div>
+<div class="registro-info">
+<b>${n(pesajeHoy.peso)} kg · ${n(pesajeHoy.cintura)} cm cintura</b>
+<span>Registrado hoy</span>
+</div>
+<div class="reg-btns">
+<button class="reg-btn" onclick="editarPesaje()" title="Editar">✏️</button>
+<button class="reg-btn del" onclick="borrarPesaje('${hoyS}')" title="Borrar">🗑️</button>
+</div>
+</div>`;
+}else{
+h+=`<div class="campo"><label>⚖️ Peso (kg) — ejemplo: 68.5</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" placeholder="0.0"></div>
+<div class="campo"><label>📏 Cintura (cm) — ejemplo: 92</label><input type="number" step="0.5" inputmode="decimal" id="inCint" placeholder="0"></div>
 ${predForm()}
-<button class="btn" id="btnPes" onclick="guardarPesaje()">Guardar pesaje</button>`}</div></div>`}
-else{h+=`<div class="c"><h2>⚖️ Pesaje</h2>
-<p style="font-weight:800;color:var(--txt2)">El pesaje se abre cada lunes. Próximo: ${proximoLunes()}</p></div>`}
+<button class="btn naranja iconbtn" id="btnPes" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar pesaje</button>`}
+h+='</div>';
+}else{
+h+=`<div class="c"><h2>⚖️ Pesaje</h2>
+<div style="text-align:center;padding:12px">
+<div style="font-size:2rem;margin-bottom:8px">📅</div>
+<p style="font-weight:800;color:var(--txt2);font-size:.95rem">El pesaje se abre cada lunes</p>
+<p style="font-weight:900;font-size:1.1rem;margin-top:8px">Próximo lunes: ${proximoLunes()}</p>
+</div></div>`;
+}
 
-// Reto semanal
+// SECCIÓN: RETO SEMANAL
 if(G.retoActual){
 const retoOK=bool(G.retoActual[nombreCol[yoId]]);
 const esDomingo=new Date().getDay()===0;
-h+=`<div class="c"><h2>🎯 Reto de la semana</h2>
-<p style="font-weight:800">${G.retoActual.descripcion}</p>
-${retoOK?'<span class="tag" style="margin-top:8px;display:inline-block">✅ CUMPLIDO</span>'
-:esDomingo?'<button class="btn" onclick="cumplirReto()">✔️ ¡Lo cumplí!</button>'
-:'<p style="font-size:.85rem;color:var(--txt2);font-weight:700;margin-top:8px">Podrás marcarlo como cumplido el domingo</p>'}</div>`}
+h+=`<div class="c reto">
+<h2>🎯 Reto de la semana ${G.semana}</h2>
+<div style="text-align:center;padding:12px 0">
+<p style="font-weight:900;font-size:1.1rem;line-height:1.4">${G.retoActual.descripcion}</p>
+</div>`;
+if(retoOK)h+='<div style="text-align:center;padding:14px;background:rgba(46,213,115,.1);border-radius:14px;border:2px solid var(--verde)"><div style="font-size:1.8rem">✅</div><div style="font-weight:900;color:var(--verde);margin-top:4px">¡Cumplido!</div></div>';
+else if(esDomingo)h+='<button class="btn rosa iconbtn" onclick="cumplirReto()"><span class="bico">✔️</span>¡Lo cumplí!</button>';
+else h+=`<div style="text-align:center;padding:14px;background:var(--card2);border-radius:14px"><div style="font-size:1.6rem;margin-bottom:6px">📅</div><p style="font-weight:800;color:var(--txt2);font-size:.9rem">Podrás marcarlo como cumplido el <b style="color:var(--txt)">domingo</b></p></div>`;
+h+='</div>';
+}
 
-// Comodín eliminado
+// SECCIÓN: MIS REGISTROS (histórico editable)
+if(p.pes.length){
+h+=`<div class="c"><h2>📋 Mis pesajes anteriores</h2>`;
+[...p.pes].reverse().slice(0,5).forEach(pe=>{
+const f=String(pe.fecha).slice(0,10);
+if(f===hoyS)return; // ya se muestra arriba
+h+=`<div class="registro-row">
+<div style="font-size:1.3rem">⚖️</div>
+<div class="registro-info">
+<b>${n(pe.peso)} kg · ${n(pe.cintura)||'—'} cm</b>
+<span>${formatearFecha(f)}</span>
+</div>
+<div class="reg-btns">
+<button class="reg-btn del" onclick="borrarPesaje('${f}')" title="Borrar">🗑️</button>
+</div></div>`});
+h+='</div>';
+}
 
-// Perfil
-h+=`<div class="c"><h2>👤 Mi perfil ${perfilOK?'<span class="tag">✅</span>':''}</h2>
-<button class="btn sec" onclick="formPerfil()">Editar perfil</button>
+// SECCIÓN: PERFIL
+h+=`<div class="c perfil"><h2>👤 Mi perfil ${perfilOK?'<span class="tag verde">✅ Completo</span>':'<span class="tag rojo">⚠️ Falta</span>'}</h2>
+<button class="btn morado iconbtn" style="background:var(--morado);color:#fff;box-shadow:0 4px 16px rgba(185,131,255,.25)" onclick="formPerfil()"><span class="bico">✏️</span>Editar mi perfil</button>
 <div id="perfilZona"></div></div>`;
+
 return h}
+
+function formatearFecha(iso){const d=new Date(iso+'T00:00:00');const dias=['dom','lun','mar','mié','jue','vie','sáb'];const meses=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];return `${dias[d.getDay()]} ${d.getDate()} ${meses[d.getMonth()]}`}
+
+async function borrarPesaje(fecha){
+confirmar('🗑️ Borrar pesaje',`¿Segura que quieres borrar el pesaje del ${formatearFecha(fecha)}? Esta acción no se puede deshacer.`,'🗑️ Sí, borrar',async()=>{
+try{await send('borrar_pesaje',{fecha,participante_id:yoId});
+toast('🗑️ Pesaje borrado');await load();go('midia');
+}catch(e){toast('😕 Error al borrar')}})}
+
+function editarPesaje(){
+const p=G.P.find(x=>x.id===yoId);
+const pe=p.pes.find(x=>String(x.fecha).slice(0,10)===hoy());
+document.getElementById('pesajeZona')?.remove();
+const card=event.target.closest('.c');
+card.innerHTML=`<h2>✏️ Editar pesaje</h2>
+<div class="campo"><label>⚖️ Peso (kg)</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" value="${n(pe.peso)||''}"></div>
+<div class="campo"><label>📏 Cintura (cm)</label><input type="number" step="0.5" inputmode="decimal" id="inCint" value="${n(pe.cintura)||''}"></div>
+<button class="btn verde iconbtn" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar cambios</button>
+<button class="btn sec" style="margin-top:6px" onclick="go('midia')">❌ Cancelar</button>`;
+}
 
 function predForm(){
 const pred=(S.predicciones||[]).find(p=>Number(p.participante_id)===yoId&&String(p.fecha).slice(0,10)===hoy());
@@ -891,9 +1041,10 @@ await load();go('midia');
 img.src=URL.createObjectURL(file)}
 
 async function pedirValidacion(){
+confirmar('🤝 Pedir validación','Las otras 3 participantes verán tu solicitud en su app y votarán si te creen. Necesitas 2 votos positivos para que se apruebe. ¿Continuar?','🤝 Sí, pedir validación',async()=>{
 try{await send('reto_diario',{fecha:hoy(),participante_id:yoId,completado:false,metodo:'pendiente',puntos:0});
-toast('🤝 Solicitud enviada. Las demás votarán.');await load();go('midia');
-}catch(e){toast('😕 Error')}}
+toast('🤝 ¡Solicitud enviada a las demás!');await load();go('midia');
+}catch(e){toast('😕 Error')}})}
 
 async function votar(solId,voto){
 try{await send('validar',{fecha:hoy(),solicitante_id:solId,votante_id:yoId,voto});
