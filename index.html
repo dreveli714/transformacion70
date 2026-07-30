@@ -4,26 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0A0A0F">
+<meta name="theme-color" content="#FFE7F3">
 <title>Transformación 70</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
---bg:#0A0A0F;--card:#161620;--card2:#1E1E2E;--borde:#2A2A3A;
+--bg:#FFF5FA;--bg-grad:linear-gradient(165deg,#FFE7F3 0%,#FFF1E4 50%,#E8F7FF 100%);
+--card:#FFFFFF;--card2:#FDEFF7;--borde:#F6E0ED;
+--lime:#DB2777;--rojo:#F5323F;--naranja:#FF9F1C;--verde:#08875A;--azul:#1EA7FD;--rosa:#FF7A5C;--morado:#9B5DE5;
+--txt:#33203A;--txt2:#7A6070;--txt3:#B3A0AD;
+--r:20px;--sombra:0 8px 24px rgba(255,46,147,.10);
+}
+[data-theme=dark]{
+--bg:#0A0A0F;--bg-grad:none;--card:#161620;--card2:#1E1E2E;--borde:#2A2A3A;
 --lime:#C8FF00;--rojo:#FF4757;--naranja:#FF9F43;--verde:#2ED573;--azul:#6CB4EE;--rosa:#FF6BD6;--morado:#B983FF;
 --txt:#FFFFFF;--txt2:#B0B0BB;--txt3:#666;
---r:18px;--sombra:0 4px 20px rgba(0,0,0,.4);
-}
-[data-theme=light]{
---bg:#F5F5F7;--card:#FFFFFF;--card2:#F0F0F5;--borde:#DDD;
---txt:#1A1A2E;--txt2:#555;--txt3:#999;
---sombra:0 4px 20px rgba(0,0,0,.08);
+--sombra:0 4px 20px rgba(0,0,0,.4);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:18px}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);
+body{font-family:'Inter',sans-serif;background:var(--bg);background-image:var(--bg-grad);background-attachment:fixed;background-size:cover;color:var(--txt);
 min-height:100vh;padding-bottom:100px;transition:background .3s,color .3s;font-size:1rem;line-height:1.5}
 .app{max-width:520px;margin:0 auto;padding:16px 14px}
 
@@ -50,7 +52,7 @@ padding:20px;margin-bottom:14px;animation:fadeUp .4s ease both}
 h2{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:12px;
 display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .tag{font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:99px;background:var(--lime);
-color:#0A0A0F;text-transform:uppercase;letter-spacing:.5px}
+color:#fff;text-transform:uppercase;letter-spacing:.5px}
 .tag.rojo{background:var(--rojo);color:#fff}
 .tag.naranja{background:var(--naranja);color:#0A0A0F}
 .tag.verde{background:var(--verde);color:#fff}
@@ -75,7 +77,7 @@ transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
 .wall{border-radius:var(--r);padding:12px 16px;margin-bottom:12px;font-weight:800;font-size:.9rem;
 display:flex;align-items:center;gap:10px;border:1px solid;animation:pulse 2.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.85}}
-.wall.fire{background:rgba(200,255,0,.08);border-color:rgba(200,255,0,.3);color:var(--lime)}
+.wall.fire{background:rgba(255,46,147,.08);border-color:rgba(255,46,147,.28);color:var(--lime)}
 .wall.warn{background:rgba(255,71,87,.08);border-color:rgba(255,71,87,.3);color:var(--rojo)}
 .wall.crown{background:rgba(255,159,67,.08);border-color:rgba(255,159,67,.3);color:var(--naranja)}
 .wall.info{background:rgba(108,180,238,.08);border-color:rgba(108,180,238,.3);color:var(--azul)}
@@ -120,8 +122,8 @@ flex-shrink:0;width:50px}
 /* Buttons - MÁS GRANDES */
 .btn{display:block;width:100%;border:none;border-radius:16px;padding:18px;
 font-family:'Inter';font-size:1.1rem;font-weight:900;cursor:pointer;
-background:var(--lime);color:#0A0A0F;transition:transform .12s;margin-top:10px;
-box-shadow:0 4px 16px rgba(200,255,0,.25)}
+background:var(--lime);color:#fff;transition:transform .12s;margin-top:10px;
+box-shadow:0 6px 18px rgba(255,46,147,.28)}
 .btn:active{transform:scale(.97)}
 .btn:disabled{opacity:.4;box-shadow:none}
 .btn.sec{background:var(--card2);color:var(--txt);border:2px solid var(--borde);box-shadow:none}
@@ -129,7 +131,7 @@ box-shadow:0 4px 16px rgba(200,255,0,.25)}
 .btn.azul{background:var(--azul);color:#0A0A0F;box-shadow:0 4px 16px rgba(108,180,238,.25)}
 .btn.naranja{background:var(--naranja);color:#0A0A0F;box-shadow:0 4px 16px rgba(255,159,67,.25)}
 .btn.verde{background:var(--verde);color:#fff;box-shadow:0 4px 16px rgba(46,213,115,.25)}
-.btn.rosa{background:var(--rosa);color:#fff;box-shadow:0 4px 16px rgba(255,107,214,.25)}
+.btn.rosa{background:var(--rosa);color:#33203A;box-shadow:0 4px 16px rgba(255,122,92,.28)}
 .btn.sm{padding:12px 18px;font-size:.95rem;width:auto;display:inline-block;margin:4px;box-shadow:none}
 .btn.iconbtn{display:flex;align-items:center;justify-content:center;gap:10px;font-size:1.15rem}
 .btn.iconbtn .bico{font-size:1.5rem}
@@ -307,7 +309,7 @@ width:40px;height:40px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
 <div class="logo">T<span>70</span></div>
 <div class="hdr-btns">
 <button class="hdr-btn" onclick="toggleHelp()">❓</button>
-<button class="hdr-btn" id="tBtn" onclick="toggleTheme()">☀️</button>
+<button class="hdr-btn" id="tBtn" onclick="toggleTheme()">🌙</button>
 </div>
 </header>
 <main id="main"><div class="cargando"><div class="spin"></div><b>Cargando…</b></div></main>
@@ -324,7 +326,7 @@ width:40px;height:40px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
 <button class="help-close" onclick="toggleHelp()">✕</button>
 <h2 style="margin-bottom:14px;font-size:1.2rem">📖 Cómo funciona</h2>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🎯 ¿Qué hago cada día? <span class="arrow">▼</span></div>
-<div class="faq-a">Abres la app, ves tu reto del día (uno diferente cada día durante 70 días). Lo cumples y lo validas de dos formas: subes una foto de prueba o pides que las otras 3 voten si te creen. Ganas entre 2 y 6 puntos aleatorios. Tu racha crece cada día que lo hagas.</div></div>
+<div class="faq-a">Abres la app, ves tu reto del día (uno diferente cada día durante 70 días). Lo cumples y lo validas de dos formas: subes una foto de prueba o pides que las otras 3 voten si te creen. Ganas 4 puntos. Tu racha crece cada día que lo hagas.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">⚖️ ¿Qué hago cada lunes? <span class="arrow">▼</span></div>
 <div class="faq-a">Te pesas y mides tu cintura. Antes de hacerlo puedes apostar si bajaste, subiste o te mantuviste — si aciertas ganas 3 puntos extra. Si no pesas en toda la semana pierdes 5 puntos.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">⚔️ ¿Qué son los duelos? <span class="arrow">▼</span></div>
@@ -506,9 +508,9 @@ const bool=v=>{
 if(v===true||v===1||v==='1')return true;
 if(typeof v==='string'){const s=v.trim().toUpperCase();return s==='TRUE'||s==='VERDADERO'||s==='SÍ'||s==='SI'||s==='YES'||s==='X'||s==='✓'||s==='✔'||s==='✔️'}
 return false};
-const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w200':null};
+const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w120':null};
 function avHTML(p,cls){const f=fotoUrl(p.foto);
-return `<div class="av ${cls||''}" style="--pc:${p.color}">${f?'<img src="'+f+'" onerror="this.remove()">':p.nombre[0]}</div>`}
+return `<div class="av ${cls||''}" style="--pc:${p.color}">${f?'<img src="'+f+'" loading="lazy" decoding="async" onerror="this.remove()">':p.nombre[0]}</div>`}
 function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
 function confeti(){const em=['🎉','✨','⭐','🏆','💛','🧡'];for(let i=0;i<24;i++){
 const s=document.createElement('div');s.className='confetti';s.textContent=em[Math.floor(Math.random()*em.length)];
@@ -516,8 +518,8 @@ s.style.left=(Math.random()*100)+'vw';s.style.animationDelay=(Math.random()*.7)+
 s.style.fontSize=(.8+Math.random())+'rem';document.body.appendChild(s);setTimeout(()=>s.remove(),3500)}}
 function proximoLunes(){const d=new Date();const diff=(8-d.getDay())%7||7;d.setDate(d.getDate()+diff);
 return d.getDate()+'/'+(d.getMonth()+1)}
-function toggleTheme(){const h=document.documentElement;const nw=h.dataset.theme==='light'?'':'light';
-h.dataset.theme=nw;document.getElementById('tBtn').textContent=nw?'🌙':'☀️';sav('t70t',nw);render()}
+function toggleTheme(){const h=document.documentElement;const goDark=h.dataset.theme!=='dark';
+h.dataset.theme=goDark?'dark':'';document.getElementById('tBtn').textContent=goDark?'☀️':'🌙';sav('t70t',h.dataset.theme);render()}
 function toggleHelp(){document.getElementById('helpOv').classList.toggle('show')}
 
 // Modal de confirmación reutilizable (doble validación)
@@ -725,7 +727,7 @@ const ranking=[...P].sort((a,b)=>b.puntos-a.puntos||b.pct-a.pct);
 P.forEach(p=>{
 const tips=[];
 const pos=ranking.findIndex(x=>x.id===p.id);
-if(p.diasReg<dia-1)tips.push({ico:'🔥',t:'Completa tu reto diario cada día. Ganas 2-6 pts + 2 pts por constancia = hasta 8 pts diarios.'});
+if(p.diasReg<dia-1)tips.push({ico:'🔥',t:'Completa tu reto diario cada día. Ganas 4 pts + 2 pts por constancia = 6 pts diarios.'});
 if(p.racha===0&&dia>3)tips.push({ico:'⚡',t:'Tu racha está en 0. Hoy puedes empezar una nueva. A los 7 días ganas +5 pts de bono.'});
 if(p.racha>=5&&p.racha<7)tips.push({ico:'🔥',t:'¡Te faltan '+(7-p.racha)+' días para el bono de racha de 7 (+5 pts)! No la pierdas.'});
 if(!p.pes.some(x=>String(x.fecha).slice(0,10)>=fechaDia(Math.max(1,(semana-1)*7+1))))
@@ -920,7 +922,7 @@ h+=`<div style="text-align:center;padding:16px;background:rgba(46,213,115,.1);bo
 </div>`;
 if(rdHoy.foto_url){
 const idMatch=String(rdHoy.foto_url).match(/[-\w]{25,}/);
-if(idMatch)h+=`<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w600" class="foto-preview" style="display:block;margin-top:10px;max-width:100%;border-radius:12px" onerror="this.style.display='none'">`}
+if(idMatch)h+=`<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w500" loading="lazy" decoding="async" class="foto-preview" style="display:block;margin-top:10px;max-width:100%;border-radius:12px" onerror="this.style.display='none'">`}
 }else if(retoPend){
 h+=`<div style="text-align:center;padding:16px;background:rgba(255,159,67,.1);border-radius:14px;border:2px solid var(--naranja);margin-top:12px">
 <div style="font-size:2rem;margin-bottom:6px">⏳</div>
@@ -1018,7 +1020,7 @@ const idMatch=String(r.foto_url).match(/[-\w]{25,}/);
 const fecha=String(r.fecha).slice(0,10);
 if(idMatch){
 h+=`<div style="position:relative;border-radius:12px;overflow:hidden;background:var(--card2);aspect-ratio:1">
-<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w400" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w320" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
 <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.85));padding:14px 8px 6px;color:#fff;font-size:.72rem;font-weight:900">
 ${formatearFecha(fecha)} · +${r.puntos||4}pts
 </div></div>`}});
@@ -1327,8 +1329,8 @@ t+=`🔗 ${location.href}`;
 navigator.clipboard.writeText(t).then(()=>toast('📋 ¡Copiado!')).catch(()=>prompt('Copia:',t))}
 
 /* --- Init --- */
-(function(){const t=ld('t70t');if(t){document.documentElement.dataset.theme=t;
-document.getElementById('tBtn').textContent=t?'🌙':'☀️'}
+(function(){const t=ld('t70t');if(t==='dark'){document.documentElement.dataset.theme='dark';
+document.getElementById('tBtn').textContent='☀️';}
 const y=ld('t70y');if(y)yoId=Number(y);load()})();
 </script>
 </body>
