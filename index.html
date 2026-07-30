@@ -495,7 +495,7 @@ const TROFEOS=[
 const DUELOS=[[1,2,3,4],[1,3,2,4],[1,4,2,3]]; // pares: [a,b,c,d] → a vs b, c vs d
 const nombreCol={1:'carmen',2:'rosa',3:'laly',4:'dany'};
 
-let S=null,G=null,vista='midia',yoId=null,trofSel=1,statSel=0,charts=[];
+let S=null,G=null,vista='midia',yoId=null,trofSel=1,statSel=0,charts=[],driveWarn=false;
 
 /* --- Utils --- */
 const sav=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
@@ -536,6 +536,7 @@ function closeModal(){document.getElementById('modal').classList.remove('show');
 async function load(){try{
 const r=await fetch(API);const j=await r.json();if(!j.ok)throw new Error();
 S=j;
+driveWarn=(j.driveOK===false); // el servidor avisa si le faltan permisos de Drive
 // Safety: ensure new v2 fields exist even if backend hasn't been updated
 S.retosDiarios=S.retosDiarios||[];
 S.validaciones=S.validaciones||[];
@@ -800,11 +801,16 @@ if(nuevos.length){confeti();toast('🏆 ¡'+nuevos[0].p.nombre+' desbloqueó "'+
 /* --- Navigation --- */
 function go(v){vista=v;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
 render();window.scrollTo({top:0})}
+function bannerDrive(){return `<div class="c" style="border:2px solid var(--naranja);background:rgba(255,159,67,.1)">
+<div style="font-weight:900;color:var(--naranja);font-size:1rem;margin-bottom:6px">⚠️ Las fotos están en pausa</div>
+<p style="font-size:.9rem;font-weight:700;line-height:1.45;color:var(--txt)">El servidor necesita renovar el permiso de Google Drive. Mientras tanto, completa tu reto con <b>🤝 Pedir validación</b> — funciona igual y también da puntos.</p>
+</div>`}
 function render(){charts.forEach(c=>c.destroy());charts=[];const el=document.getElementById('main');
-if(vista==='inicio')el.innerHTML=vInicio();
-if(vista==='midia')el.innerHTML=vMiDia();
-if(vista==='trofeos')el.innerHTML=vTrofeos();
-if(vista==='stats'){el.innerHTML=vStats();setTimeout(pintarCharts,60)}
+const bw=driveWarn?bannerDrive():'';
+if(vista==='inicio')el.innerHTML=bw+vInicio();
+if(vista==='midia')el.innerHTML=bw+vMiDia();
+if(vista==='trofeos')el.innerHTML=bw+vTrofeos();
+if(vista==='stats'){el.innerHTML=bw+vStats();setTimeout(pintarCharts,60)}
 setTimeout(()=>document.querySelectorAll('[data-w]').forEach(b=>{b.style.width=b.dataset.w}),80);
 setTimeout(()=>document.querySelectorAll('[data-l]').forEach(b=>{b.style.left=b.dataset.l}),80)}
 
@@ -1104,7 +1110,13 @@ confeti();toast(`📸 ¡Foto subida! +${j.puntos} puntos`);
 await load();go('midia');
 }catch(e){
 const msg=e.name==='AbortError'?'Tardó demasiado. Prueba una foto más pequeña.':e.message;
-status.innerHTML=`<div style="background:rgba(255,71,87,.1);border:2px solid var(--rojo);border-radius:12px;padding:12px;margin-top:10px">
+const esPermiso=/drive|denegad|denied|permis|autoriz/i.test(msg);
+status.innerHTML=esPermiso
+?`<div style="background:rgba(255,159,67,.12);border:2px solid var(--naranja);border-radius:12px;padding:14px;margin-top:10px">
+<p style="color:var(--naranja);font-weight:900;text-align:center;margin-bottom:8px">⚠️ Las fotos están en pausa</p>
+<p style="font-size:.9rem;font-weight:700;line-height:1.45">Ahora mismo la subida de fotos no está disponible. Para completar tu reto de hoy usa <b>🤝 Pedir validación</b> — funciona igual y da los mismos puntos.</p>
+<button class="btn sec" style="margin-top:10px" onclick="go('midia')">← Volver</button></div>`
+:`<div style="background:rgba(255,71,87,.1);border:2px solid var(--rojo);border-radius:12px;padding:12px;margin-top:10px">
 <p style="color:var(--rojo);font-weight:900;text-align:center">❌ No se pudo subir: ${msg}</p>
 <button class="btn sec" style="margin-top:10px" onclick="location.reload()">🔄 Reintentar</button></div>`;
 }};
