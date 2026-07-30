@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#FFE7F3">
+<link rel="preconnect" href="https://lh3.googleusercontent.com" crossorigin>
+<link rel="preconnect" href="https://drive.google.com">
+<link rel="dns-prefetch" href="https://lh3.googleusercontent.com">
 <title>Transformación 70</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
@@ -508,7 +511,7 @@ const bool=v=>{
 if(v===true||v===1||v==='1')return true;
 if(typeof v==='string'){const s=v.trim().toUpperCase();return s==='TRUE'||s==='VERDADERO'||s==='SÍ'||s==='SI'||s==='YES'||s==='X'||s==='✓'||s==='✔'||s==='✔️'}
 return false};
-const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w120':null};
+const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w96':null};
 function avHTML(p,cls){const f=fotoUrl(p.foto);
 return `<div class="av ${cls||''}" style="--pc:${p.color}">${f?'<img src="'+f+'" loading="lazy" decoding="async" onerror="this.remove()">':p.nombre[0]}</div>`}
 function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
@@ -535,19 +538,28 @@ document.getElementById('modal').classList.add('show');
 function closeModal(){document.getElementById('modal').classList.remove('show');modalCb=null}
 
 /* --- API --- */
-async function load(){try{
+async function load(){
+// 1) Pintar AL INSTANTE con lo último guardado (para que la app abra rápido)
+let deCache=false;
+try{const cache=ld('t70cache');if(cache){const j=JSON.parse(cache);
+S=j;S.retosDiarios=S.retosDiarios||[];S.validaciones=S.validaciones||[];S.predicciones=S.predicciones||[];
+try{calc();document.getElementById('nav').style.display='';render();deCache=true;}catch(e){}}}catch(e){}
+// 2) Traer datos frescos por detrás y actualizar sin bloquear
+try{
 const r=await fetch(API);const j=await r.json();if(!j.ok)throw new Error();
 S=j;
 driveWarn=(j.driveOK===false); // el servidor avisa si le faltan permisos de Drive
-// Safety: ensure new v2 fields exist even if backend hasn't been updated
 S.retosDiarios=S.retosDiarios||[];
 S.validaciones=S.validaciones||[];
 S.predicciones=S.predicciones||[];
+try{sav('t70cache',JSON.stringify(j))}catch(e){} // guardar para la próxima apertura
 try{calc()}catch(err){document.getElementById('main').innerHTML=
 '<div class="c"><h2>⚠️ Error en cálculos</h2><p style="font-size:.8rem;color:var(--rojo);word-break:break-all">'+err.message+'<br>'+err.stack+'</p><button class="btn" onclick="location.reload()">Reintentar</button></div>';return}
 document.getElementById('nav').style.display='';render();checkTrofeos();
-}catch(e){document.getElementById('main').innerHTML=
-'<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}}
+}catch(e){
+if(deCache){toast('📴 Sin conexión — mostrando lo último guardado')}
+else{document.getElementById('main').innerHTML=
+'<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}}}
 async function send(a,d){
 try{const r=await fetch(API,{method:'POST',body:JSON.stringify({accion:a,datos:d})});
 if(!r.ok)throw new Error('Servidor respondió '+r.status);
@@ -922,7 +934,7 @@ h+=`<div style="text-align:center;padding:16px;background:rgba(46,213,115,.1);bo
 </div>`;
 if(rdHoy.foto_url){
 const idMatch=String(rdHoy.foto_url).match(/[-\w]{25,}/);
-if(idMatch)h+=`<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w500" loading="lazy" decoding="async" class="foto-preview" style="display:block;margin-top:10px;max-width:100%;border-radius:12px" onerror="this.style.display='none'">`}
+if(idMatch)h+=`<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w440" loading="lazy" decoding="async" class="foto-preview" style="display:block;margin-top:10px;max-width:100%;border-radius:12px" onerror="this.style.display='none'">`}
 }else if(retoPend){
 h+=`<div style="text-align:center;padding:16px;background:rgba(255,159,67,.1);border-radius:14px;border:2px solid var(--naranja);margin-top:12px">
 <div style="font-size:2rem;margin-bottom:6px">⏳</div>
@@ -1020,7 +1032,7 @@ const idMatch=String(r.foto_url).match(/[-\w]{25,}/);
 const fecha=String(r.fecha).slice(0,10);
 if(idMatch){
 h+=`<div style="position:relative;border-radius:12px;overflow:hidden;background:var(--card2);aspect-ratio:1">
-<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w320" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w240" loading="lazy" decoding="async" fetchpriority="low" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
 <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.85));padding:14px 8px 6px;color:#fff;font-size:.72rem;font-weight:900">
 ${formatearFecha(fecha)} · +${r.puntos||4}pts
 </div></div>`}});
