@@ -319,7 +319,7 @@ width:40px;height:40px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
 </div>
 
 <nav id="nav" style="display:none">
-<button data-v="inicio" onclick="go('inicio')"><span class="ni">🏠</span>Inicio</button>
+<button data-v="inicio" onclick="irInicio()"><span class="ni">🏠</span>Inicio</button>
 <button data-v="midia" class="on" onclick="go('midia')"><span class="ni">⚔️</span>Mi Día</button>
 <button data-v="trofeos" onclick="go('trofeos')"><span class="ni">🏆</span>Trofeos</button>
 <button data-v="stats" onclick="go('stats')"><span class="ni">📊</span>Stats</button>
@@ -331,7 +331,7 @@ width:40px;height:40px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🎯 ¿Qué hago cada día? <span class="arrow">▼</span></div>
 <div class="faq-a">Abres la app, ves tu reto del día (uno diferente cada día durante 70 días). Lo cumples y lo validas de dos formas: subes una foto de prueba o pides que las otras 3 voten si te creen. Ganas 4 puntos. Tu racha crece cada día que lo hagas.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">⚖️ ¿Qué hago cada lunes? <span class="arrow">▼</span></div>
-<div class="faq-a">Te pesas y mides tu cintura. Antes de hacerlo puedes apostar si bajaste, subiste o te mantuviste — si aciertas ganas 3 puntos extra. Si no pesas en toda la semana pierdes 5 puntos.</div></div>
+<div class="faq-a">Cada lunes te pesas y mides tu cintura. El domingo anterior, cuando aún no sabes el resultado, puedes apostar si el lunes bajarás, subirás o te mantendrás — si aciertas ganas 3 puntos extra. Si no pesas en toda la semana pierdes 5 puntos.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">⚔️ ¿Qué son los duelos? <span class="arrow">▼</span></div>
 <div class="faq-a">Cada semana te toca competir 1 vs 1 contra otra participante. Las parejas rotan. Ganar el duelo suma 3 puntos al ranking general. Perder no suma nada. Empate: 1 punto cada una.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🔥 ¿Qué es la racha? <span class="arrow">▼</span></div>
@@ -506,7 +506,7 @@ let S=null,G=null,vista='midia',yoId=null,trofSel=1,statSel=0,charts=[],driveWar
 const sav=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const hoy=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
-const n=v=>{const x=parseFloat(v);return isNaN(x)?null:x};
+const n=v=>{if(v===null||v===undefined||v==='')return null;const x=parseFloat(String(v).replace(',','.').trim());return isNaN(x)?null:x};
 const bool=v=>{
 if(v===true||v===1||v==='1')return true;
 if(typeof v==='string'){const s=v.trim().toUpperCase();return s==='TRUE'||s==='VERDADERO'||s==='SÍ'||s==='SI'||s==='YES'||s==='X'||s==='✓'||s==='✔'||s==='✔️'}
@@ -521,6 +521,8 @@ s.style.left=(Math.random()*100)+'vw';s.style.animationDelay=(Math.random()*.7)+
 s.style.fontSize=(.8+Math.random())+'rem';document.body.appendChild(s);setTimeout(()=>s.remove(),3500)}}
 function proximoLunes(){const d=new Date();const diff=(8-d.getDay())%7||7;d.setDate(d.getDate()+diff);
 return d.getDate()+'/'+(d.getMonth()+1)}
+function proximoLunesISO(){const d=new Date();const diff=(8-d.getDay())%7||7;d.setDate(d.getDate()+diff);
+return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function toggleTheme(){const h=document.documentElement;const goDark=h.dataset.theme!=='dark';
 h.dataset.theme=goDark?'dark':'';document.getElementById('tBtn').textContent=goDark?'☀️':'🌙';sav('t70t',h.dataset.theme);render()}
 function toggleHelp(){document.getElementById('helpOv').classList.toggle('show')}
@@ -555,11 +557,12 @@ S.predicciones=S.predicciones||[];
 try{sav('t70cache',JSON.stringify(j))}catch(e){} // guardar para la próxima apertura
 try{calc()}catch(err){document.getElementById('main').innerHTML=
 '<div class="c"><h2>⚠️ Error en cálculos</h2><p style="font-size:.8rem;color:var(--rojo);word-break:break-all">'+err.message+'<br>'+err.stack+'</p><button class="btn" onclick="location.reload()">Reintentar</button></div>';return}
-document.getElementById('nav').style.display='';render();checkTrofeos();
+document.getElementById('nav').style.display='';render();checkTrofeos();return true;
 }catch(e){
 if(deCache){toast('📴 Sin conexión — mostrando lo último guardado')}
 else{document.getElementById('main').innerHTML=
-'<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}}}
+'<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}
+return false}}
 async function send(a,d){
 try{const r=await fetch(API,{method:'POST',body:JSON.stringify({accion:a,datos:d})});
 if(!r.ok)throw new Error('Servidor respondió '+r.status);
@@ -667,7 +670,7 @@ const semanas=[];
 for(let w=1;w<=semana;w++){
 const par=DUELOS[(w-1)%3];
 const d1=(w-1)*7+1,d2=Math.min(w*7,total);
-const terminada=dia>d2;
+const terminada=dia>d2||(dia===d2&&P.every(p=>p.pes.some(x=>{const f=String(x.fecha).slice(0,10);return f>=fechaDia(d1)&&f<=fechaDia(d2)})));
 const ptsW={};
 const detalleW={}; // desglose para mostrar
 P.forEach(p=>{
@@ -815,6 +818,9 @@ if(nuevos.length){confeti();toast('🏆 ¡'+nuevos[0].p.nombre+' desbloqueó "'+
 /* --- Navigation --- */
 function go(v){vista=v;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
 render();window.scrollTo({top:0})}
+async function irInicio(){vista='inicio';document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==='inicio'));
+window.scrollTo({top:0});const btn=document.querySelector('nav button[data-v="inicio"] .ni');if(btn)btn.textContent='🔄';
+const ok=await load();if(btn)btn.textContent='🏠';if(ok)toast('🔄 Actualizado')}
 function bannerDrive(){return `<div class="c" style="border:2px solid var(--naranja);background:rgba(255,159,67,.1)">
 <div style="font-weight:900;color:var(--naranja);font-size:1rem;margin-bottom:6px">⚠️ Las fotos están en pausa</div>
 <p style="font-size:.9rem;font-weight:700;line-height:1.45;color:var(--txt)">El servidor necesita renovar el permiso de Google Drive. Mientras tanto, completa tu reto con <b>🤝 Pedir validación</b> — funciona igual y también da puntos.</p>
@@ -958,6 +964,9 @@ h+=`<p style="text-align:center;font-weight:800;font-size:.95rem;color:var(--txt
 <p style="text-align:center;font-size:.75rem;color:var(--txt2);font-weight:700;margin-top:8px">Las otras 3 votarán si te creen (necesitas 2 sí)</p>`}
 h+='</div>';
 
+// SECCIÓN: APUESTA (domingo — víspera del pesaje del lunes)
+if(new Date().getDay()===0){h+=predForm();}
+
 // SECCIÓN: PESAJE (solo lunes)
 if(G.esLunes){
 h+=`<div class="c pesaje${!pesajeHoy?' pesaje-warn':''}">
@@ -975,9 +984,9 @@ h+=`<div class="registro-row">
 </div>
 </div>`;
 }else{
-h+=`<div class="campo"><label>⚖️ Peso (kg) — ejemplo: 68.5</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" placeholder="0.0"></div>
-<div class="campo"><label>📏 Cintura (cm) — ejemplo: 92</label><input type="number" step="0.5" inputmode="decimal" id="inCint" placeholder="0"></div>
-${predForm()}
+h+=`<div class="campo"><label>⚖️ Peso (kg) — ejemplo: 68,5</label><input type="text" inputmode="decimal" autocomplete="off" id="inPeso" placeholder="0,0"></div>
+<div class="campo"><label>📏 Cintura (cm) — ejemplo: 92</label><input type="text" inputmode="decimal" autocomplete="off" id="inCint" placeholder="0"></div>
+${predConfirmHoy()}
 <button class="btn naranja iconbtn" id="btnPes" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar pesaje</button>`}
 h+='</div>';
 }else{
@@ -1059,20 +1068,31 @@ const pe=p.pes.find(x=>String(x.fecha).slice(0,10)===hoy());
 document.getElementById('pesajeZona')?.remove();
 const card=event.target.closest('.c');
 card.innerHTML=`<h2>✏️ Editar pesaje</h2>
-<div class="campo"><label>⚖️ Peso (kg)</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" value="${n(pe.peso)||''}"></div>
-<div class="campo"><label>📏 Cintura (cm)</label><input type="number" step="0.5" inputmode="decimal" id="inCint" value="${n(pe.cintura)||''}"></div>
+<div class="campo"><label>⚖️ Peso (kg)</label><input type="text" inputmode="decimal" autocomplete="off" id="inPeso" value="${n(pe.peso)||''}"></div>
+<div class="campo"><label>📏 Cintura (cm)</label><input type="text" inputmode="decimal" autocomplete="off" id="inCint" value="${n(pe.cintura)||''}"></div>
 <button class="btn verde iconbtn" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar cambios</button>
 <button class="btn sec" style="margin-top:6px" onclick="go('midia')">❌ Cancelar</button>`;
 }
 
 function predForm(){
-const pred=(S.predicciones||[]).find(p=>Number(p.participante_id)===yoId&&String(p.fecha).slice(0,10)===hoy());
-if(pred)return`<p style="font-size:.85rem;font-weight:800;color:var(--lime);margin-bottom:8px">🎰 Apostaste: ${pred.prediccion==='bajo'?'Bajé':pred.prediccion==='subio'?'Subí':'Me mantuve'}</p>`;
-return`<div style="margin-bottom:10px"><label style="font-weight:800;font-size:.8rem;color:var(--txt2)">🎰 Apuesta: ¿qué crees que pasó?</label>
-<div style="display:flex;gap:6px;margin-top:6px">
-<button class="btn sm sec" onclick="apostar('bajo')">⬇️ Bajé</button>
+// Se muestra el DOMINGO: apuesta sobre el pesaje de MAÑANA (lunes)
+const lun=proximoLunesISO();
+const pred=(S.predicciones||[]).find(p=>Number(p.participante_id)===yoId&&String(p.fecha).slice(0,10)===lun);
+if(pred)return`<div class="c pesaje"><h2>🎰 Tu apuesta para mañana</h2>
+<p style="text-align:center;font-weight:900;color:var(--lime);font-size:1.05rem;padding:6px">${pred.prediccion==='bajo'?'⬇️ Apostaste que bajarás':pred.prediccion==='subio'?'⬆️ Apostaste que subirás':'➡️ Apostaste que te mantendrás'}</p>
+<p style="text-align:center;font-size:.8rem;color:var(--txt2);font-weight:700">Mañana en el pesaje sabremos si acertaste (+3 pts)</p></div>`;
+return`<div class="c pesaje"><h2>🎰 ¡Mañana es pesaje! Apuesta</h2>
+<p style="text-align:center;font-size:.85rem;color:var(--txt2);font-weight:700;margin-bottom:12px">¿Qué crees que dirá la báscula mañana, comparado con tu último pesaje? Si aciertas ganas +3 pts.</p>
+<div style="display:flex;gap:6px">
+<button class="btn sm sec" onclick="apostar('bajo')">⬇️ Bajaré</button>
 <button class="btn sm sec" onclick="apostar('igual')">➡️ Igual</button>
-<button class="btn sm sec" onclick="apostar('subio')">⬆️ Subí</button></div></div>`}
+<button class="btn sm sec" onclick="apostar('subio')">⬆️ Subiré</button></div></div>`}
+
+function predConfirmHoy(){
+// El LUNES (día del pesaje): recuerda qué apostó ayer, sin poder cambiarla
+const pred=(S.predicciones||[]).find(p=>Number(p.participante_id)===yoId&&String(p.fecha).slice(0,10)===hoy());
+if(!pred)return'';
+return`<p style="font-size:.82rem;font-weight:800;color:var(--lime);margin:0 0 10px;text-align:center">🎰 Ayer apostaste: ${pred.prediccion==='bajo'?'⬇️ que bajarías':pred.prediccion==='subio'?'⬆️ que subirías':'➡️ que te mantendrías'}</p>`}
 
 function pickUser(id){yoId=id;sav('t70y',id);calc();render()}
 
@@ -1161,8 +1181,8 @@ confeti();toast('⚖️ ¡Pesaje guardado!');await load();go('midia');
 }catch(e){toast('😕 Error');b.disabled=false;b.textContent='Guardar pesaje'}}
 
 async function apostar(pred){
-try{await send('prediccion',{fecha:hoy(),participante_id:yoId,prediccion:pred});
-toast('🎰 Apuesta registrada: '+pred);await load();go('midia');
+try{await send('prediccion',{fecha:proximoLunesISO(),participante_id:yoId,prediccion:pred});
+toast('🎰 ¡Apuesta registrada!');await load();go('midia');
 }catch(e){toast('😕 Error')}}
 
 async function cumplirReto(){
