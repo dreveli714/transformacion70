@@ -248,9 +248,9 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:50;background:var(--card);
 border-top:2px solid var(--borde);display:flex;justify-content:space-around;
 padding:8px 4px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.3)}
 nav button{background:none;border:none;cursor:pointer;color:var(--txt2);
-display:flex;flex-direction:column;align-items:center;gap:3px;
-font-size:.75rem;font-weight:900;padding:8px 14px;border-radius:14px;font-family:'Inter'}
-nav button .ni{font-size:1.7rem;transition:transform .2s}
+display:flex;flex-direction:column;align-items:center;gap:2px;
+font-size:.68rem;font-weight:900;padding:6px 8px;border-radius:12px;font-family:'Inter'}
+nav button .ni{font-size:1.5rem;transition:transform .2s}
 nav button.on{color:var(--lime)}
 nav button.on .ni{transform:translateY(-3px) scale(1.15)}
 
@@ -316,6 +316,7 @@ width:40px;height:40px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
 <nav id="nav" style="display:none">
 <button data-v="inicio" onclick="go('inicio')"><span class="ni">🏠</span>Inicio</button>
 <button data-v="midia" class="on" onclick="go('midia')"><span class="ni">⚔️</span>Mi Día</button>
+<button data-v="calorias" onclick="go('calorias')"><span class="ni">🍎</span>Calorías</button>
 <button data-v="trofeos" onclick="go('trofeos')"><span class="ni">🏆</span>Trofeos</button>
 <button data-v="stats" onclick="go('stats')"><span class="ni">📊</span>Stats</button>
 </nav>
@@ -384,13 +385,13 @@ const RETOS_DIA=[
 {d:25,t:'🥗',c:'Dieta',r:'Cenar solo una sopa o ensalada'},
 {d:26,t:'👟',c:'Ejercicio',r:'Caminar 25 minutos sin parar'},
 {d:27,t:'🥗',c:'Dieta',r:'No comer harinas en todo el día'},
-{d:28,t:'💧',c:'Agua',r:'Tomar un té o infusión en vez de refresco'},
+{d:28,t:'💧',c:'Agua',r:'Sube tu comida del día y te digo cuantas calorías tiene'},
 {d:29,t:'💪',c:'Ejercicio',r:'Hacer 3 series de 10 sentadillas con descanso'},
 {d:30,t:'🥗',c:'Dieta',r:'No comer después de las 7 PM'},
 {d:31,t:'💧',c:'Agua',r:'Beber 3 litros de agua hoy'},
 {d:32,t:'👟',c:'Ejercicio',r:'Caminar 30 minutos'},
-{d:33,t:'🥗',c:'Dieta',r:'Desayunar avena o cereal sin azúcar'},
-{d:34,t:'💪',c:'Ejercicio',r:'Hacer 20 abdominales'},
+{d:33,t:'🥗',c:'Dieta',r:'Desayunar sin azucares'},
+{d:34,t:'💪',c:'Ejercicio',r:'Hacer 2 series de 20 abdominales'},
 {d:35,t:'🥗',c:'Dieta',r:'Cocinar algo al vapor o a la plancha (nada frito)'},
 {d:36,t:'🎉',c:'Divertido',r:'Bailar tres canciones seguidas 💃🔥'},
 {d:37,t:'🥗',c:'Dieta',r:'No comer azúcar en ninguna forma'},
@@ -475,9 +476,9 @@ const FRASES=[
 
 const TROFEOS=[
 {id:'primera_batalla',i:'⚔️',n:'Primera Batalla',d:'Primer pesaje'},
-{id:'primer_kilo',i:'🥇',n:'Primer Kilo',d:'Perder 1 kg'},
-{id:'tres_kilos',i:'🔥',n:'Tres Kilos',d:'Perder 3 kg'},
-{id:'cinco_kilos',i:'💎',n:'Cinco Kilos',d:'Perder 5 kg'},
+{id:'primer_kilo',i:'🥇',n:'Primera Libra',d:'Perder 2 lb'},
+{id:'tres_kilos',i:'🔥',n:'Cinco Libras',d:'Perder 5 lb'},
+{id:'cinco_kilos',i:'💎',n:'Diez Libras',d:'Perder 10 lb'},
 {id:'cintura_acero',i:'📏',n:'Cintura de Acero',d:'−3 cm cintura'},
 {id:'racha_7',i:'🔥',n:'Racha de 7',d:'7 días seguidos'},
 {id:'racha_21',i:'⭐',n:'Racha de 21',d:'21 días seguidos'},
@@ -506,6 +507,10 @@ const bool=v=>{
 if(v===true||v===1||v==='1')return true;
 if(typeof v==='string'){const s=v.trim().toUpperCase();return s==='TRUE'||s==='VERDADERO'||s==='SÍ'||s==='SI'||s==='YES'||s==='X'||s==='✓'||s==='✔'||s==='✔️'}
 return false};
+// Conversión kg <-> lb (internamente guardamos en kg, mostramos en lb)
+const kgToLb=v=>{const x=Number(v);return isNaN(x)?null:+(x*2.20462).toFixed(1)};
+const lbToKg=v=>{const x=Number(v);return isNaN(x)?null:+(x/2.20462).toFixed(2)};
+const showLb=v=>{const l=kgToLb(v);return l===null?'—':l+' lb'};
 const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w200':null};
 function avHTML(p,cls){const f=fotoUrl(p.foto);
 return `<div class="av ${cls||''}" style="--pc:${p.color}">${f?'<img src="'+f+'" onerror="this.remove()">':p.nombre[0]}</div>`}
@@ -642,17 +647,20 @@ pes.forEach(x=>diasActivos.add(String(x.fecha).slice(0,10)));
 
 const comodinSem=p.comodin_semana?Number(p.comodin_semana):null;
 return{...p,id,pes,rdMap,chkMap,pesoIni,cintIni,pesoAct,cintAct,kg,pct,cm,cmPct,
+pesoIniLb:kgToLb(pesoIni),pesoActLb:kgToLb(pesoAct),lb:+((kg||0)*2.20462).toFixed(1),
 racha,bestRacha,ptsRetos,retosOK,penalidad,ptsPred,comodinSem,
 pesoMin:pes.length?Math.min(...pes.map(x=>n(x.peso))):null,
 pesoMax:pes.length?Math.max(...pes.map(x=>n(x.peso))):null,
-diasReg:diasActivos.size,objetivo:n(p.objetivo_kg)}});
+diasReg:diasActivos.size,objetivo:n(p.objetivo_kg),objetivoLb:kgToLb(n(p.objetivo_kg))}});
 
 // Duelos semanales — puntos DE LA SEMANA para cada participante
 const semanas=[];
 for(let w=1;w<=semana;w++){
 const par=DUELOS[(w-1)%3];
 const d1=(w-1)*7+1,d2=Math.min(w*7,total);
-const terminada=dia>d2;
+// La semana solo se considera CERRADA después del lunes de la semana siguiente
+// (para que el pesaje del lunes cuente en la semana anterior)
+const terminada=dia>d2+1;
 const ptsW={};
 const detalleW={}; // desglose para mostrar
 P.forEach(p=>{
@@ -670,8 +678,9 @@ if(p.chkMap[fechaDia(d)])ptsCheckin+=2}
 // 3) Reto semanal cumplido
 const reto=(S.retos||[]).find(r=>Number(r.semana)===w);
 if(reto&&bool(reto[nombreCol[p.id]]))ptsRetoSem=25;
-// 4) Pesaje de esa semana (% de peso perdido esa semana × 10)
-const pesW=p.pes.filter(x=>{const f=String(x.fecha).slice(0,10);return f>=fechaDia(d1)&&f<=fechaDia(d2)});
+// 4) Pesaje de esa semana (% de peso perdido) — incluye el lunes siguiente (d2+1)
+const finPesaje=Math.min(d2+1,dia);
+const pesW=p.pes.filter(x=>{const f=String(x.fecha).slice(0,10);return f>=fechaDia(d1)&&f<=fechaDia(finPesaje)});
 const pesAnt=p.pes.filter(x=>String(x.fecha).slice(0,10)<fechaDia(d1));
 const pAntes=pesAnt.length?n(pesAnt[pesAnt.length-1].peso):n(p.peso_inicial);
 const pSem=pesW.length?n(pesW[pesW.length-1].peso):null;
@@ -768,6 +777,7 @@ G={cfg,inicio,inicioStr,total,dia,semana,esLunes,empezo,fechaDia,
 P,ranking,semanas,duelActual,retoActual,walls,valPend,
 restantes:total-dia,frase:FRASES[(dia-1)%FRASES.length],
 kgGrupo:+P.reduce((s,p)=>s+Math.max(p.kg,0),0).toFixed(1),
+lbGrupo:+P.reduce((s,p)=>s+Math.max(p.lb,0),0).toFixed(1),
 cmGrupo:+P.reduce((s,p)=>s+Math.max(p.cm,0),0).toFixed(1),
 retoDia:RETOS_DIA.find(r=>r.d===dia)||RETOS_DIA[0]}}
 
@@ -778,8 +788,8 @@ return TROFEOS.map(t=>{
 let ok=false;
 switch(t.id){
 case'primera_batalla':ok=p.pes.length>0;break;
-case'primer_kilo':ok=p.kg>=1;break;case'tres_kilos':ok=p.kg>=3;break;
-case'cinco_kilos':ok=p.kg>=5;break;case'cintura_acero':ok=p.cm>=3;break;
+case'primer_kilo':ok=p.lb>=2;break;case'tres_kilos':ok=p.lb>=5;break;
+case'cinco_kilos':ok=p.lb>=10;break;case'cintura_acero':ok=p.cm>=3;break;
 case'racha_7':ok=p.bestRacha>=7;break;case'racha_21':ok=p.bestRacha>=21;break;
 case'racha_50':ok=p.bestRacha>=50;break;case'guerrera_agua':ok=p.diasReg>=14;break;
 case'reina':ok=p.coronas>=1;break;case'doble_corona':ok=p.coronas>=2;break;
@@ -803,6 +813,7 @@ render();window.scrollTo({top:0})}
 function render(){charts.forEach(c=>c.destroy());charts=[];const el=document.getElementById('main');
 if(vista==='inicio')el.innerHTML=vInicio();
 if(vista==='midia')el.innerHTML=vMiDia();
+if(vista==='calorias')el.innerHTML=vCalorias();
 if(vista==='trofeos')el.innerHTML=vTrofeos();
 if(vista==='stats'){el.innerHTML=vStats();setTimeout(pintarCharts,60)}
 setTimeout(()=>document.querySelectorAll('[data-w]').forEach(b=>{b.style.width=b.dataset.w}),80);
@@ -820,7 +831,7 @@ h+=`<div class="c hero"><div class="dia-n">DÍA ${G.dia}</div>
 <div class="barra-bg"><div class="barra-fg" data-w="${(G.dia/G.total*100).toFixed(1)}%" style="width:0"></div></div>
 <div class="mini-row">
 <div class="mini-item"><b>${G.restantes}</b><span>días restantes</span></div>
-<div class="mini-item"><b>${G.kgGrupo}</b><span>kg perdidos</span></div>
+<div class="mini-item"><b>${G.lbGrupo}</b><span>lb perdidas</span></div>
 <div class="mini-item"><b>${G.cmGrupo}</b><span>cm cintura</span></div>
 </div></div>`;
 // Frase
@@ -838,7 +849,7 @@ h+=`<div class="c"><h2>🏆 Ranking <span class="tag">${G.ranking[0].puntos} pts
 G.ranking.forEach((p,i)=>{
 h+=`<div class="rank-row"><div class="medal">${medals[i]}</div>${avHTML(p)}
 <div class="rank-info"><div class="rank-name">${p.nombre} ${'👑'.repeat(Math.min(p.coronas,3))}</div>
-<div class="rank-det">−${p.kg} kg · 🔥${p.racha} ${p.penalidad>0?'· <span style="color:var(--rojo)">−'+p.penalidad+'</span>':''} · ${p.diasReg}d registrados</div></div>
+<div class="rank-det">−${p.lb} lb · 🔥${p.racha} ${p.penalidad>0?'· <span style="color:var(--rojo)">−'+p.penalidad+'</span>':''} · ${p.diasReg}d registrados</div></div>
 <div class="rank-pts">${p.puntos}<small>puntos</small></div></div>`});
 h+='</div>';
 // Reto semanal
@@ -946,7 +957,7 @@ if(pesajeHoy){
 h+=`<div class="registro-row">
 <div style="font-size:1.4rem">⚖️</div>
 <div class="registro-info">
-<b>${n(pesajeHoy.peso)} kg · ${n(pesajeHoy.cintura)} cm cintura</b>
+<b>${kgToLb(pesajeHoy.peso)} lb · ${n(pesajeHoy.cintura)} cm cintura</b>
 <span>Registrado hoy</span>
 </div>
 <div class="reg-btns">
@@ -955,7 +966,7 @@ h+=`<div class="registro-row">
 </div>
 </div>`;
 }else{
-h+=`<div class="campo"><label>⚖️ Peso (kg) — ejemplo: 68.5</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" placeholder="0.0"></div>
+h+=`<div class="campo"><label>⚖️ Peso (lb) — ejemplo: 150.5</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" placeholder="0.0"></div>
 <div class="campo"><label>📏 Cintura (cm) — ejemplo: 92</label><input type="number" step="0.5" inputmode="decimal" id="inCint" placeholder="0"></div>
 ${predForm()}
 <button class="btn naranja iconbtn" id="btnPes" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar pesaje</button>`}
@@ -993,7 +1004,7 @@ if(f===hoyS)return; // ya se muestra arriba
 h+=`<div class="registro-row">
 <div style="font-size:1.3rem">⚖️</div>
 <div class="registro-info">
-<b>${n(pe.peso)} kg · ${n(pe.cintura)||'—'} cm</b>
+<b>${kgToLb(pe.peso)} lb · ${n(pe.cintura)||'—'} cm</b>
 <span>${formatearFecha(f)}</span>
 </div>
 <div class="reg-btns">
@@ -1039,11 +1050,191 @@ const pe=p.pes.find(x=>String(x.fecha).slice(0,10)===hoy());
 document.getElementById('pesajeZona')?.remove();
 const card=event.target.closest('.c');
 card.innerHTML=`<h2>✏️ Editar pesaje</h2>
-<div class="campo"><label>⚖️ Peso (kg)</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" value="${n(pe.peso)||''}"></div>
+<div class="campo"><label>⚖️ Peso (lb)</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" value="${kgToLb(pe.peso)||''}"></div>
 <div class="campo"><label>📏 Cintura (cm)</label><input type="number" step="0.5" inputmode="decimal" id="inCint" value="${n(pe.cintura)||''}"></div>
 <button class="btn verde iconbtn" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar cambios</button>
 <button class="btn sec" style="margin-top:6px" onclick="go('midia')">❌ Cancelar</button>`;
 }
+
+// ============================================================
+// CALORÍAS — contador manual + recomendación por persona
+// ============================================================
+
+// Base de datos de alimentos (calorías por porción común)
+const COMIDAS={
+'🥞 Desayuno':[
+{n:'Huevo frito (1)',c:90},{n:'Huevos revueltos (2)',c:180},
+{n:'Pan tostado (1 rebanada)',c:80},{n:'Pan integral (1 rebanada)',c:70},
+{n:'Avena cocida (1 taza)',c:150},{n:'Yogur natural (1 taza)',c:150},
+{n:'Yogur griego (1 taza)',c:130},{n:'Cereal con leche (1 taza)',c:200},
+{n:'Fruta variada (1 taza)',c:80},{n:'Banana (1)',c:105},
+{n:'Manzana (1)',c:95},{n:'Naranja (1)',c:60},
+{n:'Aguacate (½)',c:120},{n:'Café con leche',c:60},
+{n:'Café solo',c:5},{n:'Jugo de naranja (1 vaso)',c:110},
+{n:'Pan dulce (1 pieza)',c:250}
+],
+'🥗 Comida / Almuerzo':[
+{n:'Ensalada verde grande',c:150},{n:'Ensalada con pollo',c:350},
+{n:'Ensalada César',c:400},{n:'Sopa de verduras (plato)',c:150},
+{n:'Sopa de pollo (plato)',c:200},{n:'Pollo a la plancha (100g)',c:165},
+{n:'Pollo frito (100g)',c:290},{n:'Pescado a la plancha (100g)',c:140},
+{n:'Carne asada (100g)',c:220},{n:'Arroz blanco (1 taza)',c:200},
+{n:'Frijoles (1 taza)',c:230},{n:'Verduras al vapor (1 taza)',c:60},
+{n:'Papa cocida (1 mediana)',c:160},{n:'Papas fritas (porción)',c:365},
+{n:'Pasta (1 taza)',c:220},{n:'Tortilla de maíz (1)',c:60},
+{n:'Tortilla de harina (1)',c:100}
+],
+'🍽️ Cena':[
+{n:'Sopa ligera (plato)',c:120},{n:'Ensalada + proteína',c:300},
+{n:'Fruta como cena (1 taza)',c:80},{n:'Pollo + verduras',c:250},
+{n:'Pescado + verduras',c:220},{n:'Omelette de verduras',c:200},
+{n:'Sandwich integral',c:280}
+],
+'🍎 Snacks / Antojos':[
+{n:'Fruta (1 pieza)',c:80},{n:'Almendras (10 unidades)',c:70},
+{n:'Nueces (10 unidades)',c:130},{n:'Galletas dulces (2)',c:100},
+{n:'Chocolate (1 barra pequeña)',c:150},{n:'Papitas (bolsa pequeña)',c:150},
+{n:'Helado (1 bola)',c:130},{n:'Postre pequeño',c:250},
+{n:'Pan (1 pieza)',c:80}
+],
+'🥤 Bebidas':[
+{n:'Agua',c:0},{n:'Té sin azúcar',c:0},{n:'Café solo',c:5},
+{n:'Refresco (1 vaso)',c:140},{n:'Jugo natural (1 vaso)',c:110},
+{n:'Leche (1 vaso)',c:120},{n:'Cerveza (1 lata)',c:150},
+{n:'Vino (1 copa)',c:125}
+]};
+
+let comidasDelDia=[]; // {nombre, cal, hora}
+
+function vCalorias(){
+// User selector
+let h='<div class="users-bar">';
+G.P.forEach(p=>{h+=`<div class="user-pick ${yoId===p.id?'on':''}" onclick="pickUser(${p.id})">
+${avHTML(p)}<b>${p.nombre}</b></div>`});
+h+='</div>';
+if(!yoId)return h+'<div class="c" style="text-align:center;padding:40px 20px"><div style="font-size:3rem;margin-bottom:12px">👆</div><h2>Toca tu foto arriba</h2></div>';
+
+const p=G.P.find(x=>x.id===yoId);
+
+// Calcular recomendación (Harris-Benedict + déficit)
+if(!p.edad||!p.estatura||!p.pesoAct){
+h+=`<div class="c" style="text-align:center;padding:30px 20px">
+<div style="font-size:3rem;margin-bottom:12px">📝</div>
+<h2>Falta tu perfil</h2>
+<p style="font-weight:700;color:var(--txt2);margin:12px 0;line-height:1.5">Para calcular tus calorías necesitas registrar tu edad, estatura y peso actual.</p>
+<button class="btn azul iconbtn" onclick="go('midia')"><span class="bico">👤</span>Ir a mi perfil</button>
+</div>`;
+return h}
+
+// Fórmula Mifflin-St Jeor (más precisa para adultos mayores)
+const pesoKg=p.pesoAct;
+const bmr=Math.round(10*pesoKg + 6.25*p.estatura - 5*p.edad - 161); // mujer
+const mantener=Math.round(bmr*1.375); // actividad ligera
+const perder=mantener-500; // déficit para perder ~1lb/semana
+const perderRapido=mantener-750; // más agresivo
+
+// Cargar comidas de hoy del localStorage
+const hoyStr=hoy();
+const keyDia='t70_cal_'+yoId+'_'+hoyStr;
+try{comidasDelDia=JSON.parse(ld(keyDia)||'[]')}catch(e){comidasDelDia=[]}
+const totalHoy=comidasDelDia.reduce((s,c)=>s+c.cal,0);
+const pctMeta=Math.round(totalHoy/perder*100);
+const estado=totalHoy<=perder?'verde':totalHoy<=mantener?'naranja':'rojo';
+const emojiEstado=totalHoy<=perder?'✅':totalHoy<=mantener?'⚠️':'❌';
+
+// TARJETA 1: Tu meta personal
+h+=`<div class="c" style="border-top:5px solid var(--rosa)">
+<h2>🎯 Tu meta de calorías</h2>
+<p style="font-weight:700;font-size:.85rem;color:var(--txt2);margin-bottom:14px;line-height:1.5">Basado en tu edad (${p.edad}), estatura (${p.estatura} cm) y peso actual (${p.pesoActLb} lb):</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div class="num" style="border:2px solid var(--verde)"><b style="color:var(--verde)">${perder}</b><span>PARA BAJAR PESO</span></div>
+<div class="num"><b>${mantener}</b><span>Mantener peso</span></div>
+</div>
+<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-top:10px;line-height:1.4">💡 <b>Recomendación:</b> comer <b style="color:var(--verde)">${perder} calorías al día</b> te haría bajar aproximadamente 1 libra por semana.</p>
+</div>`;
+
+// TARJETA 2: Contador de hoy
+h+=`<div class="c" style="border-top:5px solid var(--${estado})">
+<h2>${emojiEstado} Comidas de hoy</h2>
+<div style="text-align:center;padding:16px 0">
+<div style="font-family:'Space Grotesk';font-size:3rem;font-weight:700;color:var(--${estado})">${totalHoy}</div>
+<div style="font-weight:800;color:var(--txt2)">de ${perder} calorías</div>
+<div class="barra-bg" style="margin-top:12px"><div class="barra-fg" data-w="${Math.min(pctMeta,100)}%" style="width:0;background:var(--${estado})"></div></div>
+<div style="font-size:.75rem;font-weight:800;color:var(--txt2);margin-top:6px">${pctMeta}% de tu meta</div>
+</div>`;
+
+if(comidasDelDia.length){
+h+='<div style="margin-top:10px">';
+comidasDelDia.forEach((c,i)=>{
+h+=`<div class="registro-row">
+<div style="font-size:1.2rem">🍽️</div>
+<div class="registro-info">
+<b>${c.nombre}</b>
+<span>${c.hora} · ${c.cal} calorías</span>
+</div>
+<div class="reg-btns">
+<button class="reg-btn del" onclick="borrarComida(${i})" title="Borrar">🗑️</button>
+</div></div>`});
+h+='</div>';}
+else{h+='<p style="text-align:center;color:var(--txt2);font-weight:700;padding:12px">Aún no has agregado comidas hoy</p>'}
+h+='</div>';
+
+// TARJETA 3: Agregar comida
+h+=`<div class="c" style="border-top:5px solid var(--azul)">
+<h2>➕ Agregar comida</h2>
+<p style="font-size:.85rem;color:var(--txt2);font-weight:700;margin-bottom:12px">Elige una categoría y toca lo que comiste:</p>`;
+
+Object.keys(COMIDAS).forEach(cat=>{
+h+=`<div style="margin-bottom:14px">
+<div style="font-weight:900;font-size:.95rem;margin-bottom:8px">${cat}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">`;
+COMIDAS[cat].forEach(f=>{
+h+=`<button class="btn sec" style="margin:0;padding:12px 8px;font-size:.82rem;text-align:left;line-height:1.3" onclick="agregarComida('${f.n.replace(/'/g,"\\'")}',${f.c})">
+<div style="font-weight:900">${f.n}</div>
+<div style="font-size:.75rem;color:var(--txt2);margin-top:2px">${f.c} cal</div>
+</button>`});
+h+='</div></div>';});
+h+='</div>';
+
+// TARJETA 4: Historial últimos días
+const dias7=[];const dT=new Date();
+for(let i=6;i>=0;i--){const d=new Date(dT);d.setDate(d.getDate()-i);
+const s=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+let tot=0;try{tot=(JSON.parse(ld('t70_cal_'+yoId+'_'+s)||'[]')).reduce((sm,c)=>sm+c.cal,0)}catch(e){}
+dias7.push({fecha:s,total:tot,dia:['dom','lun','mar','mié','jue','vie','sáb'][d.getDay()]})}
+h+=`<div class="c"><h2>📊 Últimos 7 días</h2>
+<div style="display:flex;justify-content:space-between;gap:4px;align-items:end;height:120px;margin:12px 0">`;
+const maxCal=Math.max(...dias7.map(d=>d.total),perder,1);
+dias7.forEach(d=>{
+const alt=(d.total/maxCal)*100;
+const color=d.total===0?'var(--card2)':d.total<=perder?'var(--verde)':d.total<=mantener?'var(--naranja)':'var(--rojo)';
+h+=`<div style="flex:1;text-align:center">
+<div style="font-size:.6rem;font-weight:800;color:var(--txt2);margin-bottom:2px">${d.total||''}</div>
+<div style="height:${alt}%;min-height:4px;background:${color};border-radius:6px 6px 0 0"></div>
+<div style="font-size:.7rem;font-weight:800;margin-top:4px;color:var(--txt2)">${d.dia}</div>
+</div>`});
+h+=`</div>
+<p style="font-size:.75rem;color:var(--txt2);font-weight:700;text-align:center">🎯 Meta diaria: ${perder} cal · <span style="color:var(--verde)">Verde:bien</span> · <span style="color:var(--naranja)">Naranja:mantiene</span> · <span style="color:var(--rojo)">Rojo:sube</span></p>
+</div>`;
+return h}
+
+function agregarComida(nombre,cal){
+const hoyStr=hoy();
+const key='t70_cal_'+yoId+'_'+hoyStr;
+try{comidasDelDia=JSON.parse(ld(key)||'[]')}catch(e){comidasDelDia=[]}
+const h=new Date();const hora=String(h.getHours()).padStart(2,'0')+':'+String(h.getMinutes()).padStart(2,'0');
+comidasDelDia.push({nombre,cal,hora});
+sav(key,JSON.stringify(comidasDelDia));
+toast('🍽️ +'+cal+' calorías: '+nombre);
+render();window.scrollTo({top:0,behavior:'smooth'})}
+
+function borrarComida(idx){
+const hoyStr=hoy();
+const key='t70_cal_'+yoId+'_'+hoyStr;
+try{comidasDelDia=JSON.parse(ld(key)||'[]')}catch(e){comidasDelDia=[]}
+comidasDelDia.splice(idx,1);
+sav(key,JSON.stringify(comidasDelDia));
+toast('🗑️ Comida borrada');render()}
 
 function predForm(){
 const pred=(S.predicciones||[]).find(p=>Number(p.participante_id)===yoId&&String(p.fecha).slice(0,10)===hoy());
@@ -1123,9 +1314,10 @@ toast(voto?'👍 Votaste que sí':'👎 Votaste que no');await load();go('midia'
 }catch(e){toast('😕 Error')}}
 
 async function guardarPesaje(){
-const peso=n(document.getElementById('inPeso').value);
+const pesoLb=n(document.getElementById('inPeso').value);
+const peso=lbToKg(pesoLb);
 const cint=n(document.getElementById('inCint').value);
-if(!peso||peso<30||peso>250)return toast('Escribe un peso válido');
+if(!pesoLb||pesoLb<66||pesoLb<66||pesoLb>550)return toast('Escribe un peso válido');
 if(!cint||cint<40||cint>200)return toast('Escribe una cintura válida');
 const b=document.getElementById('btnPes');b.disabled=true;b.textContent='Guardando…';
 try{await send('pesaje',{fecha:hoy(),participante_id:yoId,peso,cintura:cint});
@@ -1151,11 +1343,11 @@ const p=G.P.find(x=>x.id===yoId);
 document.getElementById('perfilZona').innerHTML=`
 <div class="campo"><label>Edad</label><input type="number" id="inEdad" inputmode="numeric" value="${p.edad||''}"></div>
 <div class="campo"><label>Estatura (cm)</label><input type="number" id="inEst" inputmode="numeric" value="${p.estatura||''}"></div>
-<div class="campo"><label>Objetivo: ¿cuántos kg quieres perder?</label><input type="number" step="0.5" id="inObj" inputmode="decimal" value="${p.objetivo||''}"></div>
+<div class="campo"><label>Objetivo: ¿cuántas libras quieres perder?</label><input type="number" step="0.5" id="inObj" inputmode="decimal" value="${p.objetivoLb||''}"></div>
 <button class="btn" onclick="savePerfil()">Guardar</button>`}
 async function savePerfil(){
 try{await send('perfil',{id:yoId,edad:n(document.getElementById('inEdad').value)||'',
-estatura:n(document.getElementById('inEst').value)||'',objetivo_kg:n(document.getElementById('inObj').value)||''});
+estatura:n(document.getElementById('inEst').value)||'',objetivo_kg:n(document.getElementById('inObj').value)?lbToKg(document.getElementById('inObj').value):''});
 toast('👤 Perfil guardado');await load();go('midia')}catch(e){toast('😕 Error')}}
 
 /* === VIEW: TROFEOS === */
@@ -1183,7 +1375,7 @@ h+='</div>';return h+(statSel===0?vStatsGrupo():vStatsInd())}
 function vStatsGrupo(){
 const lider=G.ranking[0];const mc=[...G.P].sort((a,b)=>b.diasReg-a.diasReg)[0];
 let h=`<div class="c"><h2>👯 El grupo</h2><div class="nums">
-<div class="num"><b>${G.kgGrupo}</b><span>kg perdidos</span></div>
+<div class="num"><b>${G.lbGrupo}</b><span>lb perdidas</span></div>
 <div class="num"><b>${G.cmGrupo}</b><span>cm cintura</span></div>
 <div class="num"><b>${lider.nombre}</b><span>🏆 líder</span></div>
 <div class="num"><b>${mc.nombre}</b><span>❤️ más constante</span></div>
@@ -1195,12 +1387,12 @@ const rankKg=[...G.P].sort((a,b)=>b.kg-a.kg);
 const rankCm=[...G.P].sort((a,b)=>b.cm-a.cm);
 const rankDias=[...G.P].sort((a,b)=>b.diasReg-a.diasReg);
 
-h+=`<div class="c"><h2>⚖️ Ranking por kilos perdidos</h2>`;
+h+=`<div class="c"><h2>⚖️ Ranking por libras perdidas</h2>`;
 rankKg.forEach((p,i)=>{
 h+=`<div class="rank-row"><div class="medal">${medals[i]}</div>${avHTML(p)}
 <div class="rank-info"><div class="rank-name">${p.nombre}</div>
-<div class="rank-det">${p.pesoIni??'—'} → ${p.pesoAct??'—'} kg</div></div>
-<div class="rank-pts" style="color:var(--verde)">−${p.kg}<small>kg</small></div></div>`});
+<div class="rank-det">${p.pesoIniLb??'—'} → ${p.pesoActLb??'—'} lb</div></div>
+<div class="rank-pts" style="color:var(--verde)">−${p.lb}<small>lb</small></div></div>`});
 h+='</div>';
 
 h+=`<div class="c"><h2>📏 Ranking por cintura perdida</h2>`;
@@ -1221,13 +1413,13 @@ h+=`<div class="rank-row"><div class="medal">${medals[i]}</div>${avHTML(p)}
 h+='</div>';
 
 // ⭐ 2 CARRERAS SEPARADAS
-h+='<div class="c"><h2>🏁 Carrera por kilos perdidos</h2>';
-h+='<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Quien más kg ha perdido va adelante</p>';
-const maxKg=Math.max(...G.P.map(p=>Math.max(p.kg,0)),1);
-G.P.forEach(p=>{const av=(Math.max(p.kg,0)/maxKg)*100;
+h+='<div class="c"><h2>🏁 Carrera por libras perdidas</h2>';
+h+='<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Quien más libras ha perdido va adelante</p>';
+const maxLb=Math.max(...G.P.map(p=>Math.max(p.lb,0)),1);
+G.P.forEach(p=>{const av=(Math.max(p.lb,0)/maxLb)*100;
 h+=`<div class="lane"><div class="finish">🏁</div>
 <div class="runner" data-l="${(av*.78).toFixed(1)}%" style="left:0">
-${avHTML(p)}<small>${p.kg>0?'−'+p.kg+'kg':'0kg'}</small></div></div>`});
+${avHTML(p)}<small>${p.lb>0?'−'+p.lb+'lb':'0lb'}</small></div></div>`});
 h+='</div>';
 
 h+='<div class="c"><h2>⚔️ Carrera por puntos totales</h2>';
@@ -1240,7 +1432,7 @@ ${avHTML(p)}<small>${p.puntos} pts</small></div></div>`});
 h+='</div>';
 
 // ⭐ GRÁFICAS: PESO POR SEMANA (BARRAS)
-h+='<div class="c"><h2>📊 Kilos perdidos por semana</h2>';
+h+='<div class="c"><h2>📊 Libras perdidas por semana</h2>';
 h+='<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Cuánto bajó cada una en cada semana del reto</p>';
 h+='<canvas id="chBarrasSem" height="240"></canvas></div>';
 
@@ -1306,9 +1498,9 @@ let h=`<div class="c" style="display:flex;align-items:center;gap:12px">${avHTML(
 <div><b style="font-size:1.1rem">${p.nombre}</b>
 <div style="font-size:.8rem;color:var(--txt2);font-weight:800">${p.edad?p.edad+' años · ':''}${p.puntos} pts</div></div></div>`;
 h+=`<div class="c"><div class="nums">
-<div class="num"><b>${p.pesoIni??'—'}</b><span>peso inicial</span></div>
-<div class="num"><b>${p.pesoAct??'—'}</b><span>peso actual</span></div>
-<div class="num"><b style="color:var(--verde)">−${p.kg}</b><span>kg perdidos</span></div>
+<div class="num"><b>${p.pesoIniLb??'—'}</b><span>peso inicial (lb)</span></div>
+<div class="num"><b>${p.pesoActLb??'—'}</b><span>peso actual (lb)</span></div>
+<div class="num"><b style="color:var(--verde)">−${p.lb}</b><span>lb perdidas</span></div>
 <div class="num"><b style="color:var(--verde)">${p.pct}%</b><span>del peso</span></div>
 <div class="num"><b>${p.cintIni??'—'}→${p.cintAct??'—'}</b><span>cintura</span></div>
 <div class="num"><b style="color:var(--verde)">−${p.cm}cm</b><span>cintura perdida</span></div>
@@ -1327,7 +1519,7 @@ if(p.desglose){h+=`<div style="margin-top:12px;padding-top:12px;border-top:1px s
 <div class="num"><b>${p.desglose.ptsDuelo}</b><span>por duelos</span></div>
 <div class="num"><b>${p.desglose.ptsRetosS}</b><span>por retos semanales</span></div>
 </div></div>`}
-if(av)h+=`<div style="margin-top:10px"><div style="font-size:.75rem;font-weight:800;color:var(--txt2)">Meta: −${meta} kg · ${av}%</div>
+if(av)h+=`<div style="margin-top:10px"><div style="font-size:.75rem;font-weight:800;color:var(--txt2)">Meta: −${p.objetivoLb} lb · ${av}%</div>
 <div class="barra-bg"><div class="barra-fg" data-w="${av}%" style="width:0"></div></div></div>`;
 h+='</div>';
 h+='<div class="c"><h2>📉 Peso</h2><canvas id="chPeso" height="200"></canvas></div>';
@@ -1347,7 +1539,7 @@ Chart.defaults.font.size=13;
 const opts={responsive:true,plugins:{legend:{labels:{font:{weight:800,size:12},padding:12,usePointStyle:true,pointStyle:'circle'}}},
 scales:{x:{grid:{color:ln},ticks:{font:{weight:700}}},y:{grid:{color:ln},ticks:{font:{weight:700}}}}};
 
-// ⭐ BARRAS: kg perdidos por semana
+// ⭐ BARRAS: lb perdidas por semana
 const barras=document.getElementById('chBarrasSem');
 if(barras){
 const labels=[];for(let w=1;w<=G.semana;w++)labels.push('S'+w);
@@ -1359,11 +1551,11 @@ const pesW=p.pes.filter(x=>{const f=String(x.fecha).slice(0,10);return f>=G.fech
 const pesAnt=p.pes.filter(x=>String(x.fecha).slice(0,10)<G.fechaDia(d1));
 const pAntes=pesAnt.length?n(pesAnt[pesAnt.length-1].peso):n(p.peso_inicial);
 const pSem=pesW.length?n(pesW[pesW.length-1].peso):null;
-const kg=(pAntes&&pSem)?+(pAntes-pSem).toFixed(1):0;
-data.push(kg)}
+const lb=(pAntes&&pSem)?+((pAntes-pSem)*2.20462).toFixed(1):0;
+data.push(lb)}
 return{label:p.nombre,data,backgroundColor:p.color,borderRadius:6,borderSkipped:false}});
 charts.push(new Chart(barras,{type:'bar',data:{labels,datasets:ds},
-options:{...opts,scales:{x:opts.scales.x,y:{...opts.scales.y,title:{display:true,text:'kg perdidos',font:{weight:800}}}}}}))}
+options:{...opts,scales:{x:opts.scales.x,y:{...opts.scales.y,title:{display:true,text:'lb perdidas',font:{weight:800}}}}}}))}
 
 // ⭐ LÍNEAS: peso en el tiempo
 const lp=document.getElementById('chLineasPeso');
@@ -1372,12 +1564,12 @@ const todasFechas=new Set();
 G.P.forEach(p=>p.pes.forEach(x=>todasFechas.add(String(x.fecha).slice(0,10))));
 const labels=[...todasFechas].sort();
 const ds=G.P.map(p=>{
-const map={};p.pes.forEach(x=>{map[String(x.fecha).slice(0,10)]=n(x.peso)});
+const map={};p.pes.forEach(x=>{map[String(x.fecha).slice(0,10)]=kgToLb(x.peso)});
 const data=labels.map(f=>map[f]??null);
 return{label:p.nombre,data,borderColor:p.color,backgroundColor:p.color+'20',tension:.3,borderWidth:3,pointRadius:5,pointBackgroundColor:p.color,spanGaps:true}});
 charts.push(new Chart(lp,{type:'line',
 data:{labels:labels.map(f=>{const d=new Date(f+'T00:00:00');return d.getDate()+'/'+(d.getMonth()+1)}),datasets:ds},
-options:{...opts,scales:{x:opts.scales.x,y:{...opts.scales.y,title:{display:true,text:'kg',font:{weight:800}}}}}}))}
+options:{...opts,scales:{x:opts.scales.x,y:{...opts.scales.y,title:{display:true,text:'lb',font:{weight:800}}}}}}))}
 
 // ⭐ LÍNEAS: cintura en el tiempo
 const lc=document.getElementById('chLineasCint');
@@ -1398,7 +1590,7 @@ const p=G.P.find(x=>x.id===statSel);
 const cp=document.getElementById('chPeso');
 if(cp&&p&&p.pes.length){charts.push(new Chart(cp,{type:'line',
 data:{labels:p.pes.map(x=>String(x.fecha).slice(5,10).replace('-','/')),
-datasets:[{label:'Peso',data:p.pes.map(x=>n(x.peso)),borderColor:p.color,
+datasets:[{label:'Peso (lb)',data:p.pes.map(x=>kgToLb(x.peso)),borderColor:p.color,
 backgroundColor:p.color+'33',fill:true,tension:.35,borderWidth:3,pointRadius:5}]},
 options:{...opts,plugins:{legend:{display:false}}}}))}
 const cc=document.getElementById('chCint');
@@ -1413,8 +1605,8 @@ function copiarWA(){const m=['🥇','🥈','🥉','4️⃣'];
 let t=`📊 *Transformación 70 — Semana ${G.semana} (Día ${G.dia})*\n`;
 const r=G.semanas.filter(s=>s.reina).pop();
 if(r)t+=`👑 Reina: ${G.P.find(p=>p.id===r.reina).nombre}\n`;
-G.ranking.forEach((p,i)=>{t+=`${m[i]} ${p.nombre} — ${p.puntos} pts (−${p.kg} kg)\n`});
-t+=`💪 Juntas: −${G.kgGrupo} kg\n`;
+G.ranking.forEach((p,i)=>{t+=`${m[i]} ${p.nombre} — ${p.puntos} pts (−${p.lb} lb)\n`});
+t+=`💪 Juntas: −${G.lbGrupo} lb\n`;
 if(G.retoActual)t+=`🎯 Reto: ${G.retoActual.descripcion}\n`;
 t+=`🔗 ${location.href}`;
 navigator.clipboard.writeText(t).then(()=>toast('📋 ¡Copiado!')).catch(()=>prompt('Copia:',t))}
