@@ -4,31 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#FFE7F3">
-<link rel="preconnect" href="https://lh3.googleusercontent.com" crossorigin>
-<link rel="preconnect" href="https://drive.google.com">
-<link rel="dns-prefetch" href="https://lh3.googleusercontent.com">
+<meta name="theme-color" content="#0A0A0F">
 <title>Transformación 70</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
---bg:#FFF5FA;--bg-grad:linear-gradient(165deg,#FFE7F3 0%,#FFF1E4 50%,#E8F7FF 100%);
---card:#FFFFFF;--card2:#FDEFF7;--borde:#F6E0ED;
---lime:#DB2777;--rojo:#F5323F;--naranja:#FF9F1C;--verde:#08875A;--azul:#1EA7FD;--rosa:#FF7A5C;--morado:#9B5DE5;
---txt:#33203A;--txt2:#7A6070;--txt3:#B3A0AD;
---r:20px;--sombra:0 8px 24px rgba(255,46,147,.10);
-}
-[data-theme=dark]{
---bg:#0A0A0F;--bg-grad:none;--card:#161620;--card2:#1E1E2E;--borde:#2A2A3A;
+--bg:#0A0A0F;--card:#161620;--card2:#1E1E2E;--borde:#2A2A3A;
 --lime:#C8FF00;--rojo:#FF4757;--naranja:#FF9F43;--verde:#2ED573;--azul:#6CB4EE;--rosa:#FF6BD6;--morado:#B983FF;
 --txt:#FFFFFF;--txt2:#B0B0BB;--txt3:#666;
---sombra:0 4px 20px rgba(0,0,0,.4);
+--r:18px;--sombra:0 4px 20px rgba(0,0,0,.4);
+}
+[data-theme=light]{
+--bg:#F5F5F7;--card:#FFFFFF;--card2:#F0F0F5;--borde:#DDD;
+--txt:#1A1A2E;--txt2:#555;--txt3:#999;
+--sombra:0 4px 20px rgba(0,0,0,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:18px}
-body{font-family:'Inter',sans-serif;background:var(--bg);background-image:var(--bg-grad);background-attachment:fixed;background-size:cover;color:var(--txt);
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);
 min-height:100vh;padding-bottom:100px;transition:background .3s,color .3s;font-size:1rem;line-height:1.5}
 .app{max-width:520px;margin:0 auto;padding:16px 14px}
 
@@ -55,7 +50,7 @@ padding:20px;margin-bottom:14px;animation:fadeUp .4s ease both}
 h2{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:12px;
 display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .tag{font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:99px;background:var(--lime);
-color:#fff;text-transform:uppercase;letter-spacing:.5px}
+color:#0A0A0F;text-transform:uppercase;letter-spacing:.5px}
 .tag.rojo{background:var(--rojo);color:#fff}
 .tag.naranja{background:var(--naranja);color:#0A0A0F}
 .tag.verde{background:var(--verde);color:#fff}
@@ -80,7 +75,7 @@ transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
 .wall{border-radius:var(--r);padding:12px 16px;margin-bottom:12px;font-weight:800;font-size:.9rem;
 display:flex;align-items:center;gap:10px;border:1px solid;animation:pulse 2.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.85}}
-.wall.fire{background:rgba(255,46,147,.08);border-color:rgba(255,46,147,.28);color:var(--lime)}
+.wall.fire{background:rgba(200,255,0,.08);border-color:rgba(200,255,0,.3);color:var(--lime)}
 .wall.warn{background:rgba(255,71,87,.08);border-color:rgba(255,71,87,.3);color:var(--rojo)}
 .wall.crown{background:rgba(255,159,67,.08);border-color:rgba(255,159,67,.3);color:var(--naranja)}
 .wall.info{background:rgba(108,180,238,.08);border-color:rgba(108,180,238,.3);color:var(--azul)}
@@ -125,8 +120,8 @@ flex-shrink:0;width:50px}
 /* Buttons - MÁS GRANDES */
 .btn{display:block;width:100%;border:none;border-radius:16px;padding:18px;
 font-family:'Inter';font-size:1.1rem;font-weight:900;cursor:pointer;
-background:var(--lime);color:#fff;transition:transform .12s;margin-top:10px;
-box-shadow:0 6px 18px rgba(255,46,147,.28)}
+background:var(--lime);color:#0A0A0F;transition:transform .12s;margin-top:10px;
+box-shadow:0 4px 16px rgba(200,255,0,.25)}
 .btn:active{transform:scale(.97)}
 .btn:disabled{opacity:.4;box-shadow:none}
 .btn.sec{background:var(--card2);color:var(--txt);border:2px solid var(--borde);box-shadow:none}
@@ -134,7 +129,7 @@ box-shadow:0 6px 18px rgba(255,46,147,.28)}
 .btn.azul{background:var(--azul);color:#0A0A0F;box-shadow:0 4px 16px rgba(108,180,238,.25)}
 .btn.naranja{background:var(--naranja);color:#0A0A0F;box-shadow:0 4px 16px rgba(255,159,67,.25)}
 .btn.verde{background:var(--verde);color:#fff;box-shadow:0 4px 16px rgba(46,213,115,.25)}
-.btn.rosa{background:var(--rosa);color:#33203A;box-shadow:0 4px 16px rgba(255,122,92,.28)}
+.btn.rosa{background:var(--rosa);color:#fff;box-shadow:0 4px 16px rgba(255,107,214,.25)}
 .btn.sm{padding:12px 18px;font-size:.95rem;width:auto;display:inline-block;margin:4px;box-shadow:none}
 .btn.iconbtn{display:flex;align-items:center;justify-content:center;gap:10px;font-size:1.15rem}
 .btn.iconbtn .bico{font-size:1.5rem}
@@ -312,14 +307,14 @@ width:40px;height:40px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
 <div class="logo">T<span>70</span></div>
 <div class="hdr-btns">
 <button class="hdr-btn" onclick="toggleHelp()">❓</button>
-<button class="hdr-btn" id="tBtn" onclick="toggleTheme()">🌙</button>
+<button class="hdr-btn" id="tBtn" onclick="toggleTheme()">☀️</button>
 </div>
 </header>
 <main id="main"><div class="cargando"><div class="spin"></div><b>Cargando…</b></div></main>
 </div>
 
 <nav id="nav" style="display:none">
-<button data-v="inicio" onclick="irInicio()"><span class="ni">🏠</span>Inicio</button>
+<button data-v="inicio" onclick="go('inicio')"><span class="ni">🏠</span>Inicio</button>
 <button data-v="midia" class="on" onclick="go('midia')"><span class="ni">⚔️</span>Mi Día</button>
 <button data-v="trofeos" onclick="go('trofeos')"><span class="ni">🏆</span>Trofeos</button>
 <button data-v="stats" onclick="go('stats')"><span class="ni">📊</span>Stats</button>
@@ -329,9 +324,9 @@ width:40px;height:40px;font-size:1.1rem;cursor:pointer;color:var(--txt)}
 <button class="help-close" onclick="toggleHelp()">✕</button>
 <h2 style="margin-bottom:14px;font-size:1.2rem">📖 Cómo funciona</h2>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🎯 ¿Qué hago cada día? <span class="arrow">▼</span></div>
-<div class="faq-a">Abres la app, ves tu reto del día (uno diferente cada día durante 70 días). Lo cumples y lo validas de dos formas: subes una foto de prueba o pides que las otras 3 voten si te creen. Ganas 4 puntos. Tu racha crece cada día que lo hagas.</div></div>
+<div class="faq-a">Abres la app, ves tu reto del día (uno diferente cada día durante 70 días). Lo cumples y lo validas de dos formas: subes una foto de prueba o pides que las otras 3 voten si te creen. Ganas entre 2 y 6 puntos aleatorios. Tu racha crece cada día que lo hagas.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">⚖️ ¿Qué hago cada lunes? <span class="arrow">▼</span></div>
-<div class="faq-a">Cada lunes te pesas y mides tu cintura. El domingo anterior, cuando aún no sabes el resultado, puedes apostar si el lunes bajarás, subirás o te mantendrás — si aciertas ganas 3 puntos extra. Si no pesas en toda la semana pierdes 5 puntos.</div></div>
+<div class="faq-a">Te pesas y mides tu cintura. Antes de hacerlo puedes apostar si bajaste, subiste o te mantuviste — si aciertas ganas 3 puntos extra. Si no pesas en toda la semana pierdes 5 puntos.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">⚔️ ¿Qué son los duelos? <span class="arrow">▼</span></div>
 <div class="faq-a">Cada semana te toca competir 1 vs 1 contra otra participante. Las parejas rotan. Ganar el duelo suma 3 puntos al ranking general. Perder no suma nada. Empate: 1 punto cada una.</div></div>
 <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">🔥 ¿Qué es la racha? <span class="arrow">▼</span></div>
@@ -500,20 +495,20 @@ const TROFEOS=[
 const DUELOS=[[1,2,3,4],[1,3,2,4],[1,4,2,3]]; // pares: [a,b,c,d] → a vs b, c vs d
 const nombreCol={1:'carmen',2:'rosa',3:'laly',4:'dany'};
 
-let S=null,G=null,vista='midia',yoId=null,trofSel=1,statSel=0,charts=[],driveWarn=false;
+let S=null,G=null,vista='midia',yoId=null,trofSel=1,statSel=0,charts=[];
 
 /* --- Utils --- */
 const sav=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const hoy=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
-const n=v=>{if(v===null||v===undefined||v==='')return null;const x=parseFloat(String(v).replace(',','.').trim());return isNaN(x)?null:x};
+const n=v=>{const x=parseFloat(v);return isNaN(x)?null:x};
 const bool=v=>{
 if(v===true||v===1||v==='1')return true;
 if(typeof v==='string'){const s=v.trim().toUpperCase();return s==='TRUE'||s==='VERDADERO'||s==='SÍ'||s==='SI'||s==='YES'||s==='X'||s==='✓'||s==='✔'||s==='✔️'}
 return false};
-const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w96':null};
+const fotoUrl=l=>{if(!l)return null;const m=String(l).match(/[-\w]{25,}/);return m?'https://drive.google.com/thumbnail?id='+m[0]+'&sz=w200':null};
 function avHTML(p,cls){const f=fotoUrl(p.foto);
-return `<div class="av ${cls||''}" style="--pc:${p.color}">${f?'<img src="'+f+'" loading="lazy" decoding="async" onerror="this.remove()">':p.nombre[0]}</div>`}
+return `<div class="av ${cls||''}" style="--pc:${p.color}">${f?'<img src="'+f+'" onerror="this.remove()">':p.nombre[0]}</div>`}
 function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
 function confeti(){const em=['🎉','✨','⭐','🏆','💛','🧡'];for(let i=0;i<24;i++){
 const s=document.createElement('div');s.className='confetti';s.textContent=em[Math.floor(Math.random()*em.length)];
@@ -521,10 +516,8 @@ s.style.left=(Math.random()*100)+'vw';s.style.animationDelay=(Math.random()*.7)+
 s.style.fontSize=(.8+Math.random())+'rem';document.body.appendChild(s);setTimeout(()=>s.remove(),3500)}}
 function proximoLunes(){const d=new Date();const diff=(8-d.getDay())%7||7;d.setDate(d.getDate()+diff);
 return d.getDate()+'/'+(d.getMonth()+1)}
-function proximoLunesISO(){const d=new Date();const diff=(8-d.getDay())%7||7;d.setDate(d.getDate()+diff);
-return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function toggleTheme(){const h=document.documentElement;const goDark=h.dataset.theme!=='dark';
-h.dataset.theme=goDark?'dark':'';document.getElementById('tBtn').textContent=goDark?'☀️':'🌙';sav('t70t',h.dataset.theme);render()}
+function toggleTheme(){const h=document.documentElement;const nw=h.dataset.theme==='light'?'':'light';
+h.dataset.theme=nw;document.getElementById('tBtn').textContent=nw?'🌙':'☀️';sav('t70t',nw);render()}
 function toggleHelp(){document.getElementById('helpOv').classList.toggle('show')}
 
 // Modal de confirmación reutilizable (doble validación)
@@ -540,29 +533,18 @@ document.getElementById('modal').classList.add('show');
 function closeModal(){document.getElementById('modal').classList.remove('show');modalCb=null}
 
 /* --- API --- */
-async function load(){
-// 1) Pintar AL INSTANTE con lo último guardado (para que la app abra rápido)
-let deCache=false;
-try{const cache=ld('t70cache');if(cache){const j=JSON.parse(cache);
-S=j;S.retosDiarios=S.retosDiarios||[];S.validaciones=S.validaciones||[];S.predicciones=S.predicciones||[];
-try{calc();document.getElementById('nav').style.display='';render();deCache=true;}catch(e){}}}catch(e){}
-// 2) Traer datos frescos por detrás y actualizar sin bloquear
-try{
+async function load(){try{
 const r=await fetch(API);const j=await r.json();if(!j.ok)throw new Error();
 S=j;
-driveWarn=(j.driveOK===false); // el servidor avisa si le faltan permisos de Drive
+// Safety: ensure new v2 fields exist even if backend hasn't been updated
 S.retosDiarios=S.retosDiarios||[];
 S.validaciones=S.validaciones||[];
 S.predicciones=S.predicciones||[];
-try{sav('t70cache',JSON.stringify(j))}catch(e){} // guardar para la próxima apertura
 try{calc()}catch(err){document.getElementById('main').innerHTML=
 '<div class="c"><h2>⚠️ Error en cálculos</h2><p style="font-size:.8rem;color:var(--rojo);word-break:break-all">'+err.message+'<br>'+err.stack+'</p><button class="btn" onclick="location.reload()">Reintentar</button></div>';return}
-document.getElementById('nav').style.display='';render();checkTrofeos();return true;
-}catch(e){
-if(deCache){toast('📴 Sin conexión — mostrando lo último guardado')}
-else{document.getElementById('main').innerHTML=
-'<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}
-return false}}
+document.getElementById('nav').style.display='';render();checkTrofeos();
+}catch(e){document.getElementById('main').innerHTML=
+'<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}}
 async function send(a,d){
 try{const r=await fetch(API,{method:'POST',body:JSON.stringify({accion:a,datos:d})});
 if(!r.ok)throw new Error('Servidor respondió '+r.status);
@@ -670,7 +652,7 @@ const semanas=[];
 for(let w=1;w<=semana;w++){
 const par=DUELOS[(w-1)%3];
 const d1=(w-1)*7+1,d2=Math.min(w*7,total);
-const terminada=dia>d2||(dia===d2&&P.every(p=>p.pes.some(x=>{const f=String(x.fecha).slice(0,10);return f>=fechaDia(d1)&&f<=fechaDia(d2)})));
+const terminada=dia>d2;
 const ptsW={};
 const detalleW={}; // desglose para mostrar
 P.forEach(p=>{
@@ -742,7 +724,7 @@ const ranking=[...P].sort((a,b)=>b.puntos-a.puntos||b.pct-a.pct);
 P.forEach(p=>{
 const tips=[];
 const pos=ranking.findIndex(x=>x.id===p.id);
-if(p.diasReg<dia-1)tips.push({ico:'🔥',t:'Completa tu reto diario cada día. Ganas 4 pts + 2 pts por constancia = 6 pts diarios.'});
+if(p.diasReg<dia-1)tips.push({ico:'🔥',t:'Completa tu reto diario cada día. Ganas 2-6 pts + 2 pts por constancia = hasta 8 pts diarios.'});
 if(p.racha===0&&dia>3)tips.push({ico:'⚡',t:'Tu racha está en 0. Hoy puedes empezar una nueva. A los 7 días ganas +5 pts de bono.'});
 if(p.racha>=5&&p.racha<7)tips.push({ico:'🔥',t:'¡Te faltan '+(7-p.racha)+' días para el bono de racha de 7 (+5 pts)! No la pierdas.'});
 if(!p.pes.some(x=>String(x.fecha).slice(0,10)>=fechaDia(Math.max(1,(semana-1)*7+1))))
@@ -818,19 +800,11 @@ if(nuevos.length){confeti();toast('🏆 ¡'+nuevos[0].p.nombre+' desbloqueó "'+
 /* --- Navigation --- */
 function go(v){vista=v;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
 render();window.scrollTo({top:0})}
-async function irInicio(){vista='inicio';document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==='inicio'));
-window.scrollTo({top:0});const btn=document.querySelector('nav button[data-v="inicio"] .ni');if(btn)btn.textContent='🔄';
-const ok=await load();if(btn)btn.textContent='🏠';if(ok)toast('🔄 Actualizado')}
-function bannerDrive(){return `<div class="c" style="border:2px solid var(--naranja);background:rgba(255,159,67,.1)">
-<div style="font-weight:900;color:var(--naranja);font-size:1rem;margin-bottom:6px">⚠️ Las fotos están en pausa</div>
-<p style="font-size:.9rem;font-weight:700;line-height:1.45;color:var(--txt)">El servidor necesita renovar el permiso de Google Drive. Mientras tanto, completa tu reto con <b>🤝 Pedir validación</b> — funciona igual y también da puntos.</p>
-</div>`}
 function render(){charts.forEach(c=>c.destroy());charts=[];const el=document.getElementById('main');
-const bw=driveWarn?bannerDrive():'';
-if(vista==='inicio')el.innerHTML=bw+vInicio();
-if(vista==='midia')el.innerHTML=bw+vMiDia();
-if(vista==='trofeos')el.innerHTML=bw+vTrofeos();
-if(vista==='stats'){el.innerHTML=bw+vStats();setTimeout(pintarCharts,60)}
+if(vista==='inicio')el.innerHTML=vInicio();
+if(vista==='midia')el.innerHTML=vMiDia();
+if(vista==='trofeos')el.innerHTML=vTrofeos();
+if(vista==='stats'){el.innerHTML=vStats();setTimeout(pintarCharts,60)}
 setTimeout(()=>document.querySelectorAll('[data-w]').forEach(b=>{b.style.width=b.dataset.w}),80);
 setTimeout(()=>document.querySelectorAll('[data-l]').forEach(b=>{b.style.left=b.dataset.l}),80)}
 
@@ -940,7 +914,7 @@ h+=`<div style="text-align:center;padding:16px;background:rgba(46,213,115,.1);bo
 </div>`;
 if(rdHoy.foto_url){
 const idMatch=String(rdHoy.foto_url).match(/[-\w]{25,}/);
-if(idMatch)h+=`<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w440" loading="lazy" decoding="async" class="foto-preview" style="display:block;margin-top:10px;max-width:100%;border-radius:12px" onerror="this.style.display='none'">`}
+if(idMatch)h+=`<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w600" class="foto-preview" style="display:block;margin-top:10px;max-width:100%;border-radius:12px" onerror="this.style.display='none'">`}
 }else if(retoPend){
 h+=`<div style="text-align:center;padding:16px;background:rgba(255,159,67,.1);border-radius:14px;border:2px solid var(--naranja);margin-top:12px">
 <div style="font-size:2rem;margin-bottom:6px">⏳</div>
@@ -964,9 +938,6 @@ h+=`<p style="text-align:center;font-weight:800;font-size:.95rem;color:var(--txt
 <p style="text-align:center;font-size:.75rem;color:var(--txt2);font-weight:700;margin-top:8px">Las otras 3 votarán si te creen (necesitas 2 sí)</p>`}
 h+='</div>';
 
-// SECCIÓN: APUESTA (domingo — víspera del pesaje del lunes)
-if(new Date().getDay()===0){h+=predForm();}
-
 // SECCIÓN: PESAJE (solo lunes)
 if(G.esLunes){
 h+=`<div class="c pesaje${!pesajeHoy?' pesaje-warn':''}">
@@ -984,9 +955,9 @@ h+=`<div class="registro-row">
 </div>
 </div>`;
 }else{
-h+=`<div class="campo"><label>⚖️ Peso (kg) — ejemplo: 68,5</label><input type="text" inputmode="decimal" autocomplete="off" id="inPeso" placeholder="0,0"></div>
-<div class="campo"><label>📏 Cintura (cm) — ejemplo: 92</label><input type="text" inputmode="decimal" autocomplete="off" id="inCint" placeholder="0"></div>
-${predConfirmHoy()}
+h+=`<div class="campo"><label>⚖️ Peso (kg) — ejemplo: 68.5</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" placeholder="0.0"></div>
+<div class="campo"><label>📏 Cintura (cm) — ejemplo: 92</label><input type="number" step="0.5" inputmode="decimal" id="inCint" placeholder="0"></div>
+${predForm()}
 <button class="btn naranja iconbtn" id="btnPes" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar pesaje</button>`}
 h+='</div>';
 }else{
@@ -1041,7 +1012,7 @@ const idMatch=String(r.foto_url).match(/[-\w]{25,}/);
 const fecha=String(r.fecha).slice(0,10);
 if(idMatch){
 h+=`<div style="position:relative;border-radius:12px;overflow:hidden;background:var(--card2);aspect-ratio:1">
-<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w240" loading="lazy" decoding="async" fetchpriority="low" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+<img src="https://drive.google.com/thumbnail?id=${idMatch[0]}&sz=w400" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
 <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.85));padding:14px 8px 6px;color:#fff;font-size:.72rem;font-weight:900">
 ${formatearFecha(fecha)} · +${r.puntos||4}pts
 </div></div>`}});
@@ -1068,31 +1039,20 @@ const pe=p.pes.find(x=>String(x.fecha).slice(0,10)===hoy());
 document.getElementById('pesajeZona')?.remove();
 const card=event.target.closest('.c');
 card.innerHTML=`<h2>✏️ Editar pesaje</h2>
-<div class="campo"><label>⚖️ Peso (kg)</label><input type="text" inputmode="decimal" autocomplete="off" id="inPeso" value="${n(pe.peso)||''}"></div>
-<div class="campo"><label>📏 Cintura (cm)</label><input type="text" inputmode="decimal" autocomplete="off" id="inCint" value="${n(pe.cintura)||''}"></div>
+<div class="campo"><label>⚖️ Peso (kg)</label><input type="number" step="0.1" inputmode="decimal" id="inPeso" value="${n(pe.peso)||''}"></div>
+<div class="campo"><label>📏 Cintura (cm)</label><input type="number" step="0.5" inputmode="decimal" id="inCint" value="${n(pe.cintura)||''}"></div>
 <button class="btn verde iconbtn" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar cambios</button>
 <button class="btn sec" style="margin-top:6px" onclick="go('midia')">❌ Cancelar</button>`;
 }
 
 function predForm(){
-// Se muestra el DOMINGO: apuesta sobre el pesaje de MAÑANA (lunes)
-const lun=proximoLunesISO();
-const pred=(S.predicciones||[]).find(p=>Number(p.participante_id)===yoId&&String(p.fecha).slice(0,10)===lun);
-if(pred)return`<div class="c pesaje"><h2>🎰 Tu apuesta para mañana</h2>
-<p style="text-align:center;font-weight:900;color:var(--lime);font-size:1.05rem;padding:6px">${pred.prediccion==='bajo'?'⬇️ Apostaste que bajarás':pred.prediccion==='subio'?'⬆️ Apostaste que subirás':'➡️ Apostaste que te mantendrás'}</p>
-<p style="text-align:center;font-size:.8rem;color:var(--txt2);font-weight:700">Mañana en el pesaje sabremos si acertaste (+3 pts)</p></div>`;
-return`<div class="c pesaje"><h2>🎰 ¡Mañana es pesaje! Apuesta</h2>
-<p style="text-align:center;font-size:.85rem;color:var(--txt2);font-weight:700;margin-bottom:12px">¿Qué crees que dirá la báscula mañana, comparado con tu último pesaje? Si aciertas ganas +3 pts.</p>
-<div style="display:flex;gap:6px">
-<button class="btn sm sec" onclick="apostar('bajo')">⬇️ Bajaré</button>
-<button class="btn sm sec" onclick="apostar('igual')">➡️ Igual</button>
-<button class="btn sm sec" onclick="apostar('subio')">⬆️ Subiré</button></div></div>`}
-
-function predConfirmHoy(){
-// El LUNES (día del pesaje): recuerda qué apostó ayer, sin poder cambiarla
 const pred=(S.predicciones||[]).find(p=>Number(p.participante_id)===yoId&&String(p.fecha).slice(0,10)===hoy());
-if(!pred)return'';
-return`<p style="font-size:.82rem;font-weight:800;color:var(--lime);margin:0 0 10px;text-align:center">🎰 Ayer apostaste: ${pred.prediccion==='bajo'?'⬇️ que bajarías':pred.prediccion==='subio'?'⬆️ que subirías':'➡️ que te mantendrías'}</p>`}
+if(pred)return`<p style="font-size:.85rem;font-weight:800;color:var(--lime);margin-bottom:8px">🎰 Apostaste: ${pred.prediccion==='bajo'?'Bajé':pred.prediccion==='subio'?'Subí':'Me mantuve'}</p>`;
+return`<div style="margin-bottom:10px"><label style="font-weight:800;font-size:.8rem;color:var(--txt2)">🎰 Apuesta: ¿qué crees que pasó?</label>
+<div style="display:flex;gap:6px;margin-top:6px">
+<button class="btn sm sec" onclick="apostar('bajo')">⬇️ Bajé</button>
+<button class="btn sm sec" onclick="apostar('igual')">➡️ Igual</button>
+<button class="btn sm sec" onclick="apostar('subio')">⬆️ Subí</button></div></div>`}
 
 function pickUser(id){yoId=id;sav('t70y',id);calc();render()}
 
@@ -1144,13 +1104,7 @@ confeti();toast(`📸 ¡Foto subida! +${j.puntos} puntos`);
 await load();go('midia');
 }catch(e){
 const msg=e.name==='AbortError'?'Tardó demasiado. Prueba una foto más pequeña.':e.message;
-const esPermiso=/drive|denegad|denied|permis|autoriz/i.test(msg);
-status.innerHTML=esPermiso
-?`<div style="background:rgba(255,159,67,.12);border:2px solid var(--naranja);border-radius:12px;padding:14px;margin-top:10px">
-<p style="color:var(--naranja);font-weight:900;text-align:center;margin-bottom:8px">⚠️ Las fotos están en pausa</p>
-<p style="font-size:.9rem;font-weight:700;line-height:1.45">Ahora mismo la subida de fotos no está disponible. Para completar tu reto de hoy usa <b>🤝 Pedir validación</b> — funciona igual y da los mismos puntos.</p>
-<button class="btn sec" style="margin-top:10px" onclick="go('midia')">← Volver</button></div>`
-:`<div style="background:rgba(255,71,87,.1);border:2px solid var(--rojo);border-radius:12px;padding:12px;margin-top:10px">
+status.innerHTML=`<div style="background:rgba(255,71,87,.1);border:2px solid var(--rojo);border-radius:12px;padding:12px;margin-top:10px">
 <p style="color:var(--rojo);font-weight:900;text-align:center">❌ No se pudo subir: ${msg}</p>
 <button class="btn sec" style="margin-top:10px" onclick="location.reload()">🔄 Reintentar</button></div>`;
 }};
@@ -1181,8 +1135,8 @@ confeti();toast('⚖️ ¡Pesaje guardado!');await load();go('midia');
 }catch(e){toast('😕 Error');b.disabled=false;b.textContent='Guardar pesaje'}}
 
 async function apostar(pred){
-try{await send('prediccion',{fecha:proximoLunesISO(),participante_id:yoId,prediccion:pred});
-toast('🎰 ¡Apuesta registrada!');await load();go('midia');
+try{await send('prediccion',{fecha:hoy(),participante_id:yoId,prediccion:pred});
+toast('🎰 Apuesta registrada: '+pred);await load();go('midia');
 }catch(e){toast('😕 Error')}}
 
 async function cumplirReto(){
@@ -1234,48 +1188,115 @@ let h=`<div class="c"><h2>👯 El grupo</h2><div class="nums">
 <div class="num"><b>${lider.nombre}</b><span>🏆 líder</span></div>
 <div class="num"><b>${mc.nombre}</b><span>❤️ más constante</span></div>
 </div></div>`;
-// Race
-h+='<div class="c"><h2>🏁 La carrera</h2>';
-G.P.forEach(p=>{const meta=p.objetivo||5;const av=Math.min(Math.max(p.kg,0)/meta*100,100);
+
+// ⭐ 3 RANKINGS SEPARADOS
+const medals=['🥇','🥈','🥉','4°'];
+const rankKg=[...G.P].sort((a,b)=>b.kg-a.kg);
+const rankCm=[...G.P].sort((a,b)=>b.cm-a.cm);
+const rankDias=[...G.P].sort((a,b)=>b.diasReg-a.diasReg);
+
+h+=`<div class="c"><h2>⚖️ Ranking por kilos perdidos</h2>`;
+rankKg.forEach((p,i)=>{
+h+=`<div class="rank-row"><div class="medal">${medals[i]}</div>${avHTML(p)}
+<div class="rank-info"><div class="rank-name">${p.nombre}</div>
+<div class="rank-det">${p.pesoIni??'—'} → ${p.pesoAct??'—'} kg</div></div>
+<div class="rank-pts" style="color:var(--verde)">−${p.kg}<small>kg</small></div></div>`});
+h+='</div>';
+
+h+=`<div class="c"><h2>📏 Ranking por cintura perdida</h2>`;
+rankCm.forEach((p,i)=>{
+h+=`<div class="rank-row"><div class="medal">${medals[i]}</div>${avHTML(p)}
+<div class="rank-info"><div class="rank-name">${p.nombre}</div>
+<div class="rank-det">${p.cintIni??'—'} → ${p.cintAct??'—'} cm</div></div>
+<div class="rank-pts" style="color:var(--rosa)">−${p.cm}<small>cm</small></div></div>`});
+h+='</div>';
+
+h+=`<div class="c"><h2>❤️ Ranking por constancia</h2>`;
+rankDias.forEach((p,i)=>{
+const pct=Math.round(p.diasReg/Math.max(G.dia,1)*100);
+h+=`<div class="rank-row"><div class="medal">${medals[i]}</div>${avHTML(p)}
+<div class="rank-info"><div class="rank-name">${p.nombre}</div>
+<div class="rank-det">🔥 racha: ${p.racha} días</div></div>
+<div class="rank-pts" style="color:var(--naranja)">${p.diasReg}<small>de ${G.dia} días (${pct}%)</small></div></div>`});
+h+='</div>';
+
+// ⭐ 2 CARRERAS SEPARADAS
+h+='<div class="c"><h2>🏁 Carrera por kilos perdidos</h2>';
+h+='<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Quien más kg ha perdido va adelante</p>';
+const maxKg=Math.max(...G.P.map(p=>Math.max(p.kg,0)),1);
+G.P.forEach(p=>{const av=(Math.max(p.kg,0)/maxKg)*100;
 h+=`<div class="lane"><div class="finish">🏁</div>
 <div class="runner" data-l="${(av*.78).toFixed(1)}%" style="left:0">
-${avHTML(p)}<small>${p.kg>0?'−'+p.kg+'kg':'—'}</small></div></div>`});
+${avHTML(p)}<small>${p.kg>0?'−'+p.kg+'kg':'0kg'}</small></div></div>`});
 h+='</div>';
-// Chart
-h+='<div class="c"><h2>📉 Evolución comparada</h2><canvas id="chGrupo" height="220"></canvas></div>';
+
+h+='<div class="c"><h2>⚔️ Carrera por puntos totales</h2>';
+h+='<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Quien más puntos totales tiene va adelante</p>';
+const maxPts=Math.max(...G.P.map(p=>p.puntos),1);
+G.P.forEach(p=>{const av=(p.puntos/maxPts)*100;
+h+=`<div class="lane"><div class="finish">🏆</div>
+<div class="runner" data-l="${(av*.78).toFixed(1)}%" style="left:0">
+${avHTML(p)}<small>${p.puntos} pts</small></div></div>`});
+h+='</div>';
+
+// ⭐ GRÁFICAS: PESO POR SEMANA (BARRAS)
+h+='<div class="c"><h2>📊 Kilos perdidos por semana</h2>';
+h+='<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Cuánto bajó cada una en cada semana del reto</p>';
+h+='<canvas id="chBarrasSem" height="240"></canvas></div>';
+
+// ⭐ GRÁFICAS: LÍNEAS DE PESO
+h+='<div class="c"><h2>📉 Evolución del peso</h2>';
+h+='<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Cómo ha ido cambiando el peso de cada una</p>';
+h+='<canvas id="chLineasPeso" height="240"></canvas></div>';
+
+// ⭐ GRÁFICAS: LÍNEAS DE CINTURA
+h+='<div class="c"><h2>📏 Evolución de la cintura</h2>';
+h+='<p style="font-size:.78rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Cómo ha ido cambiando la cintura de cada una</p>';
+h+='<canvas id="chLineasCint" height="240"></canvas></div>';
+
+// ⭐ CÓMO SE ELIGE LA REINA
+h+=`<div class="c" style="border-left:5px solid var(--naranja)">
+<h2>👑 ¿Cómo se elige la Reina de la Semana?</h2>
+<p style="font-size:.92rem;font-weight:700;line-height:1.5;margin-bottom:14px">Al terminar cada semana (domingo por la noche), quien tenga MÁS PUNTOS en esa semana se convierte en la Reina 👑.</p>
+<div style="background:var(--card2);border-radius:12px;padding:14px;margin-bottom:12px">
+<p style="font-weight:900;font-size:.9rem;margin-bottom:10px">Puntos que cuentan cada semana:</p>
+<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--borde);font-size:.88rem"><span>📸 Retos diarios completados</span><b style="color:var(--verde)">2-6 pts c/u</b></div>
+<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--borde);font-size:.88rem"><span>🎯 Reto semanal cumplido</span><b style="color:var(--verde)">+25 pts</b></div>
+<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:.88rem"><span>⚖️ Peso perdido esa semana</span><b style="color:var(--verde)">+10 pts por 1%</b></div>
+</div>
+<p style="font-size:.85rem;font-weight:700;color:var(--txt2);line-height:1.5">🎁 <b>Premio:</b> +8 puntos al ranking general + corona 👑 en tu foto + protagonismo en el banner de inicio.</p>
+<p style="font-size:.85rem;font-weight:700;color:var(--txt2);line-height:1.5;margin-top:8px">🛡️ <b>Robo de corona:</b> si la Reina pierde su duelo la semana siguiente, otra participante le puede robar la corona.</p>
+</div>`;
+
+// ⭐ TABLA COMPLETA DE PUNTOS
+h+=`<div class="c"><h2>📖 Cómo se ganan (y pierden) los puntos</h2>
+<p style="font-size:.85rem;color:var(--txt2);font-weight:700;margin-bottom:12px">Todas las formas de sumar puntos en el reto:</p>
+<table style="width:100%;border-collapse:collapse;font-size:.88rem">
+<tr style="background:var(--card2)"><td colspan="2" style="padding:10px 8px;font-weight:900;color:var(--lime);border-radius:8px 8px 0 0">💚 GANAR PUNTOS</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>🔥 Reto diario cumplido</b><br><small style="color:var(--txt2)">Con foto o validación</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+2 a 6 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>⚖️ Peso perdido</b><br><small style="color:var(--txt2)">Por cada 1% que baja</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+3 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>📏 Cintura perdida</b><br><small style="color:var(--txt2)">Por cada cm que baja</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+2 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>❤️ Constancia</b><br><small style="color:var(--txt2)">Por cada día activa</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+2 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>🎯 Reto semanal</b><br><small style="color:var(--txt2)">Cumplir el domingo</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+5 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>⚔️ Ganar duelo</b><br><small style="color:var(--txt2)">Empate: +1 c/u</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+3 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>👑 Ganar semana (Reina)</b><br><small style="color:var(--txt2)">Más puntos de la semana</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+8 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>🎰 Acertar apuesta</b><br><small style="color:var(--txt2)">Predecir peso del lunes</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+3 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>🔥🔥 Racha 7 días</b><br><small style="color:var(--txt2)">Bono al llegar</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+5 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>⭐ Racha 21 días</b><br><small style="color:var(--txt2)">Bono al llegar</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+15 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>🌟 Racha 50 días</b><br><small style="color:var(--txt2)">Bono al llegar</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--verde);font-weight:900">+30 pts</td></tr>
+<tr style="background:var(--card2)"><td colspan="2" style="padding:10px 8px;font-weight:900;color:var(--rojo)">❤️‍🩹 PERDER PUNTOS</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>⚖️ No pesarte el lunes</b><br><small style="color:var(--txt2)">Toda la semana sin pesaje</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--rojo);font-weight:900">−5 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>💔 Romper racha larga</b><br><small style="color:var(--txt2)">Si llevabas +7 días</small></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--rojo);font-weight:900">−3 pts</td></tr>
+<tr><td style="padding:10px 8px;border-bottom:1px solid var(--borde)"><b>🎯 No cumplir reto semanal</b></td><td style="padding:10px 8px;border-bottom:1px solid var(--borde);text-align:right;color:var(--rojo);font-weight:900">−2 pts</td></tr>
+<tr><td style="padding:10px 8px"><b>📈 Subir peso 2 semanas seguidas</b></td><td style="padding:10px 8px;text-align:right;color:var(--rojo);font-weight:900">−3 pts</td></tr>
+</table>
+<p style="font-size:.8rem;color:var(--txt2);font-weight:700;margin-top:12px;line-height:1.5">💡 <b>Lo más importante:</b> la constancia. Alguien que cumple su reto todos los días puede llegar a 200+ puntos solo por eso. Solo perder peso da 15-20 puntos como máximo.</p>
+</div>`;
+
 // WhatsApp
 h+=`<div class="c"><h2>📲 Resumen WhatsApp</h2>
 <button class="btn sec" onclick="copiarWA()">📋 Copiar resumen</button></div>`;
-// Tabla de participantes con ID (útil para saber quién es quién en las fotos)
-h+=`<div class="c"><h2>🔑 Guía rápida</h2>
-<p style="font-size:.85rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Para identificar quién es en las fotos del Drive:</p>`;
-G.P.forEach(p=>{h+=`<div class="registro-row">
-<div style="font-size:1.3rem">${['1️⃣','2️⃣','3️⃣','4️⃣'][p.id-1]}</div>
-<div class="registro-info">
-<b>${p.nombre}</b>
-<span>Fotos: <b>${p.nombre}_diaX_...jpg</b></span>
-</div></div>`});
-h+='</div>';
-// PANEL DIAGNÓSTICO — para saber exactamente qué lee la app del sheet
-h+=`<div class="c" style="border:2px dashed var(--naranja)"><h2>🔍 Diagnóstico (retos diarios)</h2>
-<p style="font-size:.8rem;color:var(--txt2);font-weight:700;margin-bottom:10px">Esto muestra qué está leyendo la app del sheet. Si algo dice "❌ NO cuenta" pero debería contar, hay que revisar esa fila.</p>`;
-const filasRD=[...(S.retosDiarios||[])].sort((a,b)=>{
-const f=String(a.fecha).localeCompare(String(b.fecha));
-return f||Number(a.participante_id)-Number(b.participante_id)});
-if(!filasRD.length)h+='<p style="color:var(--txt2);font-weight:700">Ninguna fila en RetosDiarios todavía.</p>';
-else filasRD.slice(-20).forEach(r=>{
-const p=G.P.find(x=>Number(x.id)===Number(r.participante_id));
-const cuenta=bool(r.completado);
-h+=`<div class="registro-row" style="${cuenta?'border:1px solid var(--verde)':''}">
-<div style="font-size:1.2rem">${cuenta?'✅':'⏳'}</div>
-<div class="registro-info">
-<b>${p?p.nombre:'?'} · ${formatearFecha(String(r.fecha).slice(0,10))}</b>
-<span style="font-size:.72rem;line-height:1.4;display:block">
-completado=<b>${JSON.stringify(r.completado)}</b> · método=<b>${r.metodo||'—'}</b> · puntos=<b>${r.puntos||0}</b>
-${cuenta?'<span style="color:var(--verde);font-weight:900">✓ SÍ cuenta</span>':'<span style="color:var(--rojo);font-weight:900">✗ NO cuenta</span>'}
-</span>
-</div></div>`});
-h+='</div>';
+
 return h}
 
 function vStatsInd(){
@@ -1322,32 +1343,70 @@ function pintarCharts(){
 const s=getComputedStyle(document.documentElement);
 const txt=s.getPropertyValue('--txt2').trim();const ln=s.getPropertyValue('--borde').trim();
 Chart.defaults.font.family='Inter';Chart.defaults.color=txt;
-const opts={responsive:true,plugins:{legend:{labels:{font:{weight:800}}}},
-scales:{x:{grid:{color:ln}},y:{grid:{color:ln}}}};
+Chart.defaults.font.size=13;
+const opts={responsive:true,plugins:{legend:{labels:{font:{weight:800,size:12},padding:12,usePointStyle:true,pointStyle:'circle'}}},
+scales:{x:{grid:{color:ln},ticks:{font:{weight:700}}},y:{grid:{color:ln},ticks:{font:{weight:700}}}}};
 
-const g=document.getElementById('chGrupo');
-if(g){const labels=[];for(let w=1;w<=G.semana;w++)labels.push('S'+w);
-const ds=G.P.map(p=>{const data=[];
-for(let w=1;w<=G.semana;w++){const hasta=G.fechaDia(Math.min(w*7,G.dia));
-const pes=p.pes.filter(x=>String(x.fecha).slice(0,10)<=hasta);
-const ult=pes.length?n(pes[pes.length-1].peso):null;
-data.push(p.pesoIni&&ult!==null?+((p.pesoIni-ult)/p.pesoIni*100).toFixed(2):null)}
-return{label:p.nombre,data,borderColor:p.color,backgroundColor:p.color,tension:.35,borderWidth:3,pointRadius:4}});
-charts.push(new Chart(g,{type:'line',data:{labels,datasets:ds},options:opts}))}
+// ⭐ BARRAS: kg perdidos por semana
+const barras=document.getElementById('chBarrasSem');
+if(barras){
+const labels=[];for(let w=1;w<=G.semana;w++)labels.push('S'+w);
+const ds=G.P.map(p=>{
+const data=[];
+for(let w=1;w<=G.semana;w++){
+const d1=(w-1)*7+1,d2=Math.min(w*7,G.total);
+const pesW=p.pes.filter(x=>{const f=String(x.fecha).slice(0,10);return f>=G.fechaDia(d1)&&f<=G.fechaDia(d2)});
+const pesAnt=p.pes.filter(x=>String(x.fecha).slice(0,10)<G.fechaDia(d1));
+const pAntes=pesAnt.length?n(pesAnt[pesAnt.length-1].peso):n(p.peso_inicial);
+const pSem=pesW.length?n(pesW[pesW.length-1].peso):null;
+const kg=(pAntes&&pSem)?+(pAntes-pSem).toFixed(1):0;
+data.push(kg)}
+return{label:p.nombre,data,backgroundColor:p.color,borderRadius:6,borderSkipped:false}});
+charts.push(new Chart(barras,{type:'bar',data:{labels,datasets:ds},
+options:{...opts,scales:{x:opts.scales.x,y:{...opts.scales.y,title:{display:true,text:'kg perdidos',font:{weight:800}}}}}}))}
 
+// ⭐ LÍNEAS: peso en el tiempo
+const lp=document.getElementById('chLineasPeso');
+if(lp){
+const todasFechas=new Set();
+G.P.forEach(p=>p.pes.forEach(x=>todasFechas.add(String(x.fecha).slice(0,10))));
+const labels=[...todasFechas].sort();
+const ds=G.P.map(p=>{
+const map={};p.pes.forEach(x=>{map[String(x.fecha).slice(0,10)]=n(x.peso)});
+const data=labels.map(f=>map[f]??null);
+return{label:p.nombre,data,borderColor:p.color,backgroundColor:p.color+'20',tension:.3,borderWidth:3,pointRadius:5,pointBackgroundColor:p.color,spanGaps:true}});
+charts.push(new Chart(lp,{type:'line',
+data:{labels:labels.map(f=>{const d=new Date(f+'T00:00:00');return d.getDate()+'/'+(d.getMonth()+1)}),datasets:ds},
+options:{...opts,scales:{x:opts.scales.x,y:{...opts.scales.y,title:{display:true,text:'kg',font:{weight:800}}}}}}))}
+
+// ⭐ LÍNEAS: cintura en el tiempo
+const lc=document.getElementById('chLineasCint');
+if(lc){
+const todasFechas=new Set();
+G.P.forEach(p=>p.pes.forEach(x=>{if(n(x.cintura)!==null)todasFechas.add(String(x.fecha).slice(0,10))}));
+const labels=[...todasFechas].sort();
+const ds=G.P.map(p=>{
+const map={};p.pes.forEach(x=>{if(n(x.cintura)!==null)map[String(x.fecha).slice(0,10)]=n(x.cintura)});
+const data=labels.map(f=>map[f]??null);
+return{label:p.nombre,data,borderColor:p.color,backgroundColor:p.color+'20',tension:.3,borderWidth:3,pointRadius:5,pointBackgroundColor:p.color,spanGaps:true}});
+if(labels.length)charts.push(new Chart(lc,{type:'line',
+data:{labels:labels.map(f=>{const d=new Date(f+'T00:00:00');return d.getDate()+'/'+(d.getMonth()+1)}),datasets:ds},
+options:{...opts,scales:{x:opts.scales.x,y:{...opts.scales.y,title:{display:true,text:'cm',font:{weight:800}}}}}}))}
+
+// Individual charts
 const p=G.P.find(x=>x.id===statSel);
 const cp=document.getElementById('chPeso');
 if(cp&&p&&p.pes.length){charts.push(new Chart(cp,{type:'line',
 data:{labels:p.pes.map(x=>String(x.fecha).slice(5,10).replace('-','/')),
 datasets:[{label:'Peso',data:p.pes.map(x=>n(x.peso)),borderColor:p.color,
-backgroundColor:p.color+'33',fill:true,tension:.35,borderWidth:3,pointRadius:4}]},
+backgroundColor:p.color+'33',fill:true,tension:.35,borderWidth:3,pointRadius:5}]},
 options:{...opts,plugins:{legend:{display:false}}}}))}
 const cc=document.getElementById('chCint');
 if(cc&&p){const conC=p.pes.filter(x=>n(x.cintura)!==null);
 if(conC.length)charts.push(new Chart(cc,{type:'line',
 data:{labels:conC.map(x=>String(x.fecha).slice(5,10).replace('-','/')),
 datasets:[{label:'Cintura',data:conC.map(x=>n(x.cintura)),borderColor:'#6C3FB5',
-backgroundColor:'#6C3FB533',fill:true,tension:.35,borderWidth:3,pointRadius:4}]},
+backgroundColor:'#6C3FB533',fill:true,tension:.35,borderWidth:3,pointRadius:5}]},
 options:{...opts,plugins:{legend:{display:false}}}}))}}
 
 function copiarWA(){const m=['🥇','🥈','🥉','4️⃣'];
@@ -1361,8 +1420,8 @@ t+=`🔗 ${location.href}`;
 navigator.clipboard.writeText(t).then(()=>toast('📋 ¡Copiado!')).catch(()=>prompt('Copia:',t))}
 
 /* --- Init --- */
-(function(){const t=ld('t70t');if(t==='dark'){document.documentElement.dataset.theme='dark';
-document.getElementById('tBtn').textContent='☀️';}
+(function(){const t=ld('t70t');if(t){document.documentElement.dataset.theme=t;
+document.getElementById('tBtn').textContent=t?'🌙':'☀️'}
 const y=ld('t70y');if(y)yoId=Number(y);load()})();
 </script>
 </body>
