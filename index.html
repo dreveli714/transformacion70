@@ -538,17 +538,76 @@ document.getElementById('modal').classList.add('show');
 function closeModal(){document.getElementById('modal').classList.remove('show');modalCb=null}
 
 /* --- API --- */
-async function load(){try{
-const r=await fetch(API);const j=await r.json();if(!j.ok)throw new Error();
-S=j;
-S.retosDiarios=S.retosDiarios||[];
-S.validaciones=S.validaciones||[];
-S.predicciones=S.predicciones||[];
-try{calc()}catch(err){document.getElementById('main').innerHTML=
-'<div class="c"><h2>⚠️ Error en cálculos</h2><p style="font-size:.8rem;color:var(--rojo);word-break:break-all">'+err.message+'<br>'+err.stack+'</p><button class="btn" onclick="location.reload()">Reintentar</button></div>';return}
-document.getElementById('nav').style.display='';render();checkTrofeos();
-}catch(e){document.getElementById('main').innerHTML=
-'<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>'}}
+async function load(mostrarSpinner){
+// 1) Intentar cargar caché primero (mostrar UI inmediata)
+if(mostrarSpinner!==false){
+  try{
+    const cached=ld('t70cache');
+    if(cached){
+      const j=JSON.parse(cached);
+      if(j&&j.ok){
+        S=j;
+        S.retosDiarios=S.retosDiarios||[];
+        S.validaciones=S.validaciones||[];
+        S.predicciones=S.predicciones||[];
+        try{
+          calc();
+          document.getElementById('nav').style.display='';
+          // Mostrar indicador sutil de refresco
+          const el=document.getElementById('main');
+          render();
+          // Banner arriba: actualizando
+          const refBanner=document.createElement('div');
+          refBanner.id='refBanner';
+          refBanner.style.cssText='position:fixed;top:8px;right:8px;z-index:100;background:var(--azul);color:#0A0A0F;padding:6px 12px;border-radius:99px;font-size:.75rem;font-weight:900;box-shadow:0 2px 8px rgba(0,0,0,.3)';
+          refBanner.textContent='🔄 Actualizando…';
+          document.body.appendChild(refBanner);
+        }catch(err){console.error('Error cache:',err)}
+      }
+    }
+  }catch(e){console.error('Error leyendo cache:',e)}
+}
+
+// 2) Traer datos frescos del servidor
+try{
+  const r=await fetch(API);
+  const j=await r.json();
+  if(!j.ok)throw new Error('Servidor no respondió OK');
+  
+  S=j;
+  S.retosDiarios=S.retosDiarios||[];
+  S.validaciones=S.validaciones||[];
+  S.predicciones=S.predicciones||[];
+  
+  // Guardar en caché
+  try{sav('t70cache',JSON.stringify(j))}catch(e){}
+  
+  try{calc()}catch(err){
+    document.getElementById('main').innerHTML='<div class="c"><h2>⚠️ Error en cálculos</h2><p style="font-size:.8rem;color:var(--rojo);word-break:break-all">'+err.message+'</p><button class="btn" onclick="location.reload()">Reintentar</button></div>';
+    return;
+  }
+  
+  document.getElementById('nav').style.display='';
+  render();
+  checkTrofeos();
+  
+  // Quitar banner de actualización
+  const rb=document.getElementById('refBanner');
+  if(rb)rb.remove();
+  
+}catch(e){
+  console.error('Error load:',e);
+  // Si no hay caché mostrar error, si hay caché ya está mostrada
+  const rb=document.getElementById('refBanner');
+  if(rb){
+    rb.style.background='var(--rojo)';
+    rb.style.color='#fff';
+    rb.textContent='⚠️ Sin conexión (datos viejos)';
+    setTimeout(()=>rb.remove(),4000);
+  }else{
+    document.getElementById('main').innerHTML='<div class="c" style="text-align:center"><div style="font-size:2rem">😕</div><h2>Sin conexión</h2><button class="btn" onclick="location.reload()">Reintentar</button></div>';
+  }
+}}
 async function send(a,d){
 try{const r=await fetch(API,{method:'POST',body:JSON.stringify({accion:a,datos:d})});
 if(!r.ok)throw new Error('Servidor respondió '+r.status);
