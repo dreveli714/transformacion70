@@ -920,7 +920,7 @@ h+=`<div class="registro-row">
 h+=`<div class="campo"><label>⚖️ Peso (lb) — ejemplo: 150.5</label><input type="text" inputmode="decimal" id="inPeso" placeholder="0.0"></div>
 <div class="campo"><label>📏 Cintura (cm) — ejemplo: 92</label><input type="text" inputmode="decimal" id="inCint" placeholder="0"></div>
 ${predForm()}
-<button class="btn naranja iconbtn" id="btnPes" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar pesaje</button>`}
+<button class="btn naranja iconbtn" id="btnPes" onclick="guardarPesaje(event)"><span class="bico">💾</span>Guardar pesaje</button>`}
 h+='</div>';
 }else{
 h+=`<div class="c"><h2>⚖️ Pesaje</h2>
@@ -992,29 +992,20 @@ toast('🗑️ Pesaje borrado');await load();go('midia');
 }catch(e){toast('😕 Error al borrar')}})}
 
 function editarPesaje(){
-// Evitar que se llame durante render
-if(!yoId||!G.P)return;
+if(!yoId||!G||!G.P)return toast('❌ Espera a que cargue');
 const p=G.P.find(x=>x.id===yoId);
 if(!p)return;
 const pe=p.pes.find(x=>String(x.fecha).slice(0,10)===hoy());
-if(!pe)return;
+if(!pe)return toast('❌ No hay pesaje de hoy para editar');
 
-// Reemplazar SOLO el contenido relevante
-const hoyS=hoy();
 const pesajeCard=document.querySelector('.pesaje');
-if(!pesajeCard)return;
+if(!pesajeCard)return toast('❌ No se encontró la tarjeta');
 
-pesajeCard.innerHTML=`<h2>✏️ Editar pesaje</h2>
+pesajeCard.innerHTML=`<h2>✏️ Editar pesaje de hoy</h2>
 <div class="campo"><label>⚖️ Peso (lb)</label><input type="text" inputmode="decimal" id="inPeso" value="${kgToLb(pe.peso)||''}"></div>
 <div class="campo"><label>📏 Cintura (cm)</label><input type="text" inputmode="decimal" id="inCint" value="${n(pe.cintura)||''}"></div>
-<button class="btn verde iconbtn" id="btnGuardarEdit" onclick="guardarPesaje()"><span class="bico">💾</span>Guardar cambios</button>
-<button class="btn sec" style="margin-top:6px" onclick="go('midia')">❌ Cancelar</button>`;
-
-// Asegurar que el botón sea clickeable
-setTimeout(()=>{
-  const btn=document.getElementById('btnGuardarEdit');
-  if(btn)btn.onclick=guardarPesaje;
-},100);
+<button class="btn verde iconbtn" id="btnPes" onclick="guardarPesaje(event)"><span class="bico">💾</span>Guardar cambios</button>
+<button class="btn sec" style="margin-top:8px" onclick="go('midia')">❌ Cancelar</button>`;
 }
 
 const COMIDAS={
@@ -1258,35 +1249,60 @@ try{await send('validar',{fecha:hoy(),solicitante_id:solId,votante_id:yoId,voto}
 toast(voto?'👍 Votaste que sí':'👎 Votaste que no');await load();go('midia');
 }catch(e){toast('😕 Error')}}
 
-async function guardarPesaje(){
-try{
+async function guardarPesaje(ev){
+  // Capturar el botón que fue clickeado
+  const btn = (ev && ev.target && ev.target.closest('button')) || document.getElementById('btnPes') || document.getElementById('btnGuardarEdit');
+  
   const inPeso=document.getElementById('inPeso');
   const inCint=document.getElementById('inCint');
-  if(!inPeso||!inCint)return toast('❌ Campos no encontrados');
+  if(!inPeso||!inCint){toast('❌ Campos no encontrados');return}
   
   const pesoLb=n(inPeso.value.trim());
   const cint=n(inCint.value.trim());
   
-  // Validar peso
-  if(!pesoLb||pesoLb<80||pesoLb>350)return toast('Peso: 80-350 lb');
-  // Validar cintura
-  if(!cint||cint<40||cint>200)return toast('Cintura: 40-200 cm');
+  console.log('🔍 Guardando:', {pesoLb, cint, yoId, btn:!!btn});
+  
+  // Validaciones
+  if(!pesoLb||pesoLb<80||pesoLb>350){toast('⚠️ Peso debe estar entre 80 y 350 lb');return}
+  if(!cint||cint<40||cint>200){toast('⚠️ Cintura debe estar entre 40 y 200 cm');return}
+  
+  // Feedback visual inmediato
+  if(btn){
+    btn.disabled=true;
+    btn.style.opacity='0.6';
+    btn.innerHTML='<span class="bico">⏳</span>Guardando, espera…';
+  }
   
   const peso=lbToKg(pesoLb);
-  const btn=document.querySelector('[onclick="guardarPesaje()"]');
-  if(btn){btn.disabled=true;btn.textContent='⏳ Guardando…'}
   
-  await send('pesaje',{fecha:hoy(),participante_id:yoId,peso,cintura:cint});
-  const p=G.P.find(x=>x.id===yoId);
-  if(!p.pesoIni||!n(p.peso_inicial))await send('perfil',{id:yoId,peso_inicial:peso,cintura_inicial:cint});
-  
-  confeti();
-  toast('✅ ¡Pesaje guardado!');
-  setTimeout(async()=>{await load();go('midia')},800);
-}catch(e){
-  console.error(e);
-  toast('❌ Error: '+e.message);
-}}
+  try{
+    console.log('📤 Enviando al servidor…');
+    await send('pesaje',{fecha:hoy(),participante_id:yoId,peso,cintura:cint});
+    console.log('✅ Guardado en servidor');
+    
+    const p=G.P.find(x=>x.id===yoId);
+    if(p&&(!p.pesoIni||!n(p.peso_inicial))){
+      await send('perfil',{id:yoId,peso_inicial:peso,cintura_inicial:cint});
+    }
+    
+    if(btn)btn.innerHTML='<span class="bico">✅</span>¡Guardado!';
+    confeti();
+    toast('✅ ¡Pesaje guardado! Recargando…');
+    
+    setTimeout(async()=>{
+      try{await load();go('midia')}catch(e){location.reload()}
+    },1200);
+    
+  }catch(e){
+    console.error('❌ Error:', e);
+    toast('❌ Error: '+(e.message||'sin conexión'));
+    if(btn){
+      btn.disabled=false;
+      btn.style.opacity='1';
+      btn.innerHTML='<span class="bico">💾</span>Guardar pesaje';
+    }
+  }
+}
 
 async function apostar(pred){
 try{await send('prediccion',{fecha:hoy(),participante_id:yoId,prediccion:pred});
